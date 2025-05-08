@@ -1,8 +1,7 @@
 import React from "react";
 
 const Activities = () => {
-  console.log("Hi");
-  return <div>Activities</div>;
+  return <div className="text-indigo-500">Activities</div>;
 };
 
 export default Activities;

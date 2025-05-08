@@ -1,10 +1,10 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  width: 100%; /* Changed from max-width: 1280px */
+  padding: 0; /* Removed padding */
+  text-align: left; /* Changed from center */
 }
 
+/* Rest of your App.css remains the same */
 .logo {
   height: 6em;
   padding: 1.5em;
@@ -39,4 +39,14 @@
 
 .read-the-docs {
   color: #888;
+}
+
+/* Override Tailwind classes for navbar */
+nav a {
+  color: inherit !important; /* Override the purple links from index.css */
+}
+
+.page-content {
+  text-align: center; /* Keep your page content centered if desired */
+  padding: 2rem;
 }
