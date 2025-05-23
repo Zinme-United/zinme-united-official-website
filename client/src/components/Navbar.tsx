@@ -17,37 +17,33 @@ const Navbar = () => {
     setIsOpen((prevState) => !prevState);
   };
   return (
-    <nav className="bg-indigo-900 shadow-lg">
+    <nav className="bg-[#003b75] shadow-lg">
       <div className="max-w-6xl mx-auto px-4">
-        <div className="flex justify-between">
-          <div className="flex space-x-4 justify-between">
-            <div>
-              <Link
-                to="/"
-                className="flex items-center py-5 px-2 text-indigo-300 hover:text-white"
-              >
-                <span className="font-bold text-xl">Zinme United</span>
-              </Link>
-            </div>
-
-            <div className="hidden sm:flex items-center space-x-1">
-              {routeLinks.map((link) => {
-                const Icon = link.icon;
-                return (
-                  <Link
-                    key={link.id}
-                    to={link.route}
-                    className="py-5 px-3 text-indigo-300 hover:text-white flex items-center"
-                  >
-                    <Icon size={18} className="mr-1" />
-                    {link.label}
-                  </Link>
-                );
-              })}
-            </div>
+        <div className="flex justify-between items-center h-16">
+          <div>
+            <Link
+              to="/"
+              className="flex items-center py-2 px-2 text-indigo-300 hover:text-white" // Adjusted padding slightly
+            >
+              <span className="font-bold text-xl">Zinme United</span>
+            </Link>
           </div>
-
-          {/* Mobile menu button - visible on xs only, hidden on sm and up */}
+          <div className="hidden sm:flex items-center space-x-4">
+            {routeLinks.map((link) => {
+              const Icon = link.icon;
+              return (
+                <Link
+                  key={link.id}
+                  to={link.route}
+                  className="py-2 px-3 text-indigo-300 hover:text-white flex items-center transition-colors duration-200" // Adjusted padding and added transition
+                >
+                  <Icon size={18} className="mr-1" />
+                  {link.label}
+                </Link>
+              );
+            })}
+          </div>
+          {/* Mobile menu button */}
           <div className="sm:hidden flex items-center">
             <button
               onClick={toggleMenu}
@@ -59,7 +55,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile menu - visible on xs only, hidden on sm and up */}
+      {/* Mobile menu */}
       <div className={`sm:hidden ${isOpen ? "block" : "hidden"}`}>
         {routeLinks.map((link) => {
           const Icon = link.icon;
@@ -67,7 +63,7 @@ const Navbar = () => {
             <Link
               key={link.id}
               to={link.route}
-              className="py-3 px-4 text-indigo-300 hover:bg-indigo-800 flex items-center"
+              className="block py-3 px-4 text-indigo-300 hover:bg-indigo-800 transition-colors duration-200 flex items-center" // Added 'block' for full width links
               onClick={() => setIsOpen(false)}
             >
               <Icon size={18} className="mr-2" />
