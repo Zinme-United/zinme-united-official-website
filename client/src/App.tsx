@@ -4,8 +4,7 @@ import Home from "./pages/home/Home";
 import Activities from "./pages/activities/Activities";
 import Players from "./pages/players/Players";
 import NotFound from "./pages/404/NotFound";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
+import { Footer, Navbar } from "./components";
 
 const Layout = () => {
   return (
