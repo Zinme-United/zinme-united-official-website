@@ -1,5 +1,4 @@
 import { Facebook, Mail, Phone, Twitter } from "lucide-react";
-import React from "react";
 
 const Footer = () => {
   return (
@@ -11,26 +10,26 @@ const Footer = () => {
             href="#"
             className="hover:text-white transition-colors duration-200"
           >
-            <Mail size={20} />
+            <Mail color="#FFFFFF" size={20} />
           </a>
           <a
             href="#"
             className="hover:text-white transition-colors duration-200"
           >
-            <Phone size={20} />
+            <Phone color="#FFFFFF" size={20} />
           </a>
           <a
             href="https://www.facebook.com/zmutdfc"
             target="_blank"
             className="hover:text-white transition-colors duration-200"
           >
-            <Facebook size={20} />
+            <Facebook color="#FFFFFF" size={20} />
           </a>
           <a
             href="#"
             className="hover:text-white transition-colors duration-200"
           >
-            <Twitter size={20} />
+            <Twitter color="#FFFFFF" size={20} />
           </a>
         </div>
       </div>

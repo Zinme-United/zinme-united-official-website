@@ -1,10 +1,42 @@
-import { ChartBar, Image, Share2, Twitter, X } from "lucide-react";
+import { BarChart3, Image, Instagram, Share2, Twitter, X } from "lucide-react";
 import { useState } from "react";
 
-const Players = () => {
-  const [selectedPlayer, setSelectedPlayer] = useState(null);
+interface PlayerStats {
+  appearances: number;
+  goals?: number;
+  assists?: number;
+  cleanSheets?: number;
+}
 
-  const players = [
+interface PlayerSocial {
+  twitter: string;
+  instagram: string;
+}
+
+interface PlayerTypes {
+  id: number;
+  name: string;
+  number: number;
+  position: string;
+  img: string;
+  bio: string;
+  stats: PlayerStats;
+  social: PlayerSocial;
+}
+
+interface CoachingStaffTypes {
+  id: number;
+  name: string;
+  role: string;
+  img: string;
+}
+
+const Players = () => {
+  const [selectedPlayer, setSelectedPlayer] = useState<PlayerTypes | null>(
+    null
+  );
+
+  const players: PlayerTypes[] = [
     {
       id: 1,
       name: "John Doe",
@@ -67,7 +99,7 @@ const Players = () => {
     },
   ];
 
-  const coachingStaff = [
+  const coachingStaff: CoachingStaffTypes[] = [
     {
       id: 1,
       name: "Coach Smith",
@@ -88,8 +120,15 @@ const Players = () => {
     },
   ];
 
+  const formatStatLabel = (key: string): string => {
+    return key
+      .replace(/([A-Z])/g, " $1")
+      .trim()
+      .replace(/^\w/, (c) => c.toUpperCase());
+  };
+
   return (
-    <div className="min-h-screen bg-gray-100 font-inter p-6 md:p-10">
+    <div className="min-h-screen bg-gray-100 p-6 md:p-10">
       <h1 className="text-5xl font-extrabold text-gray-900 mb-10 text-center">
         Our Team
       </h1>
@@ -125,20 +164,22 @@ const Players = () => {
         </div>
       </section>
 
-      {/* Player Profile Modal/Details */}
+      {/* Player Profile Modal */}
       {selectedPlayer && (
         <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto transform scale-95 animate-fade-in">
+          <div className="bg-white rounded-xl shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-6 md:p-8 relative">
               <button
                 onClick={() => setSelectedPlayer(null)}
                 className="absolute top-4 right-4 bg-gray-200 text-gray-700 hover:bg-gray-300 rounded-full p-2 transition-colors duration-200"
+                aria-label="Close player profile"
               >
-                <X size={24} /> {/* Assuming X icon for close */}
+                <X size={24} />
               </button>
+
               <div className="flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8 mb-6">
                 <img
-                  src={selectedPlayer.img.replace("150x150", "300x300")} // Larger image for profile
+                  src={selectedPlayer.img.replace("150x150", "300x300")}
                   alt={selectedPlayer.name}
                   className="w-40 h-40 md:w-48 md:h-48 rounded-full object-cover border-4 border-blue-500 shadow-lg flex-shrink-0"
                 />
@@ -159,7 +200,7 @@ const Players = () => {
                 {/* Statistics */}
                 <div className="bg-gray-50 p-5 rounded-lg border border-gray-200 shadow-sm">
                   <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                    <ChartBar size={20} className="mr-2" /> Statistics
+                    <BarChart3 size={20} className="mr-2" /> Statistics
                   </h3>
                   <ul className="space-y-2 text-gray-700">
                     {Object.entries(selectedPlayer.stats).map(
@@ -168,8 +209,8 @@ const Players = () => {
                           key={key}
                           className="flex justify-between items-center"
                         >
-                          <span className="font-medium capitalize">
-                            {key.replace(/([A-Z])/g, " $1").trim()}:
+                          <span className="font-medium">
+                            {formatStatLabel(key)}:
                           </span>
                           <span className="font-bold text-blue-700">
                             {value}
@@ -192,6 +233,7 @@ const Players = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-blue-500 hover:text-blue-700 transition-colors duration-200"
+                        aria-label={`${selectedPlayer.name}'s Twitter`}
                       >
                         <Twitter size={32} />
                       </a>
@@ -202,6 +244,7 @@ const Players = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-pink-500 hover:text-pink-700 transition-colors duration-200"
+                        aria-label={`${selectedPlayer.name}'s Instagram`}
                       >
                         <Instagram size={32} />
                       </a>
@@ -209,7 +252,8 @@ const Players = () => {
                   </div>
                 </div>
               </div>
-              {/* Placeholder for Photo & Video Gallery, Achievements */}
+
+              {/* Gallery & Achievements */}
               <div className="mt-8 bg-gray-50 p-5 rounded-lg border border-gray-200 shadow-sm">
                 <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center">
                   <Image size={20} className="mr-2" /> Gallery & Achievements
