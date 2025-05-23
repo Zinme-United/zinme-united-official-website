@@ -9,8 +9,8 @@ const Button: React.FC<ButtonProps> = ({
 }) => {
   return (
     <button
-      className={`bg-[#003b75] hover:bg-[#003b75] text-white font-bold py-3 px-6 rounded-full text-base transition duration-300 transform hover:scale-105 shadow-lg ${
-        props.disabled ? "opacity-50 cursor-not-allowed" : ""
+      className={`font-bold py-3 px-6 rounded-full text-base transition duration-300 transform hover:scale-105 shadow-lg ${
+        props.disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
       } ${className}`}
       {...props}
     >
