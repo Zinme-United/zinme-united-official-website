@@ -1,3 +1,5 @@
+import Button from "./Button";
+
 const HeroSection = () => {
   return (
     <section
@@ -20,9 +22,9 @@ const HeroSection = () => {
           Join us in the journey of triumphs, dedication, and unforgettable
           moments.
         </p>
-        <button className="bg-[#003b75] hover:bg-[#003b75] text-white font-bold py-3 px-8 rounded-full text-lg transition-all duration-300 ease-in-out transform hover:scale-105 shadow-lg">
+        <Button style={{ color: "white", backgroundColor: "#003b75" }}>
           Latest News
-        </button>
+        </Button>
       </div>
     </section>
   );
