@@ -5,6 +5,7 @@ import Activities from "./pages/activities/Activities";
 import Players from "./pages/players/Players";
 import NotFound from "./pages/404/NotFound";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 const Layout = () => {
   return (
@@ -13,6 +14,7 @@ const Layout = () => {
       <div className="container mx-auto px-4 py-8">
         <Outlet />
       </div>
+      <Footer />
     </div>
   );
 };
