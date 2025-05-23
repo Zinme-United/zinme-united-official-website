@@ -90,9 +90,9 @@ const Home = () => {
               />
             </div>
             <div className="text-2xl md:text-3xl font-semibold">
-              <p>vs. Rival FC</p>
+              <p>Zinme United Vs. Rival FC</p>
               <p>May 28, 2025 | 7:00 PM GMT+7</p>
-              <p>Stadium Name</p>
+              <p>Old Trafford</p>
             </div>
             <div className="text-5xl md:text-6xl font-extrabold bg-white text-blue-700 px-6 py-3 rounded-xl shadow-inner">
               03:12:45:30

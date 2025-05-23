@@ -1,35 +1,6 @@
 import { BarChart3, Image, Instagram, Share2, Twitter, X } from "lucide-react";
 import { useState } from "react";
-
-interface PlayerStats {
-  appearances: number;
-  goals?: number;
-  assists?: number;
-  cleanSheets?: number;
-}
-
-interface PlayerSocial {
-  twitter: string;
-  instagram: string;
-}
-
-interface PlayerTypes {
-  id: number;
-  name: string;
-  number: number;
-  position: string;
-  img: string;
-  bio: string;
-  stats: PlayerStats;
-  social: PlayerSocial;
-}
-
-interface CoachingStaffTypes {
-  id: number;
-  name: string;
-  role: string;
-  img: string;
-}
+import type { CoachingStaffTypes, PlayerTypes } from "../../types";
 
 const Players = () => {
   const [selectedPlayer, setSelectedPlayer] = useState<PlayerTypes | null>(
