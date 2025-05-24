@@ -13,7 +13,7 @@ const LatestNewsAndUpdates = () => {
             className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden"
           >
             <img
-              src={`/public/zinme.jpg`}
+              src={`/zinme.jpg`}
               alt={`News ${i}`}
               className="w-full h-48 object-cover rounded-t-xl"
             />

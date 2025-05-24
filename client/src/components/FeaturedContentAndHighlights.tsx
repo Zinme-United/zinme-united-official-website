@@ -10,7 +10,7 @@ const FeaturedContentAndHighlights = () => {
         <div className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
           <div className="relative w-full h-64 bg-gray-300 flex items-center justify-center">
             <img
-              src="/public/zinme.jpg"
+              src="/zinme.jpg"
               alt="Player Interview"
               className="w-full h-64 object-cover rounded-t-xl"
             />
@@ -33,7 +33,7 @@ const FeaturedContentAndHighlights = () => {
         </div>
         <div className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
           <img
-            src="/public/zinme.jpg"
+            src="/zinme.jpg"
             alt="Player Interview"
             className="w-full h-64 object-cover rounded-t-xl"
           />

@@ -1,28 +1,28 @@
-export interface PlayerStats {
-  appearances: number;
-  goals?: number;
-  assists?: number;
-  cleanSheets?: number;
-}
+// client/src/types/index.ts
 
-export interface PlayerSocial {
-  twitter: string;
-  instagram: string;
-}
-
+// Corrected PlayerTypes interface to match backend's _id as string
 export interface PlayerTypes {
-  id: number;
+  _id: string; // Changed from 'id: number' to '_id: string' to match MongoDB
   name: string;
   number: number;
   position: string;
   img: string;
   bio: string;
-  stats: PlayerStats;
-  social: PlayerSocial;
+  stats: {
+    appearances: number;
+    goals?: number; // Optional
+    assists?: number; // Optional
+    cleanSheets?: number; // Optional
+  };
+  social?: {
+    // Optional
+    twitter?: string; // Optional
+    instagram?: string; // Optional
+  };
 }
 
 export interface CoachingStaffTypes {
-  id: number;
+  id: number; // Assuming this remains a number for hardcoded staff
   name: string;
   role: string;
   img: string;
