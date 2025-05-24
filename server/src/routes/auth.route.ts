@@ -17,4 +17,5 @@ router.post("/forgotpassword", forgotPassword);
 router.put("/resetpassword/:token", resetPassword);
 
 router.get("/profile", protect, getUserProfile);
+
 export default router;
