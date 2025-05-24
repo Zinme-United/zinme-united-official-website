@@ -5,3 +5,4 @@ export { default as HeroSection } from "./HeroSection";
 export { default as LatestNewsAndUpdates } from "./LatestNewsAndUpdates";
 export { default as Navbar } from "./Navbar";
 export { default as NextMatch } from "./NextMatch";
+export { default as PlayersCard } from "./PlayersCard";
