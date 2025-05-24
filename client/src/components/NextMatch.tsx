@@ -7,7 +7,7 @@ const NextMatch = () => {
       <div className="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-8">
         <div className="flex items-center space-x-4">
           <img
-            src="/public/zinme.jpg"
+            src="/zinme.jpg"
             alt="Our Team Logo"
             className="w-20 h-20 rounded-full border-4 border-white shadow-md"
           />
