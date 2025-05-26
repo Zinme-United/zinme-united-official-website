@@ -5,7 +5,8 @@ import { IPlayer } from "../types";
 
 export const createPlayer = asyncHandler(
   async (req: Request, res: Response) => {
-    const { name, number, position, img, bio, stats, social } = req.body;
+    const { name, number, position, img, bio, gender, stats, social } =
+      req.body;
 
     // Basic validation
     if (
@@ -14,6 +15,7 @@ export const createPlayer = asyncHandler(
       !position ||
       !img ||
       !bio ||
+      !gender ||
       !stats ||
       !stats.appearances
     ) {
@@ -36,12 +38,17 @@ export const createPlayer = asyncHandler(
       position,
       img,
       bio,
+      gender,
       stats,
       social,
     });
 
     const savedPlayer = await player.save();
-    res.status(201).json(savedPlayer);
+    res.status(201).json({
+      status: true,
+      message: "Players created successfully.",
+      savedPlayer,
+    });
   }
 );
 
@@ -79,7 +86,8 @@ export const getPlayerById = asyncHandler(
 // @access  Admin
 export const updatePlayer = asyncHandler(
   async (req: Request, res: Response) => {
-    const { name, number, position, img, bio, stats, social } = req.body;
+    const { name, number, position, img, bio, gender, stats, social } =
+      req.body;
 
     const player = await Player.findById(req.params.id);
 
@@ -90,6 +98,7 @@ export const updatePlayer = asyncHandler(
       player.position = position || player.position;
       player.img = img || player.img;
       player.bio = bio || player.bio;
+      player.gender = gender || player.gender;
 
       if (stats) {
         player.stats.appearances =
@@ -109,6 +118,10 @@ export const updatePlayer = asyncHandler(
       // Handle social field update
       if (social) {
         player.social = {
+          facebook:
+            social.facebook !== undefined
+              ? social.facebook
+              : player.social?.facebook,
           twitter:
             social.twitter !== undefined
               ? social.twitter
@@ -119,7 +132,6 @@ export const updatePlayer = asyncHandler(
               : player.social?.instagram,
         };
       } else {
-        // If social is explicitly sent as null/undefined, clear it
         player.social = undefined;
       }
 

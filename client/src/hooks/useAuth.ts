@@ -4,17 +4,14 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { setCredentials, logout } from "../store/authSlice";
 import axiosInstance from "../api/axiosInstance";
 import store, { type AppDispatch } from "../store";
-import { AxiosError } from "axios"; // Import AxiosError for type safety
+import { AxiosError } from "axios";
+import type { BackendErrorResponse } from "../types";
 
-// --- Backend API Response Interfaces (Adjust these to precisely match your backend's JSON structure) ---
-
-// Common structure for successful API responses
 interface ApiResponse<T> {
   message: string;
   data?: T;
-  count?: number; // For list responses
+  count?: number;
   devOnly?: {
-    // For forgotPassword in dev mode
     resetToken: string;
     resetURL: string;
     warning: string;
@@ -38,14 +35,6 @@ interface UserProfileResponseData {
   email: string;
   role: "admin" | "editor" | "public";
 }
-
-// Error response structure from backend
-interface BackendErrorResponse {
-  message: string;
-  stack?: string; // Stack trace usually only in development
-}
-
-// --- Input Interfaces for Mutations ---
 
 interface RegisterInput {
   username: string;
