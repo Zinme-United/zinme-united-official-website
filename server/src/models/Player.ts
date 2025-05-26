@@ -13,6 +13,7 @@ const PlayerStatsSchema: Schema = new Schema(
 
 const PlayerSocialSchema: Schema = new Schema(
   {
+    facebook: { type: String },
     twitter: { type: String },
     instagram: { type: String },
   },
@@ -26,6 +27,11 @@ const PlayerSchema: Schema = new Schema(
     position: { type: String, required: true },
     img: { type: String, required: true },
     bio: { type: String, required: true },
+    gender: {
+      type: String,
+      required: true,
+      enum: ["Male", "Female"],
+    },
     stats: { type: PlayerStatsSchema, required: true },
     social: { type: PlayerSocialSchema },
   },

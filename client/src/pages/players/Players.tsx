@@ -1,18 +1,17 @@
-// client/src/pages/Players.tsx
-import { BarChart3, Facebook, Image, Instagram, Share2, X } from "lucide-react";
+import { BarChart3, Facebook, Instagram, Share2, X } from "lucide-react";
 import { useState } from "react";
-import type { CoachingStaffTypes, Player } from "../../types"; // Ensure PlayerTypes is correctly imported
+import type { CoachingStaffTypes, Player } from "../../types";
 import usePlayers from "../../hooks/usePlayers";
-import { PlayersCard } from "../../components"; // Ensure this import path is correct
+import { PlayersCard } from "../../components";
+
+type SelectedGenderType = "All" | "Male" | "Female";
 
 const Players = () => {
-  // Fetch players data using the custom hook
   const { players, playersLoading, playersError } = usePlayers();
 
   const [selectedPlayer, setSelectedPlayer] = useState<Player | null>(null);
-
-  // Removed console.log for production readiness, keep if debugging
-  // console.log("Players:", players);
+  const [selectedGenderFilter, setSelectedGenderFilter] =
+    useState<SelectedGenderType>("All");
 
   // Hardcoded coaching staff data (consider fetching this from an API if dynamic)
   const coachingStaff: CoachingStaffTypes[] = [
@@ -64,6 +63,14 @@ const Players = () => {
     );
   }
 
+  const allPlayers: Player[] = players || [];
+  const filteredPlayers = allPlayers.filter((player) => {
+    if (selectedGenderFilter === "All") {
+      return true;
+    }
+    return player.gender === selectedGenderFilter; // Filter by 'Male' or 'Female'
+  });
+
   // Ensure players is an array before rendering PlayersCard
   if (!players || players.length === 0) {
     return (
@@ -107,7 +114,55 @@ const Players = () => {
         Our Team
       </h1>
 
-      <PlayersCard players={players} onPlayerSelect={setSelectedPlayer} />
+      <div className="flex justify-center space-x-4 mb-8">
+        <button
+          onClick={() => setSelectedGenderFilter("All")}
+          className={`py-3 px-6 rounded-lg text-lg font-semibold transition-all duration-300 cursor-pointer ${
+            selectedGenderFilter === "All"
+              ? "bg-[#003b75] text-white shadow-md"
+              : "bg-white text-gray-700 hover:bg-gray-100 border border-gray-300"
+          }`}
+        >
+          All Players
+        </button>
+        <button
+          onClick={() => setSelectedGenderFilter("Male")}
+          className={`py-3 px-6 rounded-lg text-lg font-semibold transition-all duration-300 cursor-pointer ${
+            selectedGenderFilter === "Male"
+              ? "bg-[#003b75] text-white shadow-md"
+              : "bg-white text-gray-700 hover:bg-gray-100 border border-gray-300"
+          }`}
+        >
+          Men's Team
+        </button>
+        <button
+          onClick={() => setSelectedGenderFilter("Female")}
+          className={`py-3 px-6 rounded-lg text-lg font-semibold transition-all duration-300 cursor-pointer ${
+            selectedGenderFilter === "Female"
+              ? "bg-[#003b75] text-white shadow-md"
+              : "bg-white text-gray-700 hover:bg-gray-100 border border-gray-300"
+          }`}
+        >
+          Women's Team
+        </button>
+      </div>
+
+      <section className="mb-12">
+        {filteredPlayers.length === 0 ? (
+          <p className="text-center text-gray-600 text-lg">
+            No
+            {selectedGenderFilter === "All"
+              ? ""
+              : selectedGenderFilter.toLowerCase() + " "}
+            players found in the roster yet.
+          </p>
+        ) : (
+          <PlayersCard
+            players={filteredPlayers}
+            onPlayerSelect={setSelectedPlayer}
+          />
+        )}
+      </section>
 
       {/* Player Profile Modal */}
       {selectedPlayer && (
@@ -201,7 +256,7 @@ const Players = () => {
               </div>
 
               {/* Gallery & Achievements */}
-              <div className="mt-8 bg-gray-50 p-5 rounded-lg border border-gray-200 shadow-sm">
+              {/* <div className="mt-8 bg-gray-50 p-5 rounded-lg border border-gray-200 shadow-sm">
                 <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center">
                   <Image size={20} className="mr-2" /> Gallery & Achievements
                 </h3>
@@ -209,7 +264,7 @@ const Players = () => {
                   More content like photo galleries and career achievements
                   would go here.
                 </p>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
