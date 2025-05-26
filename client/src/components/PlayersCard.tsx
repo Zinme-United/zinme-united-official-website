@@ -1,17 +1,13 @@
-import type { PlayerTypes } from "../types";
+import type { Player } from "../types";
 
 interface PlayersCardProps {
-  players: PlayerTypes[];
-  onPlayerSelect: (player: PlayerTypes) => void;
+  players: Player[];
+  onPlayerSelect: (player: Player) => void;
 }
 
 const PlayersCard = ({ players, onPlayerSelect }: PlayersCardProps) => {
-  console.log(players);
   return (
-    <section className="my-12 bg-white rounded-xl shadow-lg p-6 md:p-8">
-      <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">
-        Players
-      </h2>
+    <section>
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
         {players.map((player) => (
           <div
@@ -25,13 +21,13 @@ const PlayersCard = ({ players, onPlayerSelect }: PlayersCardProps) => {
               className="w-full h-40 object-cover rounded-t-xl"
             />
             <div className="p-4 text-center">
-              <span className="block text-sm font-bold text-blue-700 mb-1">
-                #{player.number}
+              <span className="block text-sm font-bold text-[#003b75] mb-1">
+                Kit Number - {player.number}
               </span>
-              <h3 className="text-lg font-semibold text-gray-900">
+              <h3 className="text-lg font-semibold text-[#003b75]">
                 {player.name}
               </h3>
-              <p className="text-gray-600 text-sm">{player.position}</p>
+              <p className="text-[#003b75] text-sm">{player.position}</p>
             </div>
           </div>
         ))}
