@@ -1,40 +1,7 @@
-// client/src/hooks/usePlayers.ts
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axiosInstance from "../api/axiosInstance";
 import { AxiosError } from "axios";
-
-// Common structure for successful API responses
-interface ApiResponse<T> {
-  message: string;
-  data?: T;
-  count?: number; // For list responses
-}
-
-// Player data structure returned by backend
-interface Player {
-  _id: string;
-  name: string;
-  number: number;
-  position: string;
-  img: string;
-  bio: string;
-  stats: {
-    appearances: number;
-    goals?: number;
-    assists?: number;
-    cleanSheets?: number;
-  };
-  social?: {
-    twitter?: string;
-    instagram?: string;
-  };
-}
-
-// Error response structure from backend
-interface BackendErrorResponse {
-  message: string;
-  stack?: string; // Stack trace usually only in development
-}
+import type { ApiResponse, BackendErrorResponse, Player } from "../types";
 
 const usePlayers = () => {
   const queryClient = useQueryClient();

@@ -2,7 +2,7 @@ import { Facebook, Mail, Phone, Twitter } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="bg-[#003b75] text-gray-300 p-6 text-center text-sm shadow-inner rounded-t-xl mt-auto">
+    <footer className="bg-[#003b75] text-gray-300 p-6 text-center text-sm shadow-inner mt-auto">
       <div className="container mx-auto">
         <p>&copy; 2025 Zinme United FC. All rights reserved.</p>
         <div className="flex justify-center space-x-4 mt-4">

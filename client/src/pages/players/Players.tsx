@@ -1,7 +1,7 @@
 // client/src/pages/Players.tsx
 import { BarChart3, Facebook, Image, Instagram, Share2, X } from "lucide-react";
 import { useState } from "react";
-import type { CoachingStaffTypes, PlayerTypes } from "../../types"; // Ensure PlayerTypes is correctly imported
+import type { CoachingStaffTypes, Player } from "../../types"; // Ensure PlayerTypes is correctly imported
 import usePlayers from "../../hooks/usePlayers";
 import { PlayersCard } from "../../components"; // Ensure this import path is correct
 
@@ -9,9 +9,7 @@ const Players = () => {
   // Fetch players data using the custom hook
   const { players, playersLoading, playersError } = usePlayers();
 
-  const [selectedPlayer, setSelectedPlayer] = useState<PlayerTypes | null>(
-    null
-  );
+  const [selectedPlayer, setSelectedPlayer] = useState<Player | null>(null);
 
   // Removed console.log for production readiness, keep if debugging
   // console.log("Players:", players);
@@ -70,7 +68,7 @@ const Players = () => {
   if (!players || players.length === 0) {
     return (
       <div className="min-h-screen bg-gray-100 p-6 md:p-10 text-center">
-        <h1 className="text-5xl font-extrabold text-gray-900 mb-10">
+        <h1 className="text-5xl font-extrabold text-[#003b75] mb-10">
           Our Team
         </h1>
         <p className="text-gray-700">No players found.</p>
@@ -105,7 +103,7 @@ const Players = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 p-6 md:p-10">
-      <h1 className="text-5xl font-extrabold text-gray-900 mb-10 text-center">
+      <h1 className="text-5xl font-extrabold text-[#003b75] mb-10 text-center">
         Our Team
       </h1>
 
@@ -126,7 +124,7 @@ const Players = () => {
 
               <div className="flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8 mb-6">
                 <img
-                  src={selectedPlayer.img.replace("150x150", "300x300")}
+                  src={"/zinme.jpg"}
                   alt={selectedPlayer.name}
                   className="w-40 h-40 md:w-48 md:h-48 rounded-full object-cover border-4 border-blue-500 shadow-lg flex-shrink-0"
                 />
@@ -135,7 +133,8 @@ const Players = () => {
                     {selectedPlayer.name}
                   </h2>
                   <p className="text-blue-600 text-xl font-semibold mb-2">
-                    #{selectedPlayer.number} | {selectedPlayer.position}
+                    Kit Number - {selectedPlayer.number} |{" "}
+                    {selectedPlayer.position}
                   </p>
                   <p className="text-gray-700 text-md leading-relaxed">
                     {selectedPlayer.bio}

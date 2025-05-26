@@ -4,8 +4,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deletePlayer = exports.updatePlayer = exports.getPlayerById = exports.getPlayers = exports.createPlayer = void 0;
-const express_async_handler_1 = __importDefault(require("express-async-handler")); // For handling async errors gracefully
-const Player_1 = __importDefault(require("../models/Player")); // Import your IPlayer interface
+const express_async_handler_1 = __importDefault(require("express-async-handler"));
+const Player_1 = __importDefault(require("../models/Player"));
 exports.createPlayer = (0, express_async_handler_1.default)(async (req, res) => {
     const { name, number, position, img, bio, stats, social } = req.body;
     // Basic validation

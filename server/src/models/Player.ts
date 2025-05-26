@@ -1,26 +1,5 @@
 import mongoose, { Document, Schema } from "mongoose";
-
-export interface PlayerStats {
-  appearances: number;
-  goals?: number;
-  assists?: number;
-  cleanSheets?: number;
-}
-
-export interface PlayerSocial {
-  twitter?: string; // Made optional as per typical social media usage
-  instagram?: string; // Made optional
-}
-
-export interface IPlayer extends Document {
-  name: string;
-  number: number;
-  position: string;
-  img: string;
-  bio: string;
-  stats: PlayerStats;
-  social?: PlayerSocial;
-}
+import { IPlayer } from "../types";
 
 const PlayerStatsSchema: Schema = new Schema(
   {

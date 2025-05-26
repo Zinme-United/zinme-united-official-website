@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
-import asyncHandler from "express-async-handler"; // For handling async errors gracefully
-import Player, { IPlayer } from "../models/Player"; // Import your IPlayer interface
+import asyncHandler from "express-async-handler";
+import Player from "../models/Player";
+import { IPlayer } from "../types";
 
 export const createPlayer = asyncHandler(
   async (req: Request, res: Response) => {
