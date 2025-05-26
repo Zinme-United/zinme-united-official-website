@@ -36,3 +36,16 @@ export interface BackendErrorResponse {
   message: string;
   stack?: string;
 }
+
+export interface AuthUser {
+  _id: string;
+  username: string;
+  email: string;
+  role: "admin" | "editor" | "public";
+}
+export interface AuthState {
+  user: AuthUser | null;
+  token: string | null;
+  isLoggedIn: boolean;
+  role: "admin" | "editor" | "public" | null;
+}

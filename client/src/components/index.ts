@@ -6,3 +6,6 @@ export { default as LatestNewsAndUpdates } from "./LatestNewsAndUpdates";
 export { default as Navbar } from "./Navbar";
 export { default as NextMatch } from "./NextMatch";
 export { default as PlayersCard } from "./PlayersCard";
+export { default as LoginForm } from "./LoginForm";
+export { default as ProtectedRoute } from "./ProtectedRoutes";
+export { default as RegisterForm } from "./RegisterForm";
