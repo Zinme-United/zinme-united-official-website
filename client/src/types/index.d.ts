@@ -18,6 +18,7 @@ export interface Player {
   position: string;
   img: string;
   bio: string;
+  gender: "Male" | "Female";
   stats: {
     appearances: number;
     goals?: number;
