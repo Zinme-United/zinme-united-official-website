@@ -41,7 +41,7 @@ export const registerUser = asyncHandler(
           username: user.username,
           email: user.email,
           role: user.role,
-          token: generateToken(userId.toString()),
+          token: generateToken(userId.toString(), user.role),
         },
       });
     } else {
@@ -65,7 +65,7 @@ export const loginUser = asyncHandler(async (req: Request, res: Response) => {
         username: user.username,
         email: user.email,
         role: user.role,
-        token: generateToken(userId.toString()),
+        token: generateToken(userId.toString(), user.role),
       },
     });
   } else {
@@ -179,7 +179,7 @@ export const resetPassword = asyncHandler(
         username: user.username,
         email: user.email,
         role: user.role,
-        token: generateToken(userId.toString()), // Issue a new JWT
+        token: generateToken(userId.toString(), user.role), // Issue a new JWT
       },
     });
   }
