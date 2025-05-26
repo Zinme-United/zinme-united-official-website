@@ -1,11 +1,11 @@
 // client/src/hooks/useAuth.ts
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux"; // Import useSelector
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { setCredentials, logout } from "../store/authSlice";
 import axiosInstance from "../api/axiosInstance";
-import store, { type AppDispatch } from "../store";
 import { AxiosError } from "axios";
 import type { BackendErrorResponse } from "../types";
+import type { RootState, AppDispatch } from "../store"; // Import RootState for useSelector
 
 interface ApiResponse<T> {
   message: string;
@@ -15,11 +15,10 @@ interface ApiResponse<T> {
     resetToken: string;
     resetURL: string;
     warning: string;
-    tokenDetails?: any; // Keeping this as any if its structure is truly unknown/complex
+    tokenDetails?: any;
   };
 }
 
-// Specific response for registration, login, reset password (data field)
 interface AuthResponseData {
   _id: string;
   username: string;
@@ -28,7 +27,6 @@ interface AuthResponseData {
   token: string;
 }
 
-// Specific response for fetching user profile (data field)
 interface UserProfileResponseData {
   _id: string;
   username: string;
@@ -61,6 +59,9 @@ const useAuth = () => {
   const dispatch = useDispatch<AppDispatch>();
   const queryClient = useQueryClient();
 
+  // --- NEW: Select isAuthenticated and user from Redux store ---
+  const { isLoggedIn, user } = useSelector((state: RootState) => state.auth);
+
   // Mutation for user registration
   const registerMutation = useMutation<
     ApiResponse<AuthResponseData>,
@@ -77,7 +78,8 @@ const useAuth = () => {
           setCredentials({
             user: data.data,
             token: data.data.token,
-            role: data.data.role,
+            // Note: The role is already part of data.data, so no need to pass it separately if setCredentials expects AuthUser
+            // If your setCredentials expects role outside of 'user', adjust your authSlice.ts accordingly.
           })
         );
         queryClient.invalidateQueries({ queryKey: ["userProfile"] });
@@ -85,7 +87,6 @@ const useAuth = () => {
       }
     },
     onError: (error) => {
-      // error is correctly typed as AxiosError<BackendErrorResponse> here
       console.error(
         "Registration failed:",
         error.response?.data?.message || error.message
@@ -105,12 +106,11 @@ const useAuth = () => {
     },
     onSuccess: (data) => {
       if (data.data) {
-        // Ensure data.data exists before dispatching
         dispatch(
           setCredentials({
             user: data.data,
             token: data.data.token,
-            role: data.data.role,
+            // role: data.data.role, // Same as above, role is in data.data.user
           })
         );
         queryClient.invalidateQueries({ queryKey: ["userProfile"] });
@@ -118,7 +118,6 @@ const useAuth = () => {
       }
     },
     onError: (error) => {
-      // error is correctly typed as AxiosError<BackendErrorResponse> here
       console.error(
         "Login failed:",
         error.response?.data?.message || error.message
@@ -127,7 +126,6 @@ const useAuth = () => {
   });
 
   // Query to fetch user profile (protected route)
-  // FIX: Explicitly cast the options object to UseQueryOptions
   const userProfileQuery = useQuery<
     ApiResponse<UserProfileResponseData>,
     AxiosError<BackendErrorResponse>
@@ -137,14 +135,14 @@ const useAuth = () => {
       const response = await axiosInstance.get("/auth/profile");
       return response.data;
     },
-    enabled: !!store.getState().auth.token,
+    enabled: isLoggedIn,
     staleTime: 1000 * 60 * 5,
   });
 
   // Function to handle logout
   const handleLogout = () => {
     dispatch(logout());
-    queryClient.clear(); // Clear all React Query cache on logout
+    queryClient.clear();
     console.log("User logged out.");
   };
 
@@ -169,7 +167,6 @@ const useAuth = () => {
       }
     },
     onError: (error) => {
-      // error is correctly typed as AxiosError<BackendErrorResponse> here
       console.error(
         "Forgot password failed:",
         error.response?.data?.message || error.message
@@ -191,12 +188,11 @@ const useAuth = () => {
     },
     onSuccess: (data) => {
       if (data.data) {
-        // Ensure data.data exists before dispatching
         dispatch(
           setCredentials({
             user: data.data,
             token: data.data.token,
-            role: data.data.role,
+            // role: data.data.role, // Same as above, role is in data.data.user
           })
         );
         queryClient.invalidateQueries({ queryKey: ["userProfile"] });
@@ -204,7 +200,6 @@ const useAuth = () => {
       }
     },
     onError: (error) => {
-      // error is correctly typed as AxiosError<BackendErrorResponse> here
       console.error(
         "Password reset failed:",
         error.response?.data?.message || error.message
@@ -212,19 +207,23 @@ const useAuth = () => {
     },
   });
 
+  // --- MODIFIED RETURN OBJECT ---
   return {
-    register: registerMutation.mutate,
-    login: loginMutation.mutate,
+    isLoggedIn, // NEW: Export isAuthenticated from Redux state
+    user, // NEW: Export user from Redux state
+    isAdmin: user?.role === "admin", // NEW: Helper for isAdmin status
+    register: registerMutation.mutate, // For direct mutate call
+    login: loginMutation.mutate, // For direct mutate call
     logout: handleLogout,
-    userProfile: userProfileQuery.data?.data, // Access data.data as per ApiResponse structure
+    userProfile: userProfileQuery.data?.data,
     userProfileLoading: userProfileQuery.isLoading,
     userProfileError: userProfileQuery.error,
     forgotPassword: forgotPasswordMutation.mutate,
     resetPassword: resetPasswordMutation.mutate,
-    registerMutation,
-    loginMutation,
-    forgotPasswordMutation,
-    resetPasswordMutation,
+    registerMutation, // For accessing mutation state (isPending, isError, etc.)
+    loginMutation, // For accessing mutation state
+    forgotPasswordMutation, // For accessing mutation state
+    resetPasswordMutation, // For accessing mutation state
   };
 };
 
