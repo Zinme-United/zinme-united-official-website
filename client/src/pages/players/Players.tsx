@@ -58,30 +58,6 @@ const Players = () => {
         </h1>
         <p className="text-gray-700">No players found.</p>
         <PlayersCard players={[]} onPlayerSelect={setSelectedPlayer} />{" "}
-        {/* Pass empty array */}
-        <section className="my-12 bg-white rounded-xl shadow-lg p-6 md:p-8">
-          <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">
-            Coaching Staff & Management
-          </h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
-            {coachingStaff.map((member) => (
-              <div
-                key={member.id}
-                className="bg-gray-50 rounded-xl shadow-md p-4 text-center border border-gray-200"
-              >
-                <img
-                  src={member.img}
-                  alt={member.name}
-                  className="w-24 h-24 rounded-full object-cover mx-auto mb-3 border-2 border-gray-300"
-                />
-                <h3 className="text-lg font-semibold text-gray-900">
-                  {member.name}
-                </h3>
-                <p className="text-gray-600 text-sm">{member.role}</p>
-              </div>
-            ))}
-          </div>
-        </section>
       </div>
     );
   }
