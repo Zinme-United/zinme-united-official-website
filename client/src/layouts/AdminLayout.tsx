@@ -23,7 +23,7 @@ const AdminLayout: React.FC = () => {
                 to="/admin"
                 className="block text-xl font-medium py-2 px-4 rounded-md hover:bg-blue-700 transition-colors"
               >
-                Dashboard
+                <p className="text-white">Dashboard</p>
               </Link>
             </li>
             <li>
@@ -31,7 +31,7 @@ const AdminLayout: React.FC = () => {
                 to="/admin/players"
                 className="block text-xl font-medium py-2 px-4 rounded-md hover:bg-blue-700 transition-colors"
               >
-                Player Management
+                <p className="text-white">Player Management</p>
               </Link>
             </li>
             {/* User Management link - only for 'admin' role */}
@@ -41,7 +41,7 @@ const AdminLayout: React.FC = () => {
                   to="/admin/users"
                   className="block text-xl font-medium py-2 px-4 rounded-md hover:bg-blue-700 transition-colors"
                 >
-                  User Management
+                  <p className="text-white">User Management</p>
                 </Link>
               </li>
             )}

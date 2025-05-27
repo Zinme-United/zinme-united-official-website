@@ -9,3 +9,5 @@ export { default as PlayersCard } from "./PlayersCard";
 export { default as LoginForm } from "./LoginForm";
 export { default as ProtectedRoute } from "./ProtectedRoutes";
 export { default as RegisterForm } from "./RegisterForm";
+export { default as PlayerModal } from "./PlayerModal";
+export { default as ConfirmationModal } from "./ConfirmationModal";

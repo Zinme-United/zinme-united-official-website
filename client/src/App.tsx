@@ -1,14 +1,18 @@
-import "./App.css";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+// Pages
 import Home from "./pages/home/Home";
 import Activities from "./pages/activities/Activities";
 import Players from "./pages/players/Players";
 import NotFound from "./pages/404/NotFound";
-import { Footer, Navbar } from "./components";
-import ProtectedRoute from "./components/ProtectedRoutes";
 import LoginPage from "./pages/login/LoginPage";
 import UnauthorizedPage from "./pages/unauthorized/UnauthorizedPage";
 import RegisterPage from "./pages/register/RegisterPage";
+
+// Components & Layouts
+import { Footer, Navbar, ProtectedRoute } from "./components";
 import AdminLayout from "./layouts/AdminLayout";
 import AdminDashboard from "./pages/dashboard/AdminDashboard";
 import PlayerManagementPage from "./pages/player-management/PlayerManagementPage";
@@ -73,12 +77,9 @@ const router = createBrowserRouter([
             element: <PlayerManagementPage />,
           },
           {
-            // User management is typically only for 'admin' role, even if 'editor' can access other admin pages
-            // This nested ProtectedRoute ensures only 'admin' can see the users page
-            // element: <ProtectedRoute allowedRoles={["admin"]} />,
             children: [
               {
-                path: "users", // Matches /admin/users
+                path: "users",
                 // element: <UserManagementPage />,
               },
             ],
@@ -95,7 +96,23 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <RouterProvider router={router} />
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+    </>
+  );
 };
 
 export default App;
