@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axiosInstance from "../api/axiosInstance";
 import { AxiosError } from "axios";
 import type { ApiResponse, BackendErrorResponse, Player } from "../types";
+import { toast } from "react-toastify";
 
 const usePlayers = () => {
   const queryClient = useQueryClient();
@@ -37,14 +38,17 @@ const usePlayers = () => {
       return response.data;
     },
     onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: ["players"] }); // Invalidate players list to refetch
+      queryClient.invalidateQueries({ queryKey: ["players"] });
+      toast.success(data.message || "Player created successfully!");
       console.log("Player created successfully:", data.message);
     },
     onError: (error) => {
-      console.error(
-        "Failed to create player:",
-        error.response?.data?.message || error.message
-      );
+      const errorMessage =
+        error.response?.data?.message ||
+        error.message ||
+        "Failed to create player.";
+      toast.error(errorMessage);
+      console.error("Failed to create player:", errorMessage);
     },
   });
 
@@ -61,15 +65,18 @@ const usePlayers = () => {
       queryClient.invalidateQueries({ queryKey: ["players"] }); // Invalidate players list
       // Ensure data.data exists before accessing _id
       if (data.data && data.data._id) {
-        queryClient.invalidateQueries({ queryKey: ["player", data.data._id] }); // Invalidate specific player if you had a single player query
+        queryClient.invalidateQueries({ queryKey: ["player", data.data._id] });
       }
+      toast.success(data.message || "Player updated successfully!");
       console.log("Player updated successfully:", data.message);
     },
     onError: (error) => {
-      console.error(
-        "Failed to update player:",
-        error.response?.data?.message || error.message
-      );
+      const errorMessage =
+        error.response?.data?.message ||
+        error.message ||
+        "Failed to update player.";
+      toast.error(errorMessage);
+      console.error("Failed to update player:", errorMessage);
     },
   });
 
@@ -88,14 +95,16 @@ const usePlayers = () => {
     },
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["players"] }); // Invalidate players list
+      toast.success(data.message || "Player deleted successfully!");
       console.log("Player deleted successfully:", data.message);
     },
     onError: (error) => {
-      // error is now AxiosError<BackendErrorResponse>
-      console.error(
-        "Failed to delete player:",
-        error.response?.data?.message || error.message
-      );
+      const errorMessage =
+        error.response?.data?.message ||
+        error.message ||
+        "Failed to delete player.";
+      toast.error(errorMessage);
+      console.error("Failed to delete player:", errorMessage);
     },
   });
 

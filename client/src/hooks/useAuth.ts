@@ -1,11 +1,10 @@
-// client/src/hooks/useAuth.ts
-import { useDispatch, useSelector } from "react-redux"; // Import useSelector
+import { useDispatch, useSelector } from "react-redux";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { setCredentials, logout } from "../store/authSlice";
 import axiosInstance from "../api/axiosInstance";
 import { AxiosError } from "axios";
 import type { BackendErrorResponse } from "../types";
-import type { RootState, AppDispatch } from "../store"; // Import RootState for useSelector
+import type { RootState, AppDispatch } from "../store";
 
 interface ApiResponse<T> {
   message: string;
@@ -59,7 +58,6 @@ const useAuth = () => {
   const dispatch = useDispatch<AppDispatch>();
   const queryClient = useQueryClient();
 
-  // --- NEW: Select isAuthenticated and user from Redux store ---
   const { isLoggedIn, user } = useSelector((state: RootState) => state.auth);
 
   // Mutation for user registration
@@ -78,8 +76,6 @@ const useAuth = () => {
           setCredentials({
             user: data.data,
             token: data.data.token,
-            // Note: The role is already part of data.data, so no need to pass it separately if setCredentials expects AuthUser
-            // If your setCredentials expects role outside of 'user', adjust your authSlice.ts accordingly.
           })
         );
         queryClient.invalidateQueries({ queryKey: ["userProfile"] });
@@ -207,23 +203,22 @@ const useAuth = () => {
     },
   });
 
-  // --- MODIFIED RETURN OBJECT ---
   return {
-    isLoggedIn, // NEW: Export isAuthenticated from Redux state
-    user, // NEW: Export user from Redux state
-    isAdmin: user?.role === "admin", // NEW: Helper for isAdmin status
-    register: registerMutation.mutate, // For direct mutate call
-    login: loginMutation.mutate, // For direct mutate call
+    isLoggedIn,
+    user,
+    isAdmin: user?.role === "admin",
+    register: registerMutation.mutate,
+    login: loginMutation.mutate,
     logout: handleLogout,
     userProfile: userProfileQuery.data?.data,
     userProfileLoading: userProfileQuery.isLoading,
     userProfileError: userProfileQuery.error,
     forgotPassword: forgotPasswordMutation.mutate,
     resetPassword: resetPasswordMutation.mutate,
-    registerMutation, // For accessing mutation state (isPending, isError, etc.)
-    loginMutation, // For accessing mutation state
-    forgotPasswordMutation, // For accessing mutation state
-    resetPasswordMutation, // For accessing mutation state
+    registerMutation,
+    loginMutation,
+    forgotPasswordMutation,
+    resetPasswordMutation,
   };
 };
 
