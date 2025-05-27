@@ -28,7 +28,7 @@ const Navbar = () => {
               to="/"
               className="flex items-center py-2 px-2 text-indigo-300 hover:text-white"
             >
-              <span className="font-bold text-xl">Zinme United</span>
+              <span className="font-bold text-xl text-white">Zinme United</span>
             </Link>
           </div>
 
@@ -41,10 +41,10 @@ const Navbar = () => {
                 <Link
                   key={link.id}
                   to={link.route}
-                  className="py-2 px-3 text-indigo-300 hover:text-white flex items-center transition-colors duration-200"
+                  className="py-2 px-3 hover:text-white flex items-center transition-colors duration-200"
                 >
-                  <Icon size={18} className="mr-1" />
-                  {link.label}
+                  <Icon size={18} className="mr-1 text-white" />
+                  <p className="text-white">{link.label}</p>
                 </Link>
               );
             })}
@@ -53,9 +53,9 @@ const Navbar = () => {
             {isLoggedIn && user?.role === "admin" && (
               <Link
                 to="/admin"
-                className="py-2 px-3 text-indigo-300 hover:text-white flex items-center transition-colors duration-200"
+                className="py-2 px-3 cursor-pointer hover:text-white flex items-center transition-colors duration-200"
               >
-                Admin Panel
+                <p className="text-white">Admin Panel</p>
               </Link>
             )}
 
@@ -103,8 +103,8 @@ const Navbar = () => {
               className="block py-3 px-4 text-indigo-300 hover:bg-indigo-800 transition-colors duration-200 flex items-center"
               onClick={() => setIsOpen(false)}
             >
-              <Icon size={18} className="mr-2" />
-              {link.label}
+              <Icon size={18} className="mr-1 text-white" />
+              <p className="text-white">{link.label}</p>
             </Link>
           );
         })}
@@ -125,7 +125,7 @@ const Navbar = () => {
           <button
             onClick={() => {
               logout();
-              setIsOpen(false); // Close menu on logout
+              setIsOpen(false);
             }}
             className="block w-full text-left py-3 px-4 cursor-pointer bg-red-600 text-white hover:bg-red-700 transition-colors duration-200 flex items-center"
           >
