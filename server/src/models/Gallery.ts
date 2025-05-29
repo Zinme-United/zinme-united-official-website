@@ -1,4 +1,3 @@
-// src/models/Gallery.ts
 import mongoose, { Document, Schema } from "mongoose";
 
 export interface IImage {
@@ -9,9 +8,9 @@ export interface IImage {
 export interface IGallery extends Document {
   title: string;
   description?: string;
-  eventDate?: Date; // Date the photos were taken/event happened
+  eventDate?: Date;
   images: IImage[];
-  thumbnailUrl?: string; // Optional: for displaying a preview image
+  thumbnailUrl?: string;
 }
 
 const ImageSchema: Schema = new Schema(

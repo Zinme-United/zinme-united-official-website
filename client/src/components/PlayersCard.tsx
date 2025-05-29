@@ -13,7 +13,7 @@ const PlayersCard = ({ players, onPlayerSelect }: PlayersCardProps) => {
           <div
             key={player._id}
             className="bg-blue-50 rounded-xl shadow-md overflow-hidden cursor-pointer hover:shadow-lg transform hover:scale-105 transition-all duration-300 border border-blue-200"
-            onClick={() => onPlayerSelect(player)} // Call the prop function
+            onClick={() => onPlayerSelect(player)}
           >
             <img
               src={player.img || "/zinme.jpg"}

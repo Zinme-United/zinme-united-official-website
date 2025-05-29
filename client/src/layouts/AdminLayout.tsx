@@ -1,13 +1,13 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import type { RootState } from "../store";
+// import { useSelector } from "react-redux";
+// import type { RootState } from "../store";
 import useAuth from "../hooks/useAuth";
 import { Link, Outlet } from "react-router";
 import { Button } from "../components";
 import { LogOut } from "lucide-react";
 
 const AdminLayout: React.FC = () => {
-  const { user } = useSelector((state: RootState) => state.auth);
+  // const { user } = useSelector((state: RootState) => state.auth);
   const { logout } = useAuth();
 
   return (
@@ -18,14 +18,14 @@ const AdminLayout: React.FC = () => {
         </h2>
         <nav className="flex-grow">
           <ul className="space-y-4">
-            <li>
+            {/* <li>
               <Link
                 to="/admin"
                 className="block text-xl font-medium py-2 px-4 rounded-md hover:bg-blue-700 transition-colors"
               >
                 <p className="text-white">Dashboard</p>
               </Link>
-            </li>
+            </li> */}
             <li>
               <Link
                 to="/admin/players"
@@ -35,7 +35,7 @@ const AdminLayout: React.FC = () => {
               </Link>
             </li>
             {/* User Management link - only for 'admin' role */}
-            {user && user.role === "admin" && (
+            {/* {user && user.role === "admin" && (
               <li>
                 <Link
                   to="/admin/users"
@@ -44,7 +44,7 @@ const AdminLayout: React.FC = () => {
                   <p className="text-white">User Management</p>
                 </Link>
               </li>
-            )}
+            )} */}
           </ul>
         </nav>
         <Button

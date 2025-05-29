@@ -1,12 +1,11 @@
-// src/components/ProtectedRoute.tsx
 import React, { type ReactNode } from "react";
-import { useSelector } from "react-redux"; // Import useSelector from react-redux
-import type { RootState } from "../store"; // Assuming your Redux store's RootState type is here
+import { useSelector } from "react-redux";
+import type { RootState } from "../store";
 import { Navigate, Outlet } from "react-router";
 
 interface ProtectedRouteProps {
-  children?: ReactNode; // Allows for direct children if used as a wrapper component
-  allowedRoles?: ("admin" | "editor" | "public")[]; // Array of roles allowed to access this route
+  children?: ReactNode;
+  allowedRoles?: ("admin" | "editor" | "public")[];
 }
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
