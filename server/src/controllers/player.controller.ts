@@ -2,6 +2,37 @@ import { Request, Response, NextFunction } from "express";
 import asyncHandler from "express-async-handler";
 import Player from "../models/Player";
 import { IPlayer } from "../types";
+import { deleteImage, uploadImage } from "../utils/uploadImage";
+
+export const uploadPlayerImage = asyncHandler(
+  async (req: Request, res: Response) => {
+    if (!req.file) {
+      res.status(400);
+      throw new Error("No image file provided");
+    }
+
+    try {
+      const result = await uploadImage(req.file, {
+        folder: "players",
+        width: 400,
+        height: 400,
+        crop: "fill",
+      });
+
+      res.status(200).json({
+        status: true,
+        message: "Image uploaded successfully",
+        data: {
+          imageUrl: result.secure_url,
+          publicId: result.public_id,
+        },
+      });
+    } catch (error) {
+      res.status(500);
+      throw new Error("Failed to upload image");
+    }
+  }
+);
 
 export const createPlayer = asyncHandler(
   async (req: Request, res: Response) => {
@@ -21,11 +52,10 @@ export const createPlayer = asyncHandler(
     ) {
       res.status(400);
       throw new Error(
-        "Please include all required player fields: name, number, position, img, bio, and player stats with appearances."
+        "Please include all required player fields: name, number, position, bio, gender, and player stats with appearances, and ensure an image is provided."
       );
     }
 
-    // Check if a player with this number already exists
     const playerExists = await Player.findOne({ number });
     if (playerExists) {
       res.status(400);
@@ -47,7 +77,7 @@ export const createPlayer = asyncHandler(
     res.status(201).json({
       status: true,
       message: "Players created successfully.",
-      savedPlayer,
+      data: savedPlayer,
     });
   }
 );
@@ -149,7 +179,18 @@ export const deletePlayer = asyncHandler(
     const player = await Player.findById(req.params.id);
 
     if (player) {
-      await Player.deleteOne({ _id: req.params.id }); // Use deleteOne for Mongoose 6+
+      if (player.img) {
+        try {
+          const urlParts = player.img.split("/");
+          const publicIdWithExtension = urlParts[urlParts.length - 1];
+          const publicId = `players/${publicIdWithExtension.split(".")[0]}`;
+          await deleteImage(publicId);
+        } catch (error) {
+          console.error("Error deleting image from Cloudinary:", error);
+        }
+      }
+
+      await Player.deleteOne({ _id: req.params.id });
       res.status(200).json({ message: "Player removed successfully." });
     } else {
       res.status(404);

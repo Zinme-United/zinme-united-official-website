@@ -44,10 +44,7 @@ export const playerFormSchema = z.object({
     .min(1, "Number must be at least 1")
     .max(99, "Number cannot exceed 99"),
   position: z.string().min(1, "Position is required"),
-  img: z
-    .string()
-    .url("Must be a valid image URL")
-    .min(1, "Image URL is required"),
+  img: z.string().optional(),
   bio: z.string().min(10, "Biography must be at least 10 characters"),
   gender: z.enum(["Male", "Female"], {
     message: "Gender must be Male or Female",

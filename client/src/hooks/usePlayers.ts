@@ -1,7 +1,12 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axiosInstance from "../api/axiosInstance";
 import { AxiosError } from "axios";
-import type { ApiResponse, BackendErrorResponse, Player } from "../types";
+import type {
+  ApiResponse,
+  BackendErrorResponse,
+  ImageUploadResponse,
+  Player,
+} from "../types";
 import { toast } from "react-toastify";
 
 const usePlayers = () => {
@@ -22,6 +27,37 @@ const usePlayers = () => {
       return response.data;
     },
     staleTime: 1000 * 60, // Data considered fresh for 1 minute
+  });
+
+  const uploadImageMutation = useMutation<
+    ImageUploadResponse,
+    AxiosError<BackendErrorResponse>,
+    FormData // Expects FormData for file upload
+  >({
+    mutationFn: async (formData) => {
+      const response = await axiosInstance.post(
+        "/players/upload-image",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data", // Important for file uploads
+          },
+        }
+      );
+      return response.data;
+    },
+    onSuccess: (data) => {
+      toast.success(data.message || "Image uploaded successfully!");
+      console.log("Image uploaded successfully:", data.data);
+    },
+    onError: (error) => {
+      const errorMessage =
+        error.response?.data?.message ||
+        error.message ||
+        "Failed to upload image.";
+      toast.error(errorMessage);
+      console.error("Failed to upload image:", errorMessage);
+    },
   });
 
   // Mutation to create a new player
@@ -115,9 +151,11 @@ const usePlayers = () => {
     createPlayer: createPlayerMutation.mutate,
     updatePlayer: updatePlayerMutation.mutate,
     deletePlayer: deletePlayerMutation.mutate,
+    uploadImage: uploadImageMutation.mutate,
     createPlayerMutation,
     updatePlayerMutation,
     deletePlayerMutation,
+    uploadImageMutation,
   };
 };
 

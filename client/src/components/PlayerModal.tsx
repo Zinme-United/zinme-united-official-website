@@ -1,20 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { XCircle, Loader2 } from "lucide-react";
-import type { Player } from "../types";
+import type { PlayerFormModalProps } from "../types";
 import {
   playerFormSchema,
   type PlayerFormData,
 } from "../schemas/playerSchemas";
-
-interface PlayerFormModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  editingPlayer: Player | null;
-  onSubmit: (data: PlayerFormData) => Promise<void>;
-  isSubmitting: boolean;
-}
 
 const PlayerFormModal: React.FC<PlayerFormModalProps> = ({
   isOpen,
@@ -23,7 +15,9 @@ const PlayerFormModal: React.FC<PlayerFormModalProps> = ({
   onSubmit,
   isSubmitting,
 }) => {
-  // Setup react-hook-form
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
+
   const {
     register,
     handleSubmit,
@@ -45,15 +39,13 @@ const PlayerFormModal: React.FC<PlayerFormModalProps> = ({
 
   useEffect(() => {
     if (isOpen) {
-      // Only reset when modal is actually open
       if (editingPlayer) {
-        // When editing, populate form with existing player data
         reset({
           _id: editingPlayer._id,
           name: editingPlayer.name,
           number: editingPlayer.number,
           position: editingPlayer.position,
-          img: editingPlayer.img,
+          img: editingPlayer.img, // Set existing image URL for internal form state (optional for display)
           bio: editingPlayer.bio,
           gender: editingPlayer.gender,
           stats: {
@@ -70,6 +62,7 @@ const PlayerFormModal: React.FC<PlayerFormModalProps> = ({
               }
             : { facebook: "", twitter: "", instagram: "" },
         });
+        setImagePreviewUrl(editingPlayer.img || null);
       } else {
         // When adding new, reset to default values
         reset({
@@ -82,9 +75,38 @@ const PlayerFormModal: React.FC<PlayerFormModalProps> = ({
           stats: { appearances: 0, goals: 0, assists: 0, cleanSheets: 0 },
           social: { facebook: "", twitter: "", instagram: "" },
         });
+        setImagePreviewUrl(null);
+      }
+      setSelectedFile(null);
+      const fileInput = document.getElementById(
+        "imageUpload"
+      ) as HTMLInputElement;
+      if (fileInput) {
+        fileInput.value = "";
       }
     }
   }, [editingPlayer, reset, isOpen]);
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files[0]) {
+      const file = event.target.files[0];
+      setSelectedFile(file);
+
+      // Create a URL for image preview
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreviewUrl(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      setSelectedFile(null);
+      setImagePreviewUrl(editingPlayer?.img || null);
+    }
+  };
+
+  const handleFormSubmit = async (data: PlayerFormData) => {
+    await onSubmit(data, selectedFile);
+  };
 
   if (!isOpen) return null;
 
@@ -104,7 +126,7 @@ const PlayerFormModal: React.FC<PlayerFormModalProps> = ({
           </button>
         </div>
         <form
-          onSubmit={handleSubmit(onSubmit)}
+          onSubmit={handleSubmit(handleFormSubmit)}
           className="grid grid-cols-1 md:grid-cols-2 gap-6"
         >
           {/* Basic Info Fields */}
@@ -186,19 +208,26 @@ const PlayerFormModal: React.FC<PlayerFormModalProps> = ({
           </div>
           <div className="md:col-span-2">
             <label
-              htmlFor="img"
+              htmlFor="imageUpload"
               className="block text-sm font-medium text-gray-700"
             >
-              Image URL
+              Player Image
             </label>
             <input
-              type="url"
-              id="img"
-              {...register("img")}
-              className="mt-1 block w-full text-black border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
+              type="file"
+              id="imageUpload"
+              accept="image/*"
+              onChange={handleFileChange}
+              className="mt-1 block w-full text-black border border-gray-300 cursor-pointer rounded-md shadow-sm p-2 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[#003b75] file:text-white"
             />
-            {errors.img && (
-              <p className="text-red-500 text-xs mt-1">{errors.img.message}</p>
+            {imagePreviewUrl && (
+              <div className="mt-4">
+                <img
+                  src={imagePreviewUrl}
+                  alt="Image Preview"
+                  className="w-32 h-32 object-cover rounded-md shadow-sm"
+                />
+              </div>
             )}
           </div>
           <div className="md:col-span-2">

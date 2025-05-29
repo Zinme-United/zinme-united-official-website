@@ -1,4 +1,3 @@
-// src/middleware/requestLogger.ts
 import { Request, Response, NextFunction } from "express";
 
 const requestLogger = (req: Request, res: Response, next: NextFunction) => {
