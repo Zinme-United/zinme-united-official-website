@@ -35,6 +35,7 @@ export interface Player {
 export interface BackendErrorResponse {
   message: string;
   stack?: string;
+  status?: boolean;
 }
 
 export interface AuthUser {
@@ -48,4 +49,21 @@ export interface AuthState {
   token: string | null;
   isLoggedIn: boolean;
   role: "admin" | "editor" | "public" | null;
+}
+
+export interface ImageUploadResponse {
+  status: boolean;
+  message: string;
+  data: {
+    imageUrl: string;
+    publicId: string;
+  };
+}
+
+export interface PlayerFormModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  editingPlayer: Player | null;
+  onSubmit: (data: PlayerFormData, imageFile: File | null) => Promise<void>;
+  isSubmitting: boolean;
 }

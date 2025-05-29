@@ -165,12 +165,11 @@ export const resetPassword = asyncHandler(
 
     // Update the user's password (the pre-save hook in the User model will hash it)
     user.password = password;
-    user.resetPasswordToken = undefined; // Clear the token after successful use
-    user.resetPasswordExpire = undefined; // Clear the expiration time
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpire = undefined;
 
-    await user.save(); // Save the user with the new hashed password
+    await user.save();
 
-    // Optionally, log the user in immediately after resetting password
     const userId = user._id as mongoose.Types.ObjectId;
     res.status(200).json({
       message: "Password reset successful. You are now logged in.",
@@ -179,7 +178,7 @@ export const resetPassword = asyncHandler(
         username: user.username,
         email: user.email,
         role: user.role,
-        token: generateToken(userId.toString(), user.role), // Issue a new JWT
+        token: generateToken(userId.toString(), user.role), // Generate a new JWT token
       },
     });
   }

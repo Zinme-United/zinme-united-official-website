@@ -23,3 +23,16 @@ export interface IPlayer extends Document {
   stats: PlayerStats;
   social?: PlayerSocial;
 }
+
+export interface UploadOptions {
+  folder?: string;
+  width?: number;
+  height?: number;
+  crop?: string;
+}
+
+export interface BackendErrorResponse {
+  message: string;
+  stack?: string;
+  status?: boolean;
+}
