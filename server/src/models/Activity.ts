@@ -1,4 +1,3 @@
-// src/models/Activity.ts
 import mongoose, { Document, Schema } from "mongoose";
 
 export type ActivityType = "event" | "training" | "match";
@@ -6,14 +5,14 @@ export type ActivityType = "event" | "training" | "match";
 export interface IActivity extends Document {
   title: string;
   description?: string;
-  type: ActivityType; // event, training, match
+  type: ActivityType;
   date: Date;
-  time?: string; // e.g., "19:00", "10:30 AM"
+  time?: string;
   location: string;
-  opponent?: string; // Only for 'match' type
-  result?: string; // For past matches, e.g., "3-1 win", "2-2 draw"
-  isNextMatch?: boolean; // To easily identify the next match
-  isFeaturedEvent?: boolean; // For important events
+  opponent?: string;
+  result?: string;
+  isNextMatch?: boolean;
+  isFeaturedEvent?: boolean;
 }
 
 const ActivitySchema: Schema = new Schema(

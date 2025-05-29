@@ -1,4 +1,3 @@
-// src/utils/generateToken.ts
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 

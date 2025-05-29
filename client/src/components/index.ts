@@ -11,3 +11,4 @@ export { default as ProtectedRoute } from "./ProtectedRoutes";
 export { default as RegisterForm } from "./RegisterForm";
 export { default as PlayerModal } from "./PlayerModal";
 export { default as ConfirmationModal } from "./ConfirmationModal";
+export { default as PlayerProfileModal } from "./PlayerProfileModal";
