@@ -16,7 +16,7 @@ const PlayersCard = ({ players, onPlayerSelect }: PlayersCardProps) => {
             onClick={() => onPlayerSelect(player)} // Call the prop function
           >
             <img
-              src={"/zinme.jpg"}
+              src={player.img || "/zinme.jpg"}
               alt={player.name}
               className="w-full h-40 object-cover rounded-t-xl"
             />

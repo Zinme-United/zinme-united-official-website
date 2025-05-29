@@ -8,8 +8,7 @@ import requestLogger from "./middleware/requestLogger";
 import playerRoutes from "./routes/player.route";
 import authRoutes from "./routes/auth.route";
 import coachRoutes from "./routes/coach.route";
-
-import errorHandler from "./middleware/error.middleware";
+import { errorHandler } from "./middleware/error.middleware";
 
 dotenv.config();
 

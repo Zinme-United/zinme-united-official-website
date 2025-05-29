@@ -3,8 +3,9 @@ import { Plus, Edit, Trash, XCircle, Loader2 } from "lucide-react";
 import usePlayers from "../../hooks/usePlayers";
 import type { Player } from "../../types";
 import type { PlayerFormData } from "../../schemas/playerSchemas";
-import PlayerFormModal from "../../components/PlayerModal";
-import { ConfirmationModal } from "../../components";
+import PlayerFormModal from "../../components/PlayerModal"; // Adjusted import path
+import { ConfirmationModal } from "../../components"; // Assuming this is correct
+import { toast } from "react-toastify";
 
 const PlayerManagementPage: React.FC = () => {
   const {
@@ -14,6 +15,7 @@ const PlayerManagementPage: React.FC = () => {
     createPlayerMutation,
     updatePlayerMutation,
     deletePlayerMutation,
+    uploadImageMutation, // Ensure this is destructured
   } = usePlayers();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -37,20 +39,63 @@ const PlayerManagementPage: React.FC = () => {
     setEditingPlayer(null);
   };
 
-  const handleFormSubmit = async (data: PlayerFormData) => {
+  const handleSubmitPlayer = async (
+    data: PlayerFormData,
+    imageFile: File | null
+  ) => {
+    let imageUrl: string = data.img || ""; // Default to existing img URL if no new file is chosen
+
+    // --- Image Upload Logic ---
+    if (imageFile) {
+      // If a new file is selected, upload it first
+      try {
+        const formData = new FormData();
+        formData.append("image", imageFile); // 'image' should match your Multer field name in backend upload.middleware
+
+        const uploadResult = await uploadImageMutation.mutateAsync(formData);
+
+        if (uploadResult.status) {
+          imageUrl = uploadResult.data.imageUrl; // Use the newly uploaded URL
+          toast.success("Image uploaded successfully!"); // Toast after successful image upload
+        } else {
+          // This case is unlikely due to onError in usePlayers' uploadImageMutation, but good for type safety
+          toast.error(uploadResult.message || "Image upload failed.");
+          return; // Stop submission if image upload fails
+        }
+      } catch (error) {
+        console.error("Error during image upload:", error);
+        // Error toast already handled by usePlayers onError
+        return; // Stop submission
+      }
+    } else if (editingPlayer && !imageFile) {
+      // If in edit mode and no new file is selected, retain the old image URL
+      imageUrl = editingPlayer.img;
+    } else if (!editingPlayer && !imageFile) {
+      // If creating a new player and no file is selected, an image is required
+      toast.error("Player image is required for new players.");
+      return; // Stop submission
+    }
+
+    // --- Player Create/Update Logic ---
+    const playerPayload = { ...data, img: imageUrl }; // Update the img field with the Cloudinary URL
+
     try {
-      if (editingPlayer?._id) {
+      if (editingPlayer && editingPlayer._id) {
+        // Update existing player
         await updatePlayerMutation.mutateAsync({
           id: editingPlayer._id,
-          playerData: data,
+          playerData: playerPayload,
         });
       } else {
-        const { ...newData } = data;
-        await createPlayerMutation.mutateAsync(newData);
+        // Create new player
+        await createPlayerMutation.mutateAsync(
+          playerPayload as Omit<Player, "_id">
+        );
       }
-      handleCloseModal();
+      handleCloseModal(); // Close modal on success
     } catch (error) {
-      console.error("Failed to save player:", error);
+      console.error("Error in player creation/update:", error);
+      // Toast messages are already handled by the onError callbacks in the hook
     }
   };
 
@@ -75,6 +120,12 @@ const PlayerManagementPage: React.FC = () => {
     setIsConfirmDeleteModalOpen(false);
     setPlayerToDeleteId(null);
   };
+
+  // Determine overall submission state for disabling buttons/forms
+  const isSubmitting =
+    createPlayerMutation.isPending ||
+    updatePlayerMutation.isPending ||
+    uploadImageMutation.isPending; // Include image upload pending state
 
   if (playersLoading) {
     return (
@@ -105,6 +156,7 @@ const PlayerManagementPage: React.FC = () => {
         <button
           onClick={handleAddPlayer}
           className="flex items-center px-4 py-2 bg-[#003b75] text-white rounded-md cursor-pointer transition-colors shadow-md"
+          disabled={isSubmitting} // Disable "Add New Player" button during submission
         >
           <Plus size={20} className="mr-2" /> Add New Player
         </button>
@@ -140,9 +192,10 @@ const PlayerManagementPage: React.FC = () => {
               {players.map((player) => (
                 <tr key={player._id} className="hover:bg-gray-50">
                   <td className="py-4 px-6 whitespace-nowrap">
+                    {/* Display actual player image */}
                     <img
-                      src="/zinme.jpg"
-                      alt={player.name}
+                      src={player.img}
+                      alt={player.name || "Player Image"}
                       className="h-10 w-10 rounded-full object-cover"
                     />
                   </td>
@@ -164,16 +217,20 @@ const PlayerManagementPage: React.FC = () => {
                         onClick={() => handleEditPlayer(player)}
                         className="text-blue-600 hover:text-blue-900 cursor-pointer bg-blue-100 p-2 rounded-full transition-colors"
                         title="Edit Player"
+                        disabled={isSubmitting} // Disable edit button during submission
                       >
                         <Edit size={18} />
                       </button>
                       <button
-                        onClick={() => handleDeleteClick(player._id)}
+                        onClick={() => handleDeleteClick(player._id!)}
                         className="text-red-600 hover:text-red-900 cursor-pointer bg-red-100 p-2 rounded-full transition-colors"
                         title="Delete Player"
-                        disabled={deletePlayerMutation.isPending}
+                        disabled={
+                          deletePlayerMutation.isPending || isSubmitting
+                        } // Disable delete button during submission
                       >
-                        {deletePlayerMutation.isPending ? (
+                        {deletePlayerMutation.isPending &&
+                        playerToDeleteId === player._id ? (
                           <Loader2 size={18} className="animate-spin" />
                         ) : (
                           <Trash size={18} />
@@ -197,10 +254,8 @@ const PlayerManagementPage: React.FC = () => {
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         editingPlayer={editingPlayer}
-        onSubmit={handleFormSubmit}
-        isSubmitting={
-          createPlayerMutation.isPending || updatePlayerMutation.isPending
-        }
+        onSubmit={handleSubmitPlayer}
+        isSubmitting={isSubmitting} // Pass the combined submission state
       />
 
       <ConfirmationModal
