@@ -34,9 +34,9 @@ const PlayerManagementPage: React.FC = () => {
   const [isConfirmDeleteModalOpen, setIsConfirmDeleteModalOpen] =
     useState(false);
   const [playerToDeleteId, setPlayerToDeleteId] = useState<string | null>(null);
-  const [genderFilter, setGenderFilter] = useState<"All" | "Male" | "Female">(
-    "All"
-  );
+
+  const [genderFilter, setGenderFilter] = useState<"Male" | "Female">("Male");
+  const [searchTerm, setSearchTerm] = useState<string>("");
   const [currentPage, setCurrentPage] = useState(1);
 
   const handleAddPlayer = () => {
@@ -132,13 +132,22 @@ const PlayerManagementPage: React.FC = () => {
     uploadImageMutation.isPending;
 
   const filteredPlayers = useMemo(() => {
-    const filtered =
-      players?.filter((player) =>
-        genderFilter === "All" ? true : player.gender === genderFilter
-      ) || [];
+    if (!players) return [];
 
-    return filtered.sort((a, b) => a.number - b.number);
-  }, [players, genderFilter]);
+    return players
+      .filter((player) => player.gender === genderFilter)
+
+      .filter((player) => {
+        if (searchTerm.trim() === "") return true;
+        const term = searchTerm.toLowerCase();
+        return (
+          player.name.toLowerCase().includes(term) ||
+          player.number.toString().includes(term) ||
+          player.position.toLowerCase().includes(term)
+        );
+      })
+      .sort((a, b) => a.number - b.number);
+  }, [players, genderFilter, searchTerm]);
 
   const totalPages = Math.ceil(filteredPlayers.length / PLAYERS_PER_PAGE);
 
@@ -181,16 +190,49 @@ const PlayerManagementPage: React.FC = () => {
     <div className="p-6 bg-white bg-opacity-80 rounded-lg shadow-md">
       <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
         <h1 className="text-3xl font-bold text-[#003b75]">Player Management</h1>
-        <div className="flex items-center gap-4">
-          <select
-            value={genderFilter}
+        <div className="flex items-center gap-3">
+          <input
+            type="text"
+            placeholder="Search name, number, position"
+            value={searchTerm}
             onChange={(e) => {
-              setGenderFilter(e.target.value as "All" | "Male" | "Female");
+              setSearchTerm(e.target.value);
+              setCurrentPage(1);
+            }}
+            className="px-3 py-2 border text-[#003b75] border-gray-300 rounded-md"
+          />
+          {/* <input
+            type="text"
+            placeholder="Filter by number"
+            value={numberFilter}
+            onChange={(e) => {
+              setNumberFilter(e.target.value);
+              setCurrentPage(1);
+            }}
+            className="px-3 py-2 text-[#003b75] border border-gray-300 rounded-md"
+          />
+          <select
+            value={positionFilter}
+            onChange={(e) => {
+              setPositionFilter(e.target.value);
               setCurrentPage(1);
             }}
             className="px-3 py-2 text-[#003b75] border border-gray-300 rounded-md"
           >
-            <option value="All">All</option>
+            <option value="All">All Positions</option>
+            <option value="GK">Goalkeeper</option>
+            <option value="CB">Defender</option>
+            <option value="CM">Midfielder</option>
+            <option value="CF">Forward</option>
+          </select> */}
+          <select
+            value={genderFilter}
+            onChange={(e) => {
+              setGenderFilter(e.target.value as "Male" | "Female");
+              setCurrentPage(1);
+            }}
+            className="px-3 py-2 text-[#003b75] border border-gray-300 rounded-md"
+          >
             <option value="Male">Male</option>
             <option value="Female">Female</option>
           </select>
