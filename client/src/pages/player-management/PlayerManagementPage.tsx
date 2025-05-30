@@ -207,84 +207,86 @@ const PlayerManagementPage: React.FC = () => {
 
       {paginatedPlayers.length > 0 ? (
         <>
-          <div className="overflow-x-auto rounded-lg border border-gray-200">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th className="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Image
-                  </th>
-                  <th className="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Name
-                  </th>
-                  <th className="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Number
-                  </th>
-                  <th className="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Position
-                  </th>
-                  <th className="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Gender
-                  </th>
-                  <th className="py-3 px-6 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Actions
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {paginatedPlayers.map((player) => (
-                  <tr key={player._id} className="hover:bg-gray-50">
-                    <td className="py-4 px-6 whitespace-nowrap">
-                      <img
-                        src={player.img}
-                        alt={player.name}
-                        loading="lazy"
-                        className="h-10 w-10 rounded-full object-cover"
-                      />
-                    </td>
-                    <td className="py-4 px-6 whitespace-nowrap text-sm font-medium text-[#003b75]">
-                      {player.name}
-                    </td>
-                    <td className="py-4 px-6 whitespace-nowrap text-sm text-[#003b75]">
-                      {player.number}
-                    </td>
-                    <td className="py-4 px-6 whitespace-nowrap text-sm text-[#003b75]">
-                      {player.position}
-                    </td>
-                    <td className="py-4 px-6 whitespace-nowrap text-sm text-[#003b75]">
-                      {player.gender}
-                    </td>
-                    <td className="py-4 px-6 whitespace-nowrap text-right text-sm font-medium">
-                      <div className="flex justify-center items-center space-x-2">
-                        <button
-                          onClick={() => handleEditPlayer(player)}
-                          className="text-blue-600 hover:text-blue-900 cursor-pointer bg-blue-100 p-2 rounded-full"
-                          title="Edit Player"
-                          disabled={isSubmitting}
-                        >
-                          <Edit size={18} />
-                        </button>
-                        <button
-                          onClick={() => handleDeleteClick(player._id!)}
-                          className="text-red-600 hover:text-red-900 cursor-pointer bg-red-100 p-2 rounded-full"
-                          title="Delete Player"
-                          disabled={
-                            deletePlayerMutation.isPending || isSubmitting
-                          }
-                        >
-                          {deletePlayerMutation.isPending &&
-                          playerToDeleteId === player._id ? (
-                            <Loader2 size={18} className="animate-spin" />
-                          ) : (
-                            <Trash size={18} />
-                          )}
-                        </button>
-                      </div>
-                    </td>
+          <div className="flex flex-col justify-between min-h-[600px]">
+            <div className="overflow-x-auto rounded-lg border border-gray-200">
+              <table className="min-w-full divide-y divide-gray-200">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th className="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Image
+                    </th>
+                    <th className="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Name
+                    </th>
+                    <th className="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Number
+                    </th>
+                    <th className="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Position
+                    </th>
+                    <th className="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Gender
+                    </th>
+                    <th className="py-3 px-6 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Actions
+                    </th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody className="bg-white divide-y divide-gray-200">
+                  {paginatedPlayers.map((player) => (
+                    <tr key={player._id} className="hover:bg-gray-50">
+                      <td className="py-4 px-6 whitespace-nowrap">
+                        <img
+                          src={player.img}
+                          alt={player.name}
+                          loading="lazy"
+                          className="h-10 w-10 rounded-full object-cover"
+                        />
+                      </td>
+                      <td className="py-4 px-6 whitespace-nowrap text-sm font-medium text-[#003b75]">
+                        {player.name}
+                      </td>
+                      <td className="py-4 px-6 whitespace-nowrap text-sm text-[#003b75]">
+                        {player.number}
+                      </td>
+                      <td className="py-4 px-6 whitespace-nowrap text-sm text-[#003b75]">
+                        {player.position}
+                      </td>
+                      <td className="py-4 px-6 whitespace-nowrap text-sm text-[#003b75]">
+                        {player.gender}
+                      </td>
+                      <td className="py-4 px-6 whitespace-nowrap text-right text-sm font-medium">
+                        <div className="flex justify-center items-center space-x-2">
+                          <button
+                            onClick={() => handleEditPlayer(player)}
+                            className="text-blue-600 hover:text-blue-900 cursor-pointer bg-blue-100 p-2 rounded-full"
+                            title="Edit Player"
+                            disabled={isSubmitting}
+                          >
+                            <Edit size={18} />
+                          </button>
+                          <button
+                            onClick={() => handleDeleteClick(player._id!)}
+                            className="text-red-600 hover:text-red-900 cursor-pointer bg-red-100 p-2 rounded-full"
+                            title="Delete Player"
+                            disabled={
+                              deletePlayerMutation.isPending || isSubmitting
+                            }
+                          >
+                            {deletePlayerMutation.isPending &&
+                            playerToDeleteId === player._id ? (
+                              <Loader2 size={18} className="animate-spin" />
+                            ) : (
+                              <Trash size={18} />
+                            )}
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
 
           <div className="flex justify-center items-center mt-4 space-x-2">
