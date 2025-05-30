@@ -3,6 +3,7 @@ import type { Player } from "../../types";
 import usePlayers from "../../hooks/usePlayers";
 import { PlayerProfileModal, PlayersCard } from "../../components";
 import ClipLoader from "react-spinners/ClipLoader";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 type SelectedGenderType = "Male" | "Female";
 
@@ -16,7 +17,7 @@ const Players = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [positionFilter, setPositionFilter] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const playersPerPage = 10;
+  const PLAYERS_PER_PAGE = 10;
 
   useEffect(() => {
     setCurrentPage(1);
@@ -51,12 +52,12 @@ const Players = () => {
   }, [players, selectedGenderFilter, searchQuery, positionFilter]);
 
   const currentPlayers = useMemo(() => {
-    const indexOfLast = currentPage * playersPerPage;
-    const indexOfFirst = indexOfLast - playersPerPage;
+    const indexOfLast = currentPage * PLAYERS_PER_PAGE;
+    const indexOfFirst = indexOfLast - PLAYERS_PER_PAGE;
     return filteredPlayers.slice(indexOfFirst, indexOfLast);
-  }, [filteredPlayers, currentPage, playersPerPage]);
+  }, [filteredPlayers, currentPage, PLAYERS_PER_PAGE]);
 
-  const totalPages = Math.ceil(filteredPlayers.length / playersPerPage);
+  const totalPages = Math.ceil(filteredPlayers.length / PLAYERS_PER_PAGE);
 
   if (playersLoading) {
     return (
@@ -96,7 +97,7 @@ const Players = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6 md:p-10">
+    <div className="min-h-screen bg-gray-100 p-6 md:p-10 relative">
       <h1 className="text-5xl font-extrabold text-[#003b75] mb-10 text-center">
         Our Team
       </h1>
@@ -144,7 +145,7 @@ const Players = () => {
         </div>
 
         {/* Cards */}
-        <section className="mb-8">
+        <section className="min-h-[500px] mb-8">
           {filteredPlayers.length === 0 ? (
             <p className="text-center text-gray-600 text-lg">
               No{" "}
@@ -162,20 +163,28 @@ const Players = () => {
         </section>
 
         {totalPages > 1 && (
-          <div className="flex justify-center space-x-2 mt-6">
-            {Array.from({ length: totalPages }, (_, i) => (
-              <button
-                key={i}
-                onClick={() => setCurrentPage(i + 1)}
-                className={`px-4 py-2 cursor-pointer rounded ${
-                  currentPage === i + 1
-                    ? "bg-[#003b75] text-white"
-                    : "bg-white border text-[#003b75] border-gray-300"
-                }`}
-              >
-                {i + 1}
-              </button>
-            ))}
+          <div className="flex justify-center items-center mt-4 space-x-2">
+            <button
+              onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+              disabled={currentPage === 1}
+              className="p-2 cursor-pointer rounded-full text-[#003b75] disabled:opacity-30"
+              title="Previous Page"
+            >
+              <ChevronLeft color="#003b75" size={24} />
+            </button>
+
+            <span className="text-[#003b75] font-medium">
+              Page {currentPage} of {totalPages}
+            </span>
+
+            <button
+              onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+              disabled={currentPage === totalPages}
+              className="p-2 cursor-pointer rounded-full text-[#003b75] disabled:opacity-30"
+              title="Next Page"
+            >
+              <ChevronRight color="#003b75" size={24} />
+            </button>
           </div>
         )}
       </div>
