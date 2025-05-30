@@ -16,6 +16,7 @@ const PlayersCard = ({ players, onPlayerSelect }: PlayersCardProps) => {
             onClick={() => onPlayerSelect(player)}
           >
             <img
+              loading="lazy"
               src={player.img || "/zinme.jpg"}
               alt={player.name}
               className="w-full h-40 object-cover rounded-t-xl"
