@@ -136,7 +136,6 @@ const PlayerManagementPage: React.FC = () => {
 
     return players
       .filter((player) => player.gender === genderFilter)
-
       .filter((player) => {
         if (searchTerm.trim() === "") return true;
         const term = searchTerm.toLowerCase();
