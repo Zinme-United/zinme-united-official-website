@@ -114,7 +114,7 @@ const Players = () => {
                 className={`py-2 px-4 rounded-lg text-sm font-semibold transition-all duration-300 cursor-pointer ${
                   selectedGenderFilter === gender
                     ? "bg-[#003b75] text-white shadow"
-                    : "bg-white text-gray-700 hover:bg-gray-100 border border-gray-300"
+                    : "bg-white text-black hover:bg-gray-100 border border-gray-300"
                 }`}
               >
                 {gender === "Male" ? "Men Team" : "Women Team"}
