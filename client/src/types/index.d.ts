@@ -50,14 +50,14 @@ export interface PlayerFormData {
   name: string;
   number: number;
   position: string;
-  img: string;
+  img?: string;
   bio: string;
   gender: "Male" | "Female";
   stats: {
     appearances: number;
-    goals?: number;
-    assists?: number;
-    cleanSheets?: number;
+    goals: number;
+    assists: number;
+    cleanSheets: number;
   };
   social?: {
     facebook?: string;
