@@ -135,6 +135,19 @@ const useAuth = () => {
     staleTime: 1000 * 60 * 5,
   });
 
+  const usersQuery = useQuery<
+    ApiResponse<UserProfileResponseData>,
+    AxiosError<BackendErrorResponse>
+  >({
+    queryKey: ["users"],
+    queryFn: async () => {
+      const response = await axiosInstance.get("/auth/users");
+      return response.data;
+    },
+    enabled: isLoggedIn,
+    staleTime: 1000 * 60 * 5,
+  });
+
   // Function to handle logout
   const handleLogout = () => {
     dispatch(logout());
@@ -213,6 +226,10 @@ const useAuth = () => {
     userProfile: userProfileQuery.data?.data,
     userProfileLoading: userProfileQuery.isLoading,
     userProfileError: userProfileQuery.error,
+    allUsers: usersQuery.data?.data,
+    totalUsersCount: usersQuery.data?.count,
+    allUsersLoading: usersQuery.isLoading,
+    allUsersError: usersQuery.error,
     forgotPassword: forgotPasswordMutation.mutate,
     resetPassword: resetPasswordMutation.mutate,
     registerMutation,

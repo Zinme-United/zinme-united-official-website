@@ -18,14 +18,14 @@ const AdminLayout: React.FC = () => {
         </h2>
         <nav className="flex-grow">
           <ul className="space-y-4">
-            {/* <li>
+            <li>
               <Link
                 to="/admin"
                 className="block text-xl font-medium py-2 px-4 rounded-md hover:bg-blue-700 transition-colors"
               >
                 <p className="text-white">Dashboard</p>
               </Link>
-            </li> */}
+            </li>
             <li>
               <Link
                 to="/admin/players"
