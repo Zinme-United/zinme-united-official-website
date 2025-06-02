@@ -67,3 +67,28 @@ export interface PlayerFormModalProps {
   onSubmit: (data: PlayerFormData, imageFile: File | null) => Promise<void>;
   isSubmitting: boolean;
 }
+
+export interface IImage {
+  url: string;
+  caption?: string;
+  publicId?: string;
+}
+
+export interface Gallery {
+  _id: string;
+  title: string;
+  description?: string;
+  eventDate?: string;
+  images: IImage[];
+  thumbnailUrl?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface GalleryFormData {
+  title: string;
+  description?: string;
+  eventDate?: string;
+  images: IImage[];
+  thumbnailUrl?: string;
+}
