@@ -3,28 +3,12 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { setCredentials, logout } from "../store/authSlice";
 import axiosInstance from "../api/axiosInstance";
 import { AxiosError } from "axios";
-import type { BackendErrorResponse } from "../types";
+import type {
+  ApiResponse,
+  AuthResponseData,
+  BackendErrorResponse,
+} from "../types";
 import type { RootState, AppDispatch } from "../store";
-
-interface ApiResponse<T> {
-  message: string;
-  data?: T;
-  count?: number;
-  devOnly?: {
-    resetToken: string;
-    resetURL: string;
-    warning: string;
-    tokenDetails?: any;
-  };
-}
-
-interface AuthResponseData {
-  _id: string;
-  username: string;
-  email: string;
-  role: "admin" | "editor" | "public";
-  token: string;
-}
 
 interface UserProfileResponseData {
   _id: string;

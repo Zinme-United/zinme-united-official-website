@@ -34,17 +34,14 @@ const AdminLayout: React.FC = () => {
                 <p className="text-white">Player Management</p>
               </Link>
             </li>
-            {/* User Management link - only for 'admin' role */}
-            {/* {user && user.role === "admin" && (
-              <li>
-                <Link
-                  to="/admin/users"
-                  className="block text-xl font-medium py-2 px-4 rounded-md hover:bg-blue-700 transition-colors"
-                >
-                  <p className="text-white">User Management</p>
-                </Link>
-              </li>
-            )} */}
+            <li>
+              <Link
+                to="/admin/galleries"
+                className="block text-xl font-medium py-2 px-4 rounded-md hover:bg-blue-700 transition-colors"
+              >
+                <p className="text-white">Gallery Management</p>
+              </Link>
+            </li>
           </ul>
         </nav>
         <Button
