@@ -46,26 +46,6 @@ export interface Player {
   };
 }
 
-export interface PlayerFormData {
-  name: string;
-  number: number;
-  position: string;
-  img?: string;
-  bio: string;
-  gender: "Male" | "Female";
-  stats: {
-    appearances: number;
-    goals: number;
-    assists: number;
-    cleanSheets: number;
-  };
-  social?: {
-    facebook?: string;
-    twitter?: string;
-    instagram?: string;
-  };
-}
-
 export interface CoachingStaffTypes {
   id: number;
   name: string;
