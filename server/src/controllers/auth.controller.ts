@@ -35,6 +35,7 @@ export const registerUser = asyncHandler(
     if (user) {
       const userId = user._id as mongoose.Types.ObjectId;
       res.status(201).json({
+        status: true,
         message: "User registered successfully.",
         data: {
           _id: userId,
@@ -59,6 +60,7 @@ export const loginUser = asyncHandler(async (req: Request, res: Response) => {
   if (user && (await user.matchPassword(password as string))) {
     const userId = user._id as mongoose.Types.ObjectId;
     res.json({
+      status: true,
       message: "Logged in successfully.",
       data: {
         _id: userId,
@@ -77,21 +79,39 @@ export const loginUser = asyncHandler(async (req: Request, res: Response) => {
 export const getUserProfile = asyncHandler(
   async (req: Request, res: Response) => {
     if (req.user) {
-      res.json({
+      const user = await User.findById(req.user._id).select("-password");
+
+      if (!user) {
+        res.status(404);
+        throw new Error("User not found.");
+      }
+
+      res.status(200).json({
         message: "User profile fetched successfully.",
         data: {
-          _id: req.user._id,
-          username: req.user.username,
-          email: req.user.email,
-          role: req.user.role,
+          _id: user._id,
+          username: user.username,
+          email: user.email,
+          role: user.role,
         },
       });
     } else {
-      res.status(404);
-      throw new Error("User not found.");
+      res.status(401); // User is not authenticated or req.user is not set
+      throw new Error("Not authorized, no token.");
     }
   }
 );
+
+export const getUsers = asyncHandler(async (req: Request, res: Response) => {
+  const users = await User.find().select("-password");
+
+  res.status(200).json({
+    status: true,
+    message: "Users fetched successfully.",
+    count: users.length,
+    data: users,
+  });
+});
 
 export const forgotPassword = asyncHandler(
   async (req: Request, res: Response) => {
