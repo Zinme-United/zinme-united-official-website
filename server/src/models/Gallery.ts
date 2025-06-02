@@ -3,6 +3,7 @@ import mongoose, { Document, Schema } from "mongoose";
 export interface IImage {
   url: string;
   caption?: string;
+  publicId?: string;
 }
 
 export interface IGallery extends Document {
