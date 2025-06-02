@@ -9,6 +9,7 @@ import playerRoutes from "./routes/player.route";
 import authRoutes from "./routes/auth.route";
 import coachRoutes from "./routes/coach.route";
 import galleryRoutes from "./routes/gallery.route";
+import activityRoutes from "./routes/activity.route";
 import { errorHandler } from "./middleware/error.middleware";
 
 dotenv.config();
@@ -34,6 +35,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/players", playerRoutes);
 app.use("/api/coaches", coachRoutes);
 app.use("/api/galleries", galleryRoutes);
+app.use("/api/activities", activityRoutes);
 
 app.get("/", (req, res) => {
   res.send("Football Team Website Backend API is running...");

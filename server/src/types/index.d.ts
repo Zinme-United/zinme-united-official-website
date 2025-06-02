@@ -36,3 +36,31 @@ export interface BackendErrorResponse {
   stack?: string;
   status?: boolean;
 }
+
+export type ActivityType = "event" | "training" | "match";
+
+export interface IActivity extends Document {
+  title: string;
+  description?: string;
+  type: ActivityType;
+  date: Date;
+  time?: string;
+  location: string;
+  opponent?: string;
+  result?: string;
+  isNextMatch?: boolean;
+  isFeaturedEvent?: boolean;
+}
+
+export interface ActivityFormData {
+  title: string;
+  description?: string;
+  type: ActivityType;
+  date: string;
+  time?: string;
+  location: string;
+  opponent?: string;
+  result?: string;
+  isNextMatch?: boolean;
+  isFeaturedEvent?: boolean;
+}

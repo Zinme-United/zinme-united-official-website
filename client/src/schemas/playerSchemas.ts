@@ -6,12 +6,21 @@ const playerStatsSchema = z.object({
     .number()
     .int()
     .min(0, "Appearances must be a non-negative integer"),
-  goals: z.number().int().min(0, "Goals must be a non-negative integer"),
-  assists: z.number().int().min(0, "Assists must be a non-negative integer"),
+  goals: z
+    .number()
+    .int()
+    .min(0, "Goals must be a non-negative integer")
+    .optional(),
+  assists: z
+    .number()
+    .int()
+    .min(0, "Assists must be a non-negative integer")
+    .optional(),
   cleanSheets: z
     .number()
     .int()
-    .min(0, "Clean Sheets must be a non-negative integer"),
+    .min(0, "Clean Sheets must be a non-negative integer")
+    .optional(),
 });
 
 // Zod schema for PlayerSocial (optional fields with optional URLs)
