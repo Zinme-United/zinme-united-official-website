@@ -78,6 +78,37 @@ export interface GalleryFormData {
   thumbnailUrl?: string;
 }
 
+export type ActivityType = "event" | "training" | "match";
+
+export interface Activity {
+  _id: string;
+  title: string;
+  description?: string;
+  type: ActivityType;
+  date: string;
+  time?: string;
+  location: string;
+  opponent?: string;
+  result?: string;
+  isNextMatch?: boolean;
+  isFeaturedEvent?: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ActivityFormData {
+  title: string;
+  description?: string;
+  type: ActivityType;
+  date: string;
+  time?: string;
+  location: string;
+  opponent?: string;
+  result?: string;
+  isNextMatch?: boolean;
+  isFeaturedEvent?: boolean;
+}
+
 export interface AuthUser {
   _id: string;
   username: string;
