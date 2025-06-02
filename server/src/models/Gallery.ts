@@ -3,7 +3,7 @@ import mongoose, { Document, Schema } from "mongoose";
 export interface IImage {
   url: string;
   caption?: string;
-  publicId?: string;
+  publicId: string;
 }
 
 export interface IGallery extends Document {
@@ -18,6 +18,7 @@ const ImageSchema: Schema = new Schema(
   {
     url: { type: String, required: true },
     caption: { type: String },
+    publicId: { type: String },
   },
   { _id: false }
 );

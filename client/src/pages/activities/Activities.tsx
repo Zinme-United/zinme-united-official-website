@@ -3,14 +3,21 @@ import {
   Calendar,
   ChevronLeft,
   ChevronRight,
-  Image,
   Trophy,
+  X,
+  XCircle,
 } from "lucide-react";
 import { useState } from "react";
 import { events } from "../../constants";
+import { GalleriesCard } from "../../components";
+import useGalleries from "../../hooks/useGalleries";
+import type { Gallery } from "../../types";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const Activities = () => {
+  const { galleries, galleriesLoading, galleriesError } = useGalleries();
   const [currentMonth, setCurrentMonth] = useState(new Date());
+  const [selectedGallery, setSelectedGallery] = useState<Gallery | null>(null);
 
   const getMonthName = (date: Date) =>
     date.toLocaleString("default", { month: "long", year: "numeric" });
@@ -38,6 +45,42 @@ const Activities = () => {
       eventDate.getFullYear() === currentMonth.getFullYear()
     );
   });
+
+  const handleGalleryClick = (gallery: Gallery) => {
+    setSelectedGallery(gallery);
+  };
+
+  const handleCloseGalleryModal = () => {
+    setSelectedGallery(null);
+  };
+
+  if (galleriesLoading) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
+        <ClipLoader
+          color="#003b75"
+          loading={galleriesLoading}
+          size={50}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+        />
+        <p className="text-xl font-semibold text-gray-700 mt-4">
+          Loading activities and galleries...
+        </p>
+      </div>
+    );
+  }
+
+  if (galleriesError) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-red-100 border border-red-400 text-red-700 p-6 rounded-lg shadow-md">
+        <XCircle className="h-6 w-6 mr-2" />
+        <p className="text-xl font-semibold">
+          Error loading galleries: {galleriesError.message}
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-100 font-inter p-6 md:p-10">
@@ -100,58 +143,57 @@ const Activities = () => {
       </section>
 
       {/* Photo & Video Galleries */}
-      <section className="my-12 bg-white rounded-xl shadow-lg p-6 md:p-8">
-        <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">
-          Galleries
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {[
-            {
-              title: "Training Sessions",
-              img: "https://placehold.co/400x300/6B7280/FFFFFF?text=Training",
-            },
-            {
-              title: "Community Outreach",
-              img: "https://placehold.co/400x300/10B981/FFFFFF?text=Community",
-            },
-            {
-              title: "Behind the Scenes",
-              img: "https://placehold.co/400x300/EF4444/FFFFFF?text=BTS",
-            },
-            {
-              title: "Fan Events",
-              img: "https://placehold.co/400x300/3B82F6/FFFFFF?text=Fans",
-            },
-            {
-              title: "Match Day Experience",
-              img: "https://placehold.co/400x300/F97316/FFFFFF?text=Match+Day",
-            },
-            {
-              title: "Youth Academy",
-              img: "https://placehold.co/400x300/6366F1/FFFFFF?text=Youth",
-            },
-          ].map((item, index) => (
-            <div
-              key={index}
-              className="bg-gray-50 rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300"
-            >
-              <img
-                src={item.img}
-                alt={item.title}
-                className="w-full h-48 object-cover rounded-t-lg"
-              />
-              <div className="p-4 flex items-center justify-between">
-                <h3 className="text-lg font-semibold text-gray-800">
-                  {item.title}
-                </h3>
-                <button className="text-[#003b75] hover:text-[#003b75]">
-                  <Image size={20} />
-                </button>
-              </div>
+      <GalleriesCard
+        galleries={galleries || []}
+        onGalleryClick={handleGalleryClick}
+      />
+      {selectedGallery && (
+        <div className="fixed inset-0 bg-[#003b75] bg-opacity-75 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6 md:p-8 relative">
+              <button
+                onClick={handleCloseGalleryModal}
+                className="absolute top-4 right-4 cursor-pointer bg-gray-200 text-gray-700 hover:bg-gray-300 rounded-full p-2 transition-colors duration-200"
+                aria-label="Close gallery details"
+              >
+                <X size={24} />
+              </button>
+              <h2 className="text-3xl font-bold text-gray-900 mb-4 text-center">
+                {selectedGallery.title}
+              </h2>
+              {selectedGallery.description && (
+                <p className="text-gray-700 text-center mb-4">
+                  {selectedGallery.description}
+                </p>
+              )}
+              {selectedGallery.eventDate && (
+                <p className="text-gray-600 text-center text-sm mb-6">
+                  Event Date:{" "}
+                  {new Date(selectedGallery.eventDate).toLocaleDateString()}
+                </p>
+              )}
+
+              {selectedGallery.images.length > 0 ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {selectedGallery.images.map((img, index) => (
+                    <div key={img.url + index} className="relative">
+                      <img
+                        src={img.url}
+                        alt={img.caption || `Gallery image ${index + 1}`}
+                        className="w-full h-64 object-cover rounded-lg shadow-md"
+                      />
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-center text-gray-600 text-lg">
+                  No images in this gallery.
+                </p>
+              )}
             </div>
-          ))}
+          </div>
         </div>
-      </section>
+      )}
 
       {/* Community & Outreach Section */}
       <section className="my-12 bg-blue-700 text-white rounded-xl shadow-lg p-6 md:p-8 text-center">

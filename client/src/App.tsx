@@ -16,6 +16,7 @@ import { Footer, Navbar, ProtectedRoute } from "./components";
 import AdminLayout from "./layouts/AdminLayout";
 import AdminDashboard from "./pages/dashboard/AdminDashboard";
 import PlayerManagementPage from "./pages/player-management/PlayerManagementPage";
+import GalleryManagementPage from "./pages/gallery-management/GalleryManagementPage";
 
 const PublicLayout = () => {
   return (
@@ -79,8 +80,8 @@ const router = createBrowserRouter([
           {
             children: [
               {
-                path: "users",
-                // element: <UserManagementPage />,
+                path: "galleries",
+                element: <GalleryManagementPage />,
               },
             ],
           },

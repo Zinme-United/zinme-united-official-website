@@ -13,7 +13,7 @@ export const uploadGalleryImage = asyncHandler(
     try {
       const result = await uploadImage(req.file, {
         folder: "galleries",
-        width: 1000,
+        width: 600,
         height: 600,
         crop: "fill",
       });
@@ -44,11 +44,18 @@ export const createGallery = asyncHandler(
 
     if (
       !Array.isArray(images) ||
-      !images.every((img: IImage) => img.url && img.publicId)
+      !images.every((img: IImage) => {
+        console.log(
+          `Image URL: ${img.url}, PublicId: '${
+            img.publicId
+          }', PublicId is string: ${typeof img.publicId === "string"}`
+        );
+        return img.url && typeof img.publicId === "string";
+      })
     ) {
       res.status(400);
       throw new Error(
-        "Images must be an array of objects with 'url' and 'publicId'."
+        "Images must be an array of objects with 'url' and 'publicId' (as a string)."
       );
     }
 
@@ -114,9 +121,10 @@ export const updateGallery = asyncHandler(
 
       if (
         Array.isArray(images) &&
-        images.every((img: IImage) => img.url && img.publicId)
+        images.every((img: IImage) => {
+          return img.url && typeof img.publicId === "string";
+        })
       ) {
-        // Identify images to delete from Cloudinary (if existing images are removed)
         const existingPublicIds = gallery.images
           .map((img) => img.publicId)
           .filter(Boolean);
@@ -142,7 +150,7 @@ export const updateGallery = asyncHandler(
       } else if (images !== undefined) {
         res.status(400);
         throw new Error(
-          "Images must be an array of objects with 'url' and 'publicId'."
+          "Images must be an array of objects with 'url' and 'publicId' (as a string)."
         );
       }
 
