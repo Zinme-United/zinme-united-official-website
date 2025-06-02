@@ -14,3 +14,6 @@ export { default as ConfirmationModal } from "./ConfirmationModal";
 export { default as PlayerProfileModal } from "./PlayerProfileModal";
 export { default as GalleryCreateModal } from "./GalleryCreateModal";
 export { default as GalleriesCard } from "./GalleriesCard";
+export { default as EventCalendar } from "./EventCalendar";
+export { default as ActivityFormModal } from "./ActivityFormModal";
+export { default as ActivityDetailsModal } from "./ActivityDetailsModal";
