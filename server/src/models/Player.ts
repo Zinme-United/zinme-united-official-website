@@ -23,7 +23,7 @@ const PlayerSocialSchema: Schema = new Schema(
 const PlayerSchema: Schema = new Schema(
   {
     name: { type: String, required: true },
-    number: { type: Number, required: true, unique: true },
+    number: { type: Number, required: true },
     position: { type: String, required: true },
     img: { type: String, required: true },
     bio: { type: String, required: true },

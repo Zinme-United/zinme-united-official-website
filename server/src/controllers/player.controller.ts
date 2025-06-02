@@ -56,10 +56,12 @@ export const createPlayer = asyncHandler(
       );
     }
 
-    const playerExists = await Player.findOne({ number });
+    const playerExists = await Player.findOne({ number, gender });
     if (playerExists) {
       res.status(400);
-      throw new Error(`Player with jersey number ${number} already exists.`);
+      throw new Error(
+        `Player with jersey number ${number} and ${gender} already exists.`
+      );
     }
 
     const player: IPlayer = new Player({
