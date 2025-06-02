@@ -1,26 +1,28 @@
+import { Award, Trophy, X, XCircle } from "lucide-react";
+import { useMemo, useState } from "react";
 import {
-  Award,
-  Calendar,
-  ChevronLeft,
-  ChevronRight,
-  Trophy,
-  X,
-  XCircle,
-} from "lucide-react";
-import { useState } from "react";
-import { events } from "../../constants";
-import { GalleriesCard } from "../../components";
+  ActivityDetailsModal,
+  EventCalendar,
+  GalleriesCard,
+} from "../../components";
 import useGalleries from "../../hooks/useGalleries";
-import type { Gallery } from "../../types";
+import type { Activity, Gallery } from "../../types";
 import ClipLoader from "react-spinners/ClipLoader";
+import useActivities from "../../hooks/useActivities";
 
 const Activities = () => {
   const { galleries, galleriesLoading, galleriesError } = useGalleries();
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [selectedGallery, setSelectedGallery] = useState<Gallery | null>(null);
+  const [selectedActivityForDetails, setSelectedActivityForDetails] =
+    useState<Activity | null>(null);
 
-  const getMonthName = (date: Date) =>
-    date.toLocaleString("default", { month: "long", year: "numeric" });
+  const { activities, activitiesLoading, activitiesError } = useActivities({
+    params: {
+      month: currentMonth.getMonth() + 1,
+      year: currentMonth.getFullYear(),
+    },
+  });
 
   const nextMonth = () => {
     setCurrentMonth((prev) => {
@@ -38,13 +40,14 @@ const Activities = () => {
     });
   };
 
-  const filteredEvents = events.filter((event) => {
-    const eventDate = new Date(event.date);
-    return (
-      eventDate.getMonth() === currentMonth.getMonth() &&
-      eventDate.getFullYear() === currentMonth.getFullYear()
-    );
-  });
+  const filteredActivitiesForDisplay = useMemo(() => {
+    if (!activities) return [];
+    return activities.sort((a, b) => {
+      const dateA = new Date(a.date).getTime();
+      const dateB = new Date(b.date).getTime();
+      return dateA - dateB;
+    });
+  }, [activities]);
 
   const handleGalleryClick = (gallery: Gallery) => {
     setSelectedGallery(gallery);
@@ -54,12 +57,20 @@ const Activities = () => {
     setSelectedGallery(null);
   };
 
-  if (galleriesLoading) {
+  const handleActivityClick = (activity: Activity) => {
+    setSelectedActivityForDetails(activity);
+  };
+
+  const handleCloseActivityDetailsModal = () => {
+    setSelectedActivityForDetails(null);
+  };
+
+  if (galleriesLoading || activitiesLoading) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
         <ClipLoader
           color="#003b75"
-          loading={galleriesLoading}
+          loading={galleriesLoading || activitiesLoading}
           size={50}
           aria-label="Loading Spinner"
           data-testid="loader"
@@ -71,12 +82,13 @@ const Activities = () => {
     );
   }
 
-  if (galleriesError) {
+  if (galleriesError || activitiesError) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-red-100 border border-red-400 text-red-700 p-6 rounded-lg shadow-md">
         <XCircle className="h-6 w-6 mr-2" />
         <p className="text-xl font-semibold">
-          Error loading galleries: {galleriesError.message}
+          Error loading data:{" "}
+          {galleriesError?.message || activitiesError?.message}
         </p>
       </div>
     );
@@ -89,58 +101,15 @@ const Activities = () => {
       </h1>
 
       {/* Interactive Event Calendar */}
-      <section className="my-12 bg-white rounded-xl shadow-lg p-6 md:p-8">
-        <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">
-          Event Calendar
-        </h2>
-        <div className="flex justify-between items-center mb-6">
-          <button
-            onClick={prevMonth}
-            className="p-2 rounded-full text-[#003b75] hover:bg-blue-200 transition-colors duration-200"
-          >
-            <ChevronLeft size={24} />
-          </button>
-          <h3 className="text-2xl font-semibold text-gray-700">
-            {getMonthName(currentMonth)}
-          </h3>
-          <button
-            onClick={nextMonth}
-            className="p-2 rounded-full text-[#003b75] hover:bg-blue-200 transition-colors duration-200"
-          >
-            <ChevronRight size={24} />
-          </button>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {filteredEvents.length > 0 ? (
-            filteredEvents.map((event) => (
-              <div
-                key={event.id}
-                className="bg-blue-50 p-4 rounded-lg border border-blue-200 shadow-sm"
-              >
-                <div className="flex items-center space-x-3 mb-2">
-                  <Calendar size={20} className="text-[#003b75]" />
-                  <span className="font-semibold text-[#003b75]">
-                    {event.date} at {event.time}
-                  </span>
-                </div>
-                <h4 className="text-xl font-bold text-gray-900 mb-1">
-                  {event.title}
-                </h4>
-                <p className="text-gray-700 text-sm mb-2">
-                  Location: {event.location}
-                </p>
-                <span className="inline-block bg-blue-200 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
-                  {event.category}
-                </span>
-              </div>
-            ))
-          ) : (
-            <p className="col-span-full text-center text-gray-600 text-lg">
-              No events scheduled for this month.
-            </p>
-          )}
-        </div>
-      </section>
+      <EventCalendar
+        activities={filteredActivitiesForDisplay}
+        currentMonth={currentMonth}
+        onNextMonth={nextMonth}
+        onPrevMonth={prevMonth}
+        isLoading={activitiesLoading}
+        error={activitiesError}
+        onActivityClick={handleActivityClick}
+      />
 
       {/* Photo & Video Galleries */}
       <GalleriesCard
@@ -245,6 +214,13 @@ const Activities = () => {
           </div>
         </div>
       </section>
+      {selectedActivityForDetails && (
+        <ActivityDetailsModal
+          isOpen={!!selectedActivityForDetails}
+          onClose={handleCloseActivityDetailsModal}
+          activity={selectedActivityForDetails}
+        />
+      )}
     </div>
   );
 };

@@ -17,6 +17,7 @@ import AdminLayout from "./layouts/AdminLayout";
 import AdminDashboard from "./pages/dashboard/AdminDashboard";
 import PlayerManagementPage from "./pages/player-management/PlayerManagementPage";
 import GalleryManagementPage from "./pages/gallery-management/GalleryManagementPage";
+import ActivityManagementPage from "./pages/activity-management/ActivityManagementPage";
 
 const PublicLayout = () => {
   return (
@@ -76,6 +77,10 @@ const router = createBrowserRouter([
           {
             path: "players",
             element: <PlayerManagementPage />,
+          },
+          {
+            path: "activities",
+            element: <ActivityManagementPage />,
           },
           {
             children: [

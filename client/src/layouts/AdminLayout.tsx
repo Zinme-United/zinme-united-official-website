@@ -36,6 +36,14 @@ const AdminLayout: React.FC = () => {
             </li>
             <li>
               <Link
+                to="/admin/activities"
+                className="block text-xl font-medium py-2 px-4 rounded-md hover:bg-blue-700 transition-colors"
+              >
+                <p className="text-white">Activities Management</p>
+              </Link>
+            </li>
+            <li>
+              <Link
                 to="/admin/galleries"
                 className="block text-xl font-medium py-2 px-4 rounded-md hover:bg-blue-700 transition-colors"
               >

@@ -2,12 +2,14 @@ import React from "react";
 import usePlayers from "../../hooks/usePlayers";
 import useAuth from "../../hooks/useAuth";
 import ClipLoader from "react-spinners/ClipLoader";
+import useActivities from "../../hooks/useActivities";
 
 const AdminDashboard: React.FC = () => {
   const { players, playersError, playersLoading } = usePlayers();
   const { allUsersError, allUsersLoading, totalUsersCount } = useAuth();
+  const { activities, activitiesLoading, activitiesError } = useActivities();
 
-  if (playersLoading || allUsersLoading) {
+  if (playersLoading || allUsersLoading || activitiesLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-100">
         <ClipLoader
@@ -21,7 +23,7 @@ const AdminDashboard: React.FC = () => {
     );
   }
 
-  if (playersError || allUsersError) {
+  if (playersError || allUsersError || activitiesError) {
     return (
       <div className="p-4 text-center text-red-600">
         <p className="text-xl font-semibold mb-2">Error Loading Dashboard</p>
@@ -47,16 +49,18 @@ const AdminDashboard: React.FC = () => {
       </p>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
         <div className="bg-blue-50 p-4 rounded-lg shadow-sm">
-          <h3 className="font-bold text-lg text-blue-800">Total Players</h3>
-          <p className="text-3xl text-blue-600">{players?.length}</p>
+          <h3 className="font-bold text-lg text-[#003b75]">Total Players</h3>
+          <p className="text-3xl text-[#003b75]">{players?.length}</p>
         </div>
         <div className="bg-green-50 p-4 rounded-lg shadow-sm">
           <h3 className="font-bold text-lg text-green-800">Total Users</h3>
           <p className="text-3xl text-green-600">{totalUsersCount}</p>
         </div>
         <div className="bg-yellow-50 p-4 rounded-lg shadow-sm">
-          <h3 className="font-bold text-lg text-yellow-800">New Activities</h3>
-          <p className="text-3xl text-yellow-600">15</p>
+          <h3 className="font-bold text-lg text-yellow-800">
+            Total Activities
+          </h3>
+          <p className="text-3xl text-yellow-600">{activities?.length}</p>
         </div>
       </div>
     </div>
