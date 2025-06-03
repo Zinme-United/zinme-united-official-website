@@ -1,3 +1,4 @@
+// client/src/pages/admin/ActivityManagementPage.tsx
 import React, { useState, useMemo } from "react";
 import {
   Plus,
@@ -7,10 +8,12 @@ import {
   Loader2,
   ChevronLeft,
   ChevronRight,
+  Eye, // Import Eye icon for view details
 } from "lucide-react";
 import useActivities from "../../hooks/useActivities";
 import type { Activity } from "../../types";
 import { ActivityFormModal, ConfirmationModal } from "../../components";
+import ActivityDetailsModal from "../../components/ActivityDetailsModal";
 import { toast } from "react-toastify";
 import ClipLoader from "react-spinners/ClipLoader";
 import type { ActivityFormInputs } from "../../schemas/activitySchemas";
@@ -41,8 +44,13 @@ const ActivityManagementPage: React.FC = () => {
   const [typeFilter, setTypeFilter] = useState<string>("All");
   const [currentPage, setCurrentPage] = useState(1);
 
+  // State for details modal
+  const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
+  const [selectedActivityForDetails, setSelectedActivityForDetails] =
+    useState<Activity | null>(null);
+
   const handleAddActivity = () => {
-    setEditingActivity(null);
+    setEditingActivity(null); // This correctly sets editingActivity to null for a new entry
     setIsModalOpen(true);
   };
 
@@ -53,20 +61,36 @@ const ActivityManagementPage: React.FC = () => {
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
-    setEditingActivity(null);
+    setEditingActivity(null); // This ensures editingActivity is cleared when the modal closes
+  };
+
+  // Handle opening details modal
+  const handleViewDetails = (activity: Activity) => {
+    setSelectedActivityForDetails(activity);
+    setIsDetailsModalOpen(true);
+  };
+
+  // Handle closing details modal
+  const handleCloseDetailsModal = () => {
+    setIsDetailsModalOpen(false);
+    setSelectedActivityForDetails(null);
   };
 
   const handleSubmitActivity = async (
-    data: ActivityFormInputs
+    data: ActivityFormInputs,
+    homeLogoFile?: File | null,
+    opponentLogoFile?: File | null
   ): Promise<void> => {
     try {
       if (editingActivity && editingActivity._id) {
         await updateActivity({
           id: editingActivity._id,
-          activityData: data,
+          activityData: data as Partial<ActivityFormInputs>,
+          homeLogoFile,
+          opponentLogoFile,
         });
       } else {
-        await createActivity(data);
+        await createActivity({ data, homeLogoFile, opponentLogoFile });
       }
       handleCloseModal();
     } catch (error) {
@@ -288,6 +312,13 @@ const ActivityManagementPage: React.FC = () => {
                       <td className="py-4 px-6 whitespace-nowrap text-right text-sm font-medium">
                         <div className="flex justify-center items-center space-x-2">
                           <button
+                            onClick={() => handleViewDetails(activity)}
+                            className="text-gray-600 hover:text-gray-900 cursor-pointer bg-gray-100 p-2 rounded-full"
+                            title="View Details"
+                          >
+                            <Eye size={18} />
+                          </button>
+                          <button
                             onClick={() => handleEditActivity(activity)}
                             className="text-[#003b75] hover:text-[#003b75] cursor-pointer bg-blue-100 p-2 rounded-full"
                             title="Edit Activity"
@@ -348,11 +379,18 @@ const ActivityManagementPage: React.FC = () => {
       )}
 
       <ActivityFormModal
+        key={editingActivity ? editingActivity._id : "new-activity"} // Added key prop to force re-mount
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         editingActivity={editingActivity}
         onSubmit={handleSubmitActivity}
         isSubmitting={isSubmitting}
+      />
+
+      <ActivityDetailsModal
+        isOpen={isDetailsModalOpen}
+        onClose={handleCloseDetailsModal}
+        activity={selectedActivityForDetails}
       />
 
       <ConfirmationModal

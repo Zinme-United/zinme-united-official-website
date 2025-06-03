@@ -55,7 +55,7 @@ const EventCalendar: React.FC<EventCalendarProps> = ({
 
   return (
     <section className="my-12 bg-white rounded-xl shadow-lg p-6 md:p-8">
-      <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">
+      <h2 className="text-3xl font-bold text-[#003b75] mb-6 text-center">
         Event Calendar
       </h2>
       <div className="flex justify-between items-center mb-6">
@@ -66,7 +66,7 @@ const EventCalendar: React.FC<EventCalendarProps> = ({
         >
           <ChevronLeft size={24} />
         </button>
-        <h3 className="text-2xl font-semibold text-gray-700">
+        <h3 className="text-2xl font-semibold text-[#003b75]">
           {getMonthName(currentMonth)}
         </h3>
         <button
@@ -92,15 +92,15 @@ const EventCalendar: React.FC<EventCalendarProps> = ({
                   {activity.time || "N/A"}
                 </span>
               </div>
-              <h4 className="text-xl font-bold text-gray-900 mb-1">
+              <h4 className="text-xl font-bold text-[#003b75] mb-1">
                 {activity.title}
               </h4>
-              <p className="text-gray-700 text-sm mb-2">
+              <p className="text-[#003b75] text-sm mb-2">
                 Location: {activity.location}
                 {activity.opponent && ` vs. ${activity.opponent}`}
               </p>
               {activity.result && (
-                <p className="text-gray-700 text-sm mb-2">
+                <p className="text-[#003b75] text-sm mb-2">
                   Result: {activity.result}
                 </p>
               )}
