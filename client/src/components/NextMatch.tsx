@@ -142,40 +142,39 @@ const NextMatchBanner: React.FC<NextMatchBannerProps> = ({
       </div>
 
       {/* Countdown Timer */}
-      <div className="bg-blue-800 p-6 rounded-lg shadow-inner inline-block">
-        <div className="flex space-x-4 md:space-x-8">
+      <div className="bg-blue-800 p-4 md:p-6 rounded-lg shadow-inner inline-block w-full max-w-lg">
+        <div className="grid grid-cols-4 gap-2 sm:gap-4 md:gap-8 justify-items-center">
           <div className="flex flex-col items-center">
-            <span className="text-4xl md:text-5xl font-extrabold text-yellow-300">
+            <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-yellow-300">
               {countdown.days.toString().padStart(2, "0")}
             </span>
-            <span className="text-sm md:text-base font-medium">DAYS</span>
-          </div>
-          <div className="text-4xl md:text-5xl font-extrabold text-yellow-300">
-            :
+            <span className="text-xs sm:text-sm md:text-base font-medium">
+              DAYS
+            </span>
           </div>
           <div className="flex flex-col items-center">
-            <span className="text-4xl md:text-5xl font-extrabold text-yellow-300">
+            <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-yellow-300">
               {countdown.hours.toString().padStart(2, "0")}
             </span>
-            <span className="text-sm md:text-base font-medium">HOURS</span>
-          </div>
-          <div className="text-4xl md:text-5xl font-extrabold text-yellow-300">
-            :
+            <span className="text-xs sm:text-sm md:text-base font-medium">
+              HOURS
+            </span>
           </div>
           <div className="flex flex-col items-center">
-            <span className="text-4xl md:text-5xl font-extrabold text-yellow-300">
+            <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-yellow-300">
               {countdown.minutes.toString().padStart(2, "0")}
             </span>
-            <span className="text-sm md:text-base font-medium">MINUTES</span>
-          </div>
-          <div className="text-4xl md:text-5xl font-extrabold text-yellow-300">
-            :
+            <span className="text-xs sm:text-sm md:text-base font-medium">
+              MINUTES
+            </span>
           </div>
           <div className="flex flex-col items-center">
-            <span className="text-4xl md:text-5xl font-extrabold text-yellow-300">
+            <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-yellow-300">
               {countdown.seconds.toString().padStart(2, "0")}
             </span>
-            <span className="text-sm md:text-base font-medium">SECONDS</span>
+            <span className="text-xs sm:text-sm md:text-base font-medium">
+              SECONDS
+            </span>
           </div>
         </div>
       </div>
