@@ -13,6 +13,10 @@ export interface IActivity extends Document {
   result?: string;
   isNextMatch?: boolean;
   isFeaturedEvent?: boolean;
+  homeTeamLogoUrl?: string;
+  homeTeamLogoPublicId?: string;
+  opponentTeamLogoUrl?: string;
+  opponentTeamLogoPublicId?: string;
 }
 
 const ActivitySchema: Schema = new Schema(
@@ -31,9 +35,29 @@ const ActivitySchema: Schema = new Schema(
     result: { type: String },
     isNextMatch: { type: Boolean, default: false },
     isFeaturedEvent: { type: Boolean, default: false },
+    homeTeamLogoUrl: { type: String },
+    homeTeamLogoPublicId: { type: String },
+    opponentTeamLogoUrl: { type: String },
+    opponentTeamLogoPublicId: { type: String },
   },
   { timestamps: true }
 );
+
+ActivitySchema.index({ isNextMatch: 1 });
+
+ActivitySchema.pre("save", async function (next) {
+  if (
+    this.isModified("isNextMatch") &&
+    this.isNextMatch === true &&
+    this.type === "match"
+  ) {
+    await (this.constructor as typeof Activity).updateMany(
+      { _id: { $ne: this._id }, type: "match", isNextMatch: true },
+      { $set: { isNextMatch: false } }
+    );
+  }
+  next();
+});
 
 const Activity = mongoose.model<IActivity>("Activity", ActivitySchema);
 export default Activity;

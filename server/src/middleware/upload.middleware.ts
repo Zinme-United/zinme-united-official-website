@@ -29,6 +29,17 @@ const upload = multer({
 // Middleware for single image upload
 export const uploadSingle = upload.single("image");
 
+export const uploadActivityLogos = multer({
+  storage: storage,
+  fileFilter: fileFilter,
+  limits: {
+    fileSize: 1024 * 1024 * 5, // Limit file size to 5MB per file
+  },
+}).fields([
+  { name: "homeTeamLogoFile", maxCount: 1 },
+  { name: "opponentTeamLogoFile", maxCount: 1 },
+]);
+
 // Error handling middleware for multer
 export const handleUploadError = (
   error: any,
