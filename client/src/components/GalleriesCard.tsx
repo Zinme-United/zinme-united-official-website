@@ -9,7 +9,7 @@ interface GalleriesCardProps {
 const GalleriesCard = ({ galleries, onGalleryClick }: GalleriesCardProps) => {
   return (
     <section className="my-12 bg-white rounded-xl shadow-lg p-6 md:p-8">
-      <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">
+      <h2 className="text-3xl font-bold text-[#003b75] mb-6 text-center">
         Galleries
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -17,19 +17,21 @@ const GalleriesCard = ({ galleries, onGalleryClick }: GalleriesCardProps) => {
           galleries.map((gallery) => (
             <div
               key={gallery._id}
-              className="bg-gray-50 rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+              className="bg-gray-50 rounded-lg shadow-md h-full overflow-hidden hover:shadow-xl transition-shadow duration-300 cursor-pointer flex flex-col"
               onClick={() => onGalleryClick(gallery)}
             >
-              <img
-                src={
-                  gallery.thumbnailUrl ||
-                  (gallery.images.length > 0
-                    ? gallery.images[0].url
-                    : "/zinme.jpg")
-                }
-                alt={gallery.title}
-                className="w-full h-48 object-cover rounded-t-lg"
-              />
+              <div className="flex-1">
+                <img
+                  src={
+                    gallery.thumbnailUrl ||
+                    (gallery.images.length > 0
+                      ? gallery.images[0].url
+                      : "/zinme.jpg")
+                  }
+                  alt={gallery.title}
+                  className="w-full h-full object-cover rounded-t-lg"
+                />
+              </div>
               <div className="p-4 flex items-center justify-between">
                 <h3 className="text-lg font-semibold text-gray-800">
                   {gallery.title}

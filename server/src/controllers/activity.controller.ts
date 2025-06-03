@@ -2,6 +2,37 @@ import { Request, Response, NextFunction } from "express";
 import asyncHandler from "express-async-handler";
 import { ActivityType, IActivity } from "../types";
 import Activity from "../models/Activity";
+import { deleteImage, uploadImage } from "../utils/uploadImage";
+
+export const uploadTeamLogo = asyncHandler(
+  async (req: Request, res: Response) => {
+    if (!req.file) {
+      res.status(400);
+      throw new Error("No image file provided.");
+    }
+
+    try {
+      const result = await uploadImage(req.file, {
+        folder: "teamLogos",
+        width: 400,
+        height: 400,
+        crop: "fill",
+      });
+
+      res.status(200).json({
+        status: true,
+        message: "Image uploaded successfully!",
+        data: {
+          imageUrl: result.secure_url,
+          publicId: result.public_id,
+        },
+      });
+    } catch (error) {
+      res.status(500);
+      throw new Error("Failed to upload image to Cloudinary.");
+    }
+  }
+);
 
 export const createActivity = asyncHandler(
   async (req: Request, res: Response) => {
@@ -16,6 +47,10 @@ export const createActivity = asyncHandler(
       result,
       isNextMatch,
       isFeaturedEvent,
+      homeTeamLogoUrl,
+      homeTeamLogoPublicId,
+      opponentTeamLogoUrl,
+      opponentTeamLogoPublicId,
     } = req.body;
 
     if (!title || !type || !date || !location) {
@@ -45,6 +80,10 @@ export const createActivity = asyncHandler(
       result,
       isNextMatch,
       isFeaturedEvent,
+      homeTeamLogoUrl,
+      homeTeamLogoPublicId,
+      opponentTeamLogoUrl,
+      opponentTeamLogoPublicId,
     });
 
     const createdActivity = await activity.save();
@@ -130,11 +169,40 @@ export const updateActivity = asyncHandler(
       result,
       isNextMatch,
       isFeaturedEvent,
+      homeTeamLogoUrl,
+      homeTeamLogoPublicId,
+      opponentTeamLogoUrl,
+      opponentTeamLogoPublicId,
     } = req.body;
 
     const activity = await Activity.findById(req.params.id);
 
     if (activity) {
+      if (homeTeamLogoUrl !== undefined && homeTeamLogoPublicId !== undefined) {
+        if (
+          activity.homeTeamLogoPublicId &&
+          activity.homeTeamLogoPublicId !== homeTeamLogoPublicId
+        ) {
+          await deleteImage(activity.homeTeamLogoPublicId);
+        }
+        activity.homeTeamLogoUrl = homeTeamLogoUrl;
+        activity.homeTeamLogoPublicId = homeTeamLogoPublicId;
+      }
+
+      if (
+        opponentTeamLogoUrl !== undefined &&
+        opponentTeamLogoPublicId !== undefined
+      ) {
+        if (
+          activity.opponentTeamLogoPublicId &&
+          activity.opponentTeamLogoPublicId !== opponentTeamLogoPublicId
+        ) {
+          await deleteImage(activity.opponentTeamLogoPublicId);
+        }
+        activity.opponentTeamLogoUrl = opponentTeamLogoUrl;
+        activity.opponentTeamLogoPublicId = opponentTeamLogoPublicId;
+      }
+
       activity.title = title || activity.title;
       activity.description = description ?? activity.description;
       activity.type = type || activity.type;
@@ -164,6 +232,13 @@ export const deleteActivity = asyncHandler(
     const activity = await Activity.findById(req.params.id);
 
     if (activity) {
+      if (activity.homeTeamLogoPublicId) {
+        await deleteImage(activity.homeTeamLogoPublicId);
+      }
+      if (activity.opponentTeamLogoPublicId) {
+        await deleteImage(activity.opponentTeamLogoPublicId);
+      }
+
       await Activity.deleteOne({ _id: req.params.id });
       res.status(200).json({
         status: true,

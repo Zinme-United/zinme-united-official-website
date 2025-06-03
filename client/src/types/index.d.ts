@@ -92,6 +92,10 @@ export interface Activity {
   result?: string;
   isNextMatch?: boolean;
   isFeaturedEvent?: boolean;
+  homeTeamLogoUrl?: string;
+  homeTeamLogoPublicId?: string;
+  opponentTeamLogoUrl?: string;
+  opponentTeamLogoPublicId?: string;
   createdAt: string;
   updatedAt: string;
 }

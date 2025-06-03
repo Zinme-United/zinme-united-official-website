@@ -1,40 +1,186 @@
-import Button from "./Button";
+import React, { useState, useEffect } from "react";
+import { Calendar, MapPin } from "lucide-react";
+import type { Activity } from "../types";
+import ClipLoader from "react-spinners/ClipLoader";
 
-const NextMatch = () => {
+interface NextMatchBannerProps {
+  nextMatch: Activity | undefined;
+  isLoading: boolean;
+  error: Error | null;
+}
+
+const NextMatchBanner: React.FC<NextMatchBannerProps> = ({
+  nextMatch,
+  isLoading,
+  error,
+}) => {
+  const [countdown, setCountdown] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
+
+  useEffect(() => {
+    if (!nextMatch || !nextMatch.date || !nextMatch.time) return;
+
+    const targetDateTime = new Date(
+      `${nextMatch.date.split("T")[0]}T${nextMatch.time}`
+    ).getTime();
+
+    const interval = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = targetDateTime - now;
+
+      if (distance < 0) {
+        clearInterval(interval);
+        setCountdown({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor(
+        (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      setCountdown({ days, hours, minutes, seconds });
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [nextMatch]);
+
+  if (isLoading) {
+    return (
+      <div className="bg-[#003b75] text-white p-8 rounded-xl shadow-lg flex flex-col items-center justify-center min-h-[200px]">
+        <ClipLoader color="#fff" loading={isLoading} size={40} />
+        <p className="mt-4 text-lg">Loading next match...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="bg-red-600 text-white p-8 rounded-xl shadow-lg text-center">
+        <p className="text-xl font-bold">Error loading next match:</p>
+        <p className="text-sm">{error.message}</p>
+      </div>
+    );
+  }
+
+  if (!nextMatch) {
+    return (
+      <div className="bg-gray-700 text-white p-8 rounded-xl shadow-lg text-center">
+        <p className="text-xl font-bold">No upcoming match scheduled.</p>
+        <p className="text-sm mt-2">Check back later for updates!</p>
+      </div>
+    );
+  }
+
+  const matchDate = new Date(nextMatch.date);
+  const formattedDate = matchDate
+    .toLocaleDateString("en-US", {
+      weekday: "short",
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    })
+    .toUpperCase(); // E.g., "SAT, JUN 15, 2025"
+
+  // Placeholder for your team's logo if not provided
+  const defaultHomeLogo = "/zinme.jpg";
+  // Placeholder for opponent's logo if not provided
+  const defaultOpponentLogo = nextMatch.opponent
+    ? `https://placehold.co/80x80/FFFFFF/003b75?text=${nextMatch.opponent
+        .split(" ")[0]
+        .toUpperCase()}`
+    : "https://placehold.co/80x80/FFFFFF/003b75?text=OP";
+
   return (
-    <section className="my-12 bg-[#003b75] text-white p-8 rounded-xl shadow-lg text-center">
-      <h2 className="text-3xl md:text-4xl font-bold mb-4">Next Match</h2>
-      <div className="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-8">
-        <div className="flex items-center space-x-4">
-          <img
-            src="/zinme.jpg"
-            alt="Our Team Logo"
-            className="w-20 h-20 rounded-full border-4 border-white shadow-md"
-          />
-          <span className="text-3xl font-bold">VS</span>
-          <img
-            src="/manu.jpeg"
-            alt="Opponent Logo"
-            className="w-20 h-20 rounded-full border-4 border-white shadow-md"
-          />
-        </div>
-        <div className="text-2xl md:text-3xl font-semibold">
-          <p>Zinme United Vs. Rival FC</p>
-          <p>May 28, 2025 | 7:00 PM GMT+7</p>
-          <p>Old Trafford</p>
-        </div>
-        <div className="text-5xl md:text-6xl font-extrabold bg-white text-[#003b75] px-6 py-3 rounded-xl shadow-inner">
-          03:12:45:30
-          <p className="text-sm font-normal mt-1 text-[#003b75]">
-            Days:Hrs:Mins:Secs
-          </p>
+    <section className="bg-[#003b75] text-white py-8 px-6 rounded-xl shadow-2xl text-center w-full my-12">
+      <h2 className="text-4xl md:text-5xl font-extrabold mb-4 drop-shadow-lg">
+        NEXT MATCH
+      </h2>
+
+      <div className="flex items-center justify-center space-x-4 mb-6">
+        <Calendar size={28} className="text-blue-200" />
+        <p className="text-2xl md:text-3xl font-bold">
+          {formattedDate} | {nextMatch.time}
+        </p>
+      </div>
+
+      <div className="flex items-center justify-center space-x-6 mb-8">
+        <img
+          src={nextMatch.homeTeamLogoUrl}
+          alt="Home Team Logo"
+          className="w-20 h-20 rounded-full object-cover border-4 border-blue-400 shadow-md"
+          onError={(e) => {
+            e.currentTarget.src = defaultHomeLogo;
+          }}
+        />
+        <span className="text-4xl md:text-5xl font-extrabold text-blue-200">
+          VS.
+        </span>
+        <img
+          src={nextMatch.opponentTeamLogoUrl}
+          alt={`${nextMatch.opponent || "Opponent"} Logo`}
+          className="w-20 h-20 rounded-full object-cover border-4 border-blue-400 shadow-md"
+          onError={(e) => {
+            e.currentTarget.src = defaultOpponentLogo;
+          }}
+        />
+      </div>
+
+      <p className="text-3xl md:text-4xl font-bold mb-6">
+        Zinme United VS. {nextMatch.opponent?.toUpperCase() || "OPPONENT TBD"}
+      </p>
+
+      <div className="flex items-center justify-center space-x-4 mb-8">
+        <MapPin size={24} className="text-blue-200" />
+        <p className="text-xl md:text-2xl font-medium">{nextMatch.location}</p>
+      </div>
+
+      {/* Countdown Timer */}
+      <div className="bg-blue-800 p-6 rounded-lg shadow-inner inline-block">
+        <div className="flex space-x-4 md:space-x-8">
+          <div className="flex flex-col items-center">
+            <span className="text-4xl md:text-5xl font-extrabold text-yellow-300">
+              {countdown.days.toString().padStart(2, "0")}
+            </span>
+            <span className="text-sm md:text-base font-medium">DAYS</span>
+          </div>
+          <div className="text-4xl md:text-5xl font-extrabold text-yellow-300">
+            :
+          </div>
+          <div className="flex flex-col items-center">
+            <span className="text-4xl md:text-5xl font-extrabold text-yellow-300">
+              {countdown.hours.toString().padStart(2, "0")}
+            </span>
+            <span className="text-sm md:text-base font-medium">HOURS</span>
+          </div>
+          <div className="text-4xl md:text-5xl font-extrabold text-yellow-300">
+            :
+          </div>
+          <div className="flex flex-col items-center">
+            <span className="text-4xl md:text-5xl font-extrabold text-yellow-300">
+              {countdown.minutes.toString().padStart(2, "0")}
+            </span>
+            <span className="text-sm md:text-base font-medium">MINUTES</span>
+          </div>
+          <div className="text-4xl md:text-5xl font-extrabold text-yellow-300">
+            :
+          </div>
+          <div className="flex flex-col items-center">
+            <span className="text-4xl md:text-5xl font-extrabold text-yellow-300">
+              {countdown.seconds.toString().padStart(2, "0")}
+            </span>
+            <span className="text-sm md:text-base font-medium">SECONDS</span>
+          </div>
         </div>
       </div>
-      <Button className="mt-8 font-bold py-3 px-8 rounded-full text-lg bg-white text-[#003b75] shadow-lg">
-        Buy Tickets
-      </Button>
     </section>
   );
 };
 
-export default NextMatch;
+export default NextMatchBanner;

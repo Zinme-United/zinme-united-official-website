@@ -27,7 +27,7 @@ const ActivityDetailsModal: React.FC<ActivityDetailsModalProps> = ({
             <X size={24} />
           </button>
 
-          <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">
+          <h2 className="text-3xl font-bold text-[#003b75] mb-6 text-center">
             Activity Details
           </h2>
 
@@ -111,10 +111,10 @@ const ActivityDetailsModal: React.FC<ActivityDetailsModalProps> = ({
             </div>
 
             <div className="pt-4 border-t border-gray-200 mt-4">
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-[#003b75]">
                 Created: {new Date(activity.createdAt).toLocaleString()}
               </p>
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-[#003b75]">
                 Last Updated: {new Date(activity.updatedAt).toLocaleString()}
               </p>
             </div>

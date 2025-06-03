@@ -96,7 +96,7 @@ const Activities = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 font-inter p-6 md:p-10">
-      <h1 className="text-5xl font-extrabold text-gray-900 mb-10 text-center">
+      <h1 className="text-5xl font-extrabold text-[#003b75] mb-10 text-center">
         Club Activities
       </h1>
 
@@ -127,16 +127,16 @@ const Activities = () => {
               >
                 <X size={24} />
               </button>
-              <h2 className="text-3xl font-bold text-gray-900 mb-4 text-center">
+              <h2 className="text-3xl font-bold text-[#003b75] mb-4 text-center">
                 {selectedGallery.title}
               </h2>
               {selectedGallery.description && (
-                <p className="text-gray-700 text-center mb-4">
+                <p className="text-[#003b75] text-center mb-4">
                   {selectedGallery.description}
                 </p>
               )}
               {selectedGallery.eventDate && (
-                <p className="text-gray-600 text-center text-sm mb-6">
+                <p className="text-[#003b75] text-center text-sm mb-6">
                   Event Date:{" "}
                   {new Date(selectedGallery.eventDate).toLocaleDateString()}
                 </p>
@@ -155,7 +155,7 @@ const Activities = () => {
                   ))}
                 </div>
               ) : (
-                <p className="text-center text-gray-600 text-lg">
+                <p className="text-center text-[#003b75] text-lg">
                   No images in this gallery.
                 </p>
               )}
