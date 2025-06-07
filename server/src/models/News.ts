@@ -5,6 +5,7 @@ export interface INews extends Document {
   content: string;
   author: string;
   imageUrl?: string;
+  imagePublicId?: string;
   publishedAt: Date;
   tags?: string[];
   isFeatured: boolean;
@@ -16,6 +17,7 @@ const NewsSchema: Schema = new Schema(
     content: { type: String, required: true },
     author: { type: String, required: true },
     imageUrl: { type: String },
+    imagePublicId: { type: String },
     publishedAt: { type: Date, default: Date.now },
     tags: [{ type: String }],
     isFeatured: { type: Boolean, default: false },
