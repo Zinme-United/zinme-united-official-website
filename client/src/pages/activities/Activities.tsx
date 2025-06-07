@@ -1,5 +1,5 @@
 import { Award, Trophy, X, XCircle } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import {
   ActivityDetailsModal,
   EventCalendar,
@@ -24,21 +24,21 @@ const Activities = () => {
     },
   });
 
-  const nextMonth = () => {
+  const nextMonth = useCallback(() => {
     setCurrentMonth((prev) => {
       const newMonth = new Date(prev);
       newMonth.setMonth(newMonth.getMonth() + 1);
       return newMonth;
     });
-  };
+  }, []);
 
-  const prevMonth = () => {
+  const prevMonth = useCallback(() => {
     setCurrentMonth((prev) => {
       const newMonth = new Date(prev);
       newMonth.setMonth(newMonth.getMonth() - 1);
       return newMonth;
     });
-  };
+  }, []);
 
   const filteredActivitiesForDisplay = useMemo(() => {
     if (!activities) return [];
@@ -49,21 +49,21 @@ const Activities = () => {
     });
   }, [activities]);
 
-  const handleGalleryClick = (gallery: Gallery) => {
+  const handleGalleryClick = useCallback((gallery: Gallery) => {
     setSelectedGallery(gallery);
-  };
+  }, []);
 
-  const handleCloseGalleryModal = () => {
+  const handleCloseGalleryModal = useCallback(() => {
     setSelectedGallery(null);
-  };
+  }, []);
 
-  const handleActivityClick = (activity: Activity) => {
+  const handleActivityClick = useCallback((activity: Activity) => {
     setSelectedActivityForDetails(activity);
-  };
+  }, []);
 
-  const handleCloseActivityDetailsModal = () => {
+  const handleCloseActivityDetailsModal = useCallback(() => {
     setSelectedActivityForDetails(null);
-  };
+  }, []);
 
   if (galleriesLoading || activitiesLoading) {
     return (
