@@ -17,3 +17,4 @@ export { default as GalleriesCard } from "./GalleriesCard";
 export { default as EventCalendar } from "./EventCalendar";
 export { default as ActivityFormModal } from "./ActivityFormModal";
 export { default as ActivityDetailsModal } from "./ActivityDetailsModal";
+export { default as NewsCreateModal } from "./NewsCreateModal";
