@@ -50,6 +50,14 @@ const AdminLayout: React.FC = () => {
                 <p className="text-white">Gallery Management</p>
               </Link>
             </li>
+            <li>
+              <Link
+                to="/admin/news"
+                className="block text-xl font-medium py-2 px-4 rounded-md hover:bg-blue-700 transition-colors"
+              >
+                <p className="text-white">News Management</p>
+              </Link>
+            </li>
           </ul>
         </nav>
         <Button

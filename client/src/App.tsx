@@ -18,6 +18,8 @@ import AdminDashboard from "./pages/dashboard/AdminDashboard";
 import PlayerManagementPage from "./pages/player-management/PlayerManagementPage";
 import GalleryManagementPage from "./pages/gallery-management/GalleryManagementPage";
 import ActivityManagementPage from "./pages/activity-management/ActivityManagementPage";
+import NewsManagementPage from "./pages/news-management/NewsManagementPage";
+import NewsDetails from "./pages/news-details/NewsDetails";
 
 const PublicLayout = () => {
   return (
@@ -47,6 +49,10 @@ const router = createBrowserRouter([
       {
         path: "players",
         element: <Players />,
+      },
+      {
+        path: "news/:id",
+        element: <NewsDetails />,
       },
       // Add other public routes here
     ],
@@ -87,6 +93,10 @@ const router = createBrowserRouter([
               {
                 path: "galleries",
                 element: <GalleryManagementPage />,
+              },
+              {
+                path: "news",
+                element: <NewsManagementPage />,
               },
             ],
           },

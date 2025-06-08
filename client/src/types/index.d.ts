@@ -113,6 +113,37 @@ export interface ActivityFormData {
   isFeaturedEvent?: boolean;
 }
 
+export interface News {
+  _id: string;
+  title: string;
+  content: string;
+  author: string;
+  imageUrl?: string;
+  imagePublicId?: string;
+  publishedAt: string;
+  tags?: string[];
+  isFeatured: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+export type NewsCreateUpdatePayload = Omit<
+  INews,
+  "_id" | "createdAt" | "updatedAt"
+>;
+
+export interface NewsFormData {
+  title: string;
+  content: string;
+  author: string;
+  imageUrl?: string;
+  imagePublicId?: string;
+  publishedAt: string;
+  tags?: string[];
+  isFeatured?: boolean;
+}
+
+export type NewsCreateUpdatePayload = NewsFormData;
+
 export interface AuthUser {
   _id: string;
   username: string;
