@@ -1,9 +1,4 @@
-import {
-  FeaturedContentAndHighlights,
-  HeroSection,
-  LatestNewsAndUpdates,
-  NextMatch,
-} from "../../components";
+import { HeroSection, LatestNewsAndUpdates, NextMatch } from "../../components";
 import useActivities from "../../hooks/useActivities";
 import useNews from "../../hooks/useNews";
 
@@ -17,7 +12,7 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-gray-100 font-inter">
       {/* Hero Section */}
-      <HeroSection />
+      <HeroSection nextMatch={nextMatch || null} />
 
       <div className="container mx-auto p-6 md:p-10">
         <LatestNewsAndUpdates
@@ -32,7 +27,7 @@ const Home = () => {
           error={nextMatchError}
         />
 
-        <FeaturedContentAndHighlights />
+        {/* <FeaturedContentAndHighlights /> */}
       </div>
     </div>
   );

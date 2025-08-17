@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { routeLinks } from "../constants";
-import { LogIn, LogOut, Menu, X, type LucideIcon } from "lucide-react";
+import { Menu, X, type LucideIcon } from "lucide-react";
 import { Link } from "react-router";
 import useAuth from "../hooks/useAuth";
 
@@ -12,7 +12,7 @@ export interface RouteLink {
 }
 
 const Navbar = () => {
-  const { isLoggedIn, user, logout } = useAuth();
+  const { isLoggedIn, user } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -58,25 +58,6 @@ const Navbar = () => {
                 <p className="text-white">Admin Panel</p>
               </Link>
             )}
-
-            {/* Login/Logout Button (Desktop) */}
-            {isLoggedIn ? (
-              <button
-                onClick={logout}
-                className="py-2 px-3 bg-red-600 text-white cursor-pointer rounded-md hover:bg-red-700 transition-colors duration-200 flex items-center"
-              >
-                <LogOut size={18} className="mr-1" />
-                Logout
-              </button>
-            ) : (
-              <Link
-                to="/login"
-                className="py-2 px-3 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors duration-200 flex items-center"
-              >
-                <LogIn size={18} className="mr-1" />
-                Login
-              </Link>
-            )}
           </div>
 
           {/* Mobile menu button */}
@@ -117,29 +98,6 @@ const Navbar = () => {
             onClick={() => setIsOpen(false)}
           >
             Admin Panel
-          </Link>
-        )}
-
-        {/* Login/Logout Button (Mobile) */}
-        {isLoggedIn ? (
-          <button
-            onClick={() => {
-              logout();
-              setIsOpen(false);
-            }}
-            className="block w-full text-left py-3 px-4 cursor-pointer bg-red-600 text-white hover:bg-red-700 transition-colors duration-200 flex items-center"
-          >
-            <LogOut size={18} className="mr-2" />
-            Logout
-          </button>
-        ) : (
-          <Link
-            to="/login"
-            className="block w-full text-left py-3 px-4 bg-green-600 text-white hover:bg-green-700 transition-colors duration-200 flex items-center"
-            onClick={() => setIsOpen(false)}
-          >
-            <LogIn size={18} className="mr-2" />
-            Login
           </Link>
         )}
       </div>

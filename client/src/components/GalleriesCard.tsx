@@ -1,12 +1,12 @@
-import { Image } from "lucide-react";
+import { Image, Calendar } from "lucide-react";
+import { Link } from "react-router";
 import type { Gallery } from "../types";
 
 interface GalleriesCardProps {
   galleries: Gallery[];
-  onGalleryClick: (gallery: Gallery) => void;
 }
 
-const GalleriesCard = ({ galleries, onGalleryClick }: GalleriesCardProps) => {
+const GalleriesCard = ({ galleries }: GalleriesCardProps) => {
   return (
     <section className="my-12 bg-white rounded-xl shadow-lg p-6 md:p-8">
       <h2 className="text-3xl font-bold text-[#003b75] mb-6 text-center">
@@ -15,12 +15,13 @@ const GalleriesCard = ({ galleries, onGalleryClick }: GalleriesCardProps) => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {galleries.length > 0 ? (
           galleries.map((gallery) => (
-            <div
+            <Link
               key={gallery._id}
-              className="bg-gray-50 rounded-lg shadow-md h-full overflow-hidden hover:shadow-xl transition-shadow duration-300 cursor-pointer flex flex-col"
-              onClick={() => onGalleryClick(gallery)}
+              to={`/gallery-details/${gallery._id}`}
+              className="bg-gray-50 rounded-lg shadow-md overflow-hidden hover:shadow-xl transition group flex flex-col"
             >
-              <div className="flex-1">
+              {/* Thumbnail */}
+              <div className="relative h-48 overflow-hidden">
                 <img
                   src={
                     gallery.thumbnailUrl ||
@@ -29,21 +30,35 @@ const GalleriesCard = ({ galleries, onGalleryClick }: GalleriesCardProps) => {
                       : "/zinme.jpg")
                   }
                   alt={gallery.title}
-                  className="w-full h-full object-cover rounded-t-lg"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
+                {gallery.eventDate && (
+                  <div className="absolute bottom-2 left-2 bg-black/70 text-white text-xs px-2 py-1 rounded flex items-center space-x-1">
+                    <Calendar size={14} />
+                    <span>
+                      {new Date(gallery.eventDate).toLocaleDateString()}
+                    </span>
+                  </div>
+                )}
               </div>
-              <div className="p-4 flex items-center justify-between">
-                <h3 className="text-lg font-semibold text-gray-800">
+
+              {/* Info */}
+              <div className="p-4 flex flex-col flex-1">
+                <h3 className="text-lg font-semibold text-gray-800 group-hover:text-[#003b75] transition-colors">
                   {gallery.title}
                 </h3>
-                <button
-                  className="text-[#003b75] cursor-pointer hover:text-[#003b75]"
-                  aria-label={`View gallery ${gallery.title}`}
-                >
-                  <Image size={20} />
-                </button>
+                {gallery.description && (
+                  <p className="mt-2 text-sm text-gray-600 line-clamp-2">
+                    {gallery.description}
+                  </p>
+                )}
+                <div className="mt-auto flex justify-end">
+                  <span className="text-[#003b75] group-hover:text-blue-800 transition-colors">
+                    <Image size={20} />
+                  </span>
+                </div>
               </div>
-            </div>
+            </Link>
           ))
         ) : (
           <p className="col-span-full text-center text-gray-600 text-lg">

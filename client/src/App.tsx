@@ -21,6 +21,7 @@ import ActivityManagementPage from "./pages/activity-management/ActivityManageme
 import NewsManagementPage from "./pages/news-management/NewsManagementPage";
 import NewsDetails from "./pages/news-details/NewsDetails";
 import PlayerDetailPage from "./pages/player-details/PlayerDetails";
+import GalleryDetailPage from "./pages/gallery-details/GalleryDetailsPage";
 
 const PublicLayout = () => {
   return (
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
       {
         path: "player/:id",
         element: <PlayerDetailPage />,
+      },
+      {
+        path: "gallery-details/:id",
+        element: <GalleryDetailPage />,
       },
       {
         path: "news/:id",

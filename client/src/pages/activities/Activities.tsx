@@ -1,4 +1,4 @@
-import { Award, Trophy, X, XCircle } from "lucide-react";
+import { Award, Trophy, XCircle } from "lucide-react";
 import { useCallback, useMemo, useState } from "react";
 import {
   ActivityDetailsModal,
@@ -6,14 +6,13 @@ import {
   GalleriesCard,
 } from "../../components";
 import useGalleries from "../../hooks/useGalleries";
-import type { Activity, Gallery } from "../../types";
+import type { Activity } from "../../types";
 import ClipLoader from "react-spinners/ClipLoader";
 import useActivities from "../../hooks/useActivities";
 
 const Activities = () => {
   const { galleries, galleriesLoading, galleriesError } = useGalleries();
   const [currentMonth, setCurrentMonth] = useState(new Date());
-  const [selectedGallery, setSelectedGallery] = useState<Gallery | null>(null);
   const [selectedActivityForDetails, setSelectedActivityForDetails] =
     useState<Activity | null>(null);
 
@@ -48,18 +47,6 @@ const Activities = () => {
       return dateA - dateB;
     });
   }, [activities]);
-
-  const handleGalleryClick = useCallback((gallery: Gallery) => {
-    setSelectedGallery(gallery);
-  }, []);
-
-  const handleCloseGalleryModal = useCallback(() => {
-    setSelectedGallery(null);
-  }, []);
-
-  const handleActivityClick = useCallback((activity: Activity) => {
-    setSelectedActivityForDetails(activity);
-  }, []);
 
   const handleCloseActivityDetailsModal = useCallback(() => {
     setSelectedActivityForDetails(null);
@@ -108,61 +95,10 @@ const Activities = () => {
         onPrevMonth={prevMonth}
         isLoading={activitiesLoading}
         error={activitiesError}
-        onActivityClick={handleActivityClick}
       />
 
       {/* Photo & Video Galleries */}
-      <GalleriesCard
-        galleries={galleries || []}
-        onGalleryClick={handleGalleryClick}
-      />
-      {selectedGallery && (
-        <div className="fixed inset-0 bg-[#003b75] bg-opacity-75 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="p-6 md:p-8 relative">
-              <button
-                onClick={handleCloseGalleryModal}
-                className="absolute top-4 right-4 cursor-pointer bg-gray-200 text-gray-700 hover:bg-gray-300 rounded-full p-2 transition-colors duration-200"
-                aria-label="Close gallery details"
-              >
-                <X size={24} />
-              </button>
-              <h2 className="text-3xl font-bold text-[#003b75] mb-4 text-center">
-                {selectedGallery.title}
-              </h2>
-              {selectedGallery.description && (
-                <p className="text-[#003b75] text-center mb-4">
-                  {selectedGallery.description}
-                </p>
-              )}
-              {selectedGallery.eventDate && (
-                <p className="text-[#003b75] text-center text-sm mb-6">
-                  Event Date:{" "}
-                  {new Date(selectedGallery.eventDate).toLocaleDateString()}
-                </p>
-              )}
-
-              {selectedGallery.images.length > 0 ? (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {selectedGallery.images.map((img, index) => (
-                    <div key={img.url + index} className="relative">
-                      <img
-                        src={img.url}
-                        alt={img.caption || `Gallery image ${index + 1}`}
-                        className="w-full h-64 object-cover rounded-lg shadow-md"
-                      />
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <p className="text-center text-[#003b75] text-lg">
-                  No images in this gallery.
-                </p>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
+      <GalleriesCard galleries={galleries || []} />
 
       {/* Community & Outreach Section */}
       <section className="my-12 bg-blue-700 text-white rounded-xl shadow-lg p-6 md:p-8 text-center">
