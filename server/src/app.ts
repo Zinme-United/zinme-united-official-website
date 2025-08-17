@@ -24,7 +24,6 @@ app.use(
     origin: [
       "https://zmutd.vercel.app",
       "https://zinme-united-official-website.onrender.com",
-      "http://localhost:5173",
     ],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
