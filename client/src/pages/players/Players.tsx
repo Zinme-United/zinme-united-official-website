@@ -1,9 +1,8 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo } from "react";
 import type { Player } from "../../types";
 import usePlayers from "../../hooks/usePlayers";
 import { PlayerProfileModal, PlayersCard } from "../../components";
 import ClipLoader from "react-spinners/ClipLoader";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 
 type SelectedGenderType = "Male" | "Female";
 
@@ -13,15 +12,8 @@ const Players = () => {
   const [selectedPlayer, setSelectedPlayer] = useState<Player | null>(null);
   const [selectedGenderFilter, setSelectedGenderFilter] =
     useState<SelectedGenderType>("Male");
-
   const [searchQuery, setSearchQuery] = useState("");
   const [positionFilter, setPositionFilter] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const PLAYERS_PER_PAGE = 10;
-
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [searchQuery, positionFilter, selectedGenderFilter]);
 
   const allPlayers = useMemo(() => players || [], [players]);
 
@@ -51,14 +43,6 @@ const Players = () => {
       .sort((a, b) => a.number - b.number);
   }, [players, selectedGenderFilter, searchQuery, positionFilter]);
 
-  const currentPlayers = useMemo(() => {
-    const indexOfLast = currentPage * PLAYERS_PER_PAGE;
-    const indexOfFirst = indexOfLast - PLAYERS_PER_PAGE;
-    return filteredPlayers.slice(indexOfFirst, indexOfLast);
-  }, [filteredPlayers, currentPage, PLAYERS_PER_PAGE]);
-
-  const totalPages = Math.ceil(filteredPlayers.length / PLAYERS_PER_PAGE);
-
   if (playersLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -67,7 +51,6 @@ const Players = () => {
           loading={playersLoading}
           size={50}
           aria-label="Loading Spinner"
-          data-testid="loader"
         />
       </div>
     );
@@ -91,7 +74,7 @@ const Players = () => {
           Our Team
         </h1>
         <p className="text-gray-700">No players found.</p>
-        <PlayersCard players={[]} onPlayerSelect={setSelectedPlayer} />
+        <PlayersCard players={[]} />
       </div>
     );
   }
@@ -104,6 +87,7 @@ const Players = () => {
 
       <div className="max-w-screen-xl mx-auto">
         <div className="flex flex-wrap items-center justify-between gap-4 mb-6 px-4">
+          {/* Gender Filter */}
           <div className="flex space-x-2">
             {["Male", "Female"].map((gender) => (
               <button
@@ -122,6 +106,7 @@ const Players = () => {
             ))}
           </div>
 
+          {/* Search */}
           <input
             type="text"
             placeholder="Search name or number"
@@ -130,6 +115,7 @@ const Players = () => {
             className="px-4 py-2 text-black border border-gray-300 rounded-md min-w-[200px] flex-1"
           />
 
+          {/* Position Filter */}
           <select
             value={positionFilter}
             onChange={(e) => setPositionFilter(e.target.value)}
@@ -144,49 +130,8 @@ const Players = () => {
           </select>
         </div>
 
-        {/* Cards */}
-        <section className="min-h-[500px] mb-8">
-          {filteredPlayers.length === 0 ? (
-            <p className="text-center text-gray-600 text-lg">
-              No{" "}
-              {selectedGenderFilter === "Male"
-                ? ""
-                : selectedGenderFilter.toLowerCase() + " "}
-              players found in the roster yet.
-            </p>
-          ) : (
-            <PlayersCard
-              players={currentPlayers}
-              onPlayerSelect={setSelectedPlayer}
-            />
-          )}
-        </section>
-
-        {totalPages > 1 && (
-          <div className="flex justify-center items-center mt-4 space-x-2">
-            <button
-              onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-              disabled={currentPage === 1}
-              className="p-2 cursor-pointer rounded-full text-[#003b75] disabled:opacity-30"
-              title="Previous Page"
-            >
-              <ChevronLeft color="#003b75" size={24} />
-            </button>
-
-            <span className="text-[#003b75] font-medium">
-              Page {currentPage} of {totalPages}
-            </span>
-
-            <button
-              onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
-              disabled={currentPage === totalPages}
-              className="p-2 cursor-pointer rounded-full text-[#003b75] disabled:opacity-30"
-              title="Next Page"
-            >
-              <ChevronRight color="#003b75" size={24} />
-            </button>
-          </div>
-        )}
+        {/* Cards (No Pagination, Grid Style) */}
+        <PlayersCard players={filteredPlayers} />
       </div>
 
       {/* Player Modal */}

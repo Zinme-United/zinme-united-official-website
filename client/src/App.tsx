@@ -20,6 +20,7 @@ import GalleryManagementPage from "./pages/gallery-management/GalleryManagementP
 import ActivityManagementPage from "./pages/activity-management/ActivityManagementPage";
 import NewsManagementPage from "./pages/news-management/NewsManagementPage";
 import NewsDetails from "./pages/news-details/NewsDetails";
+import PlayerDetailPage from "./pages/player-details/PlayerDetails";
 
 const PublicLayout = () => {
   return (
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
       {
         path: "players",
         element: <Players />,
+      },
+      {
+        path: "player/:id",
+        element: <PlayerDetailPage />,
       },
       {
         path: "news/:id",
