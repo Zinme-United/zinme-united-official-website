@@ -64,7 +64,6 @@ const router = createBrowserRouter([
         path: "news/:id",
         element: <NewsDetails />,
       },
-      // Add other public routes here
     ],
   },
   {
