@@ -62,9 +62,6 @@ const Activities = () => {
           aria-label="Loading Spinner"
           data-testid="loader"
         />
-        <p className="text-xl font-semibold text-gray-700 mt-4">
-          Loading activities and galleries...
-        </p>
       </div>
     );
   }
