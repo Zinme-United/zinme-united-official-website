@@ -21,8 +21,11 @@ connectDB();
 
 app.use(
   cors({
-    origin: [process.env.CORS_ORIGIN_DEV!],
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    origin: [
+      process.env.CORS_ORIGIN_DEV!,
+      "https://zinme-united-official-website.onrender.com/api",
+      process.env.CORS_ORIGIN_RENDER!,
+    ],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
   })
