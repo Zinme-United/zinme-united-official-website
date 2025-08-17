@@ -22,8 +22,8 @@ connectDB();
 app.use(
   cors({
     origin: [
-      "https://zmutd.vercel.app",
-      "https://zinme-united-official-website.onrender.com",
+      "https://zmutd.vercel.app/",
+      "https://zinme-united-official-website.onrender.com/api",
     ],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
