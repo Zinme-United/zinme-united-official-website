@@ -12,25 +12,16 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   children,
   allowedRoles,
 }) => {
-  const { user, token } = useSelector((state: RootState) => state.auth);
+  const { token } = useSelector((state: RootState) => state.auth);
 
-  const isLoading = !user && !!token;
 
-  if (isLoading) {
+  if (!token) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-100">
-        <p className="text-xl font-semibold text-gray-700">
-          Loading authentication...
-        </p>
-      </div>
+      <Navigate to="/login" replace />
     );
   }
 
-  if (!user) {
-    return <Navigate to="/login" replace />;
-  }
-
-  if (allowedRoles && !allowedRoles.includes(user.role)) {
+  if (allowedRoles && !allowedRoles.includes("admin")) {
     return <Navigate to="/unauthorized" replace />;
   }
 
