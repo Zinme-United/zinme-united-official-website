@@ -2,6 +2,8 @@ import { useParams, useNavigate } from "react-router";
 import ClipLoader from "react-spinners/ClipLoader";
 // import { FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa";
 import usePlayerById from "../../hooks/useGetPlayerById";
+import Pitch from "../../components/Pitch";
+import { positionToMarkers } from "../../utils/positionToMarkers";
 
 const partners = [
   { id: 1, name: "Adidas", logo: "/adidas.png", url: "#" },
@@ -42,130 +44,141 @@ const PlayerDetailPage = () => {
 
   return (
     <>
-      {/* Hero Section with Background Image */}
-      <div className="relative text-white overflow-hidden">
-        {/* Background image */}
+      <section className="relative overflow-hidden text-white">
+        {/* BG image */}
         <div
           className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage: `url("/zinme.jpg")`,
-          }}
+          style={{ backgroundImage: `url("/zinme.jpg")` }}
         />
-        {/* Dark overlay */}
-        <div className="absolute inset-0 bg-black/70" />
+        {/* Gradient & readable panel */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/60 to-black/80" />
 
-        <div className="max-w-screen-xl mx-auto flex flex-col md:flex-row items-center gap-10 px-6 py-16 relative z-10">
-          {/* Left Section: Text + Stats */}
-          <div className="flex-1 relative">
-            {/* Jersey Number Watermark */}
-            <p className="text-[120px] md:text-[160px] font-extrabold text-white opacity-10 absolute -top-6 -left-2 select-none">
-              {player.number}
-            </p>
+        <div className="relative z-10">
+          <div className="max-w-screen-xl mx-auto px-6 py-16 md:py-20">
+            <div className="grid grid-cols-1 md:grid-cols-[1.3fr_0.9fr] gap-10 items-center">
+              {/* Left: text + stats + pitch */}
+              <div className="relative">
+                {/* Jersey number watermark */}
+                <span className="absolute -top-10 -left-2 select-none text-white/10 font-extrabold leading-none text-[120px] md:text-[160px]">
+                  {player.number}
+                </span>
 
-            {/* Name + Position */}
-            <h1 className="text-4xl md:text-5xl font-bold relative z-10">
-              {player.name}
-            </h1>
-            <p className="text-lg mt-2 text-gray-200 relative z-10">
-              {player.number} • {player.position}
-            </p>
+                {/* Name + position */}
+                <div className="relative">
+                  <h1 className="text-4xl md:text-5xl font-extrabold drop-shadow-sm">
+                    {player.name}
+                  </h1>
+                  <p className="mt-2 text-lg text-gray-200">
+                    <span className="font-semibold text-white">
+                      {player.number}
+                    </span>{" "}
+                    • {player.position}
+                  </p>
+                </div>
 
-            {/* Quick Stats */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-6 relative z-10">
-              <div className="bg-white/10 rounded-lg p-3 text-center">
-                <p className="text-2xl font-bold">{player.stats.appearances}</p>
-                <p className="text-xs uppercase text-gray-200">Appearances</p>
+                {/* Quick stats */}
+                <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-3">
+                  <div className="bg-white/10 rounded-lg p-3 text-center backdrop-blur">
+                    <p className="text-2xl font-extrabold">
+                      {player.stats.appearances}
+                    </p>
+                    <p className="text-[11px] uppercase tracking-wide text-gray-200">
+                      Appearances
+                    </p>
+                  </div>
+                  {player.stats.goals !== undefined && (
+                    <div className="bg-white/10 rounded-lg p-3 text-center backdrop-blur">
+                      <p className="text-2xl font-extrabold">
+                        {player.stats.goals}
+                      </p>
+                      <p className="text-[11px] uppercase tracking-wide text-gray-200">
+                        Goals
+                      </p>
+                    </div>
+                  )}
+                  {player.stats.assists !== undefined && (
+                    <div className="bg-white/10 rounded-lg p-3 text-center backdrop-blur">
+                      <p className="text-2xl font-extrabold">
+                        {player.stats.assists}
+                      </p>
+                      <p className="text-[11px] uppercase tracking-wide text-gray-200">
+                        Assists
+                      </p>
+                    </div>
+                  )}
+                  {player.stats.cleanSheets !== undefined && (
+                    <div className="bg-white/10 rounded-lg p-3 text-center backdrop-blur">
+                      <p className="text-2xl font-extrabold">
+                        {player.stats.cleanSheets}
+                      </p>
+                      <p className="text-[11px] uppercase tracking-wide text-gray-200">
+                        Clean Sheets
+                      </p>
+                    </div>
+                  )}
+                </div>
+
+                {/* Info list */}
+                <div className="mt-6 grid grid-cols-2 gap-4 text-sm">
+                  <p>
+                    <span className="font-semibold text-white">Position:</span>{" "}
+                    {player.position}
+                  </p>
+                  <p>
+                    <span className="font-semibold text-white">
+                      Kit Number:
+                    </span>{" "}
+                    {player.number}
+                  </p>
+                  <p>
+                    <span className="font-semibold text-white">Gender:</span>{" "}
+                    {player.gender}
+                  </p>
+                </div>
+
+                {/* Bio */}
+                <p className="mt-6 text-gray-100/90 text-sm leading-relaxed">
+                  {player.bio}
+                </p>
+
+                {/* Pitch card (compact) */}
+                <div className="mt-8 rounded-2xl bg-[#0D5BD7] shadow-lg ring-1 ring-white/10 p-4 md:p-5">
+                  <h3 className="text-lg font-bold mb-3">Main Position</h3>
+                  <div className="flex justify-center">
+                    <Pitch
+                      className="w-full max-w-[500px] aspect-[1.6] rounded-lg"
+                      theme={{
+                        bg: "#0D5BD7",
+                        line: "#FFFFFF",
+                        dotFill: "#69E36F",
+                        dotStroke: "rgba(0,0,0,0.25)",
+                      }}
+                      markers={positionToMarkers(player.position)}
+                    />
+                  </div>
+                </div>
               </div>
-              {player.stats.goals !== undefined && (
-                <div className="bg-white/10 rounded-lg p-3 text-center">
-                  <p className="text-2xl font-bold">{player.stats.goals}</p>
-                  <p className="text-xs uppercase text-gray-200">Goals</p>
+
+              {/* Right: player image card */}
+              <div className="justify-self-center md:justify-self-end">
+                <div className="relative">
+                  <img
+                    src={player.img || "/zinme.jpg"}
+                    alt={player.name}
+                    className="w-[300px] h-[420px] md:w-[340px] md:h-[460px] object-cover rounded-2xl shadow-2xl border-4 border-white/15"
+                    loading="eager"
+                  />
+                  {/* subtle decorative glow */}
+                  <div className="absolute -inset-2 -z-10 rounded-3xl bg-white/5 blur-2xl" />
                 </div>
-              )}
-              {player.stats.assists !== undefined && (
-                <div className="bg-white/10 rounded-lg p-3 text-center">
-                  <p className="text-2xl font-bold">{player.stats.assists}</p>
-                  <p className="text-xs uppercase text-gray-200">Assists</p>
-                </div>
-              )}
-              {player.stats.cleanSheets !== undefined && (
-                <div className="bg-white/10 rounded-lg p-3 text-center">
-                  <p className="text-2xl font-bold">
-                    {player.stats.cleanSheets}
-                  </p>
-                  <p className="text-xs uppercase text-gray-200">
-                    Clean Sheets
-                  </p>
-                </div>
-              )}
+              </div>
             </div>
-
-            {/* Info */}
-            <div className="grid grid-cols-2 gap-4 mt-6 text-sm relative z-10">
-              <p>
-                <span className="font-semibold">Position:</span>{" "}
-                {player.position}
-              </p>
-              <p>
-                <span className="font-semibold">Kit Number:</span>{" "}
-                {player.number}
-              </p>
-              <p>
-                <span className="font-semibold">Gender:</span> {player.gender}
-              </p>
-            </div>
-
-            {/* Biography Snippet */}
-            <p className="mt-6 text-gray-100 text-sm leading-relaxed line-clamp-3 relative z-10">
-              {player.bio}
-            </p>
-
-            {/* Social Links */}
-            {/* <div className="flex space-x-4 mt-4 relative z-10">
-              {player.social?.facebook && (
-                <a
-                  href={player.social.facebook}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="hover:text-[#003b75]"
-                >
-                  <FaFacebook size={22} />
-                </a>
-              )}
-              {player.social?.twitter && (
-                <a
-                  href={player.social.twitter}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="hover:text-[#003b75]"
-                >
-                  <FaTwitter size={22} />
-                </a>
-              )}
-              {player.social?.instagram && (
-                <a
-                  href={player.social.instagram}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="hover:text-[#003b75]"
-                >
-                  <FaInstagram size={22} />
-                </a>
-              )}
-            </div> */}
-          </div>
-
-          {/* Right Section: Player Image (foreground focus) */}
-          <div className="flex-shrink-0 relative">
-            <img
-              src={player.img || "/zinme.jpg"}
-              alt={player.name}
-              className="w-[320px] h-[420px] object-cover rounded-2xl shadow-2xl border-4 border-white/20 relative z-20"
-            />
           </div>
         </div>
-      </div>
-      <div className="bg-white py-12">
+      </section>
+
+      {/* ================= Partners ================= */}
+      <section className="bg-white py-12">
         <h2 className="text-center text-2xl font-bold text-[#003b75] mb-8">
           Our Partners
         </h2>
@@ -186,7 +199,7 @@ const PlayerDetailPage = () => {
             </a>
           ))}
         </div>
-      </div>
+      </section>
     </>
   );
 };
