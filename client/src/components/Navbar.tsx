@@ -22,7 +22,6 @@ const Navbar = () => {
     <nav className="bg-[#003b75] shadow-lg">
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex justify-between items-center h-16">
-          {/* Logo/Brand Name */}
           <div>
             <Link
               to="/"
