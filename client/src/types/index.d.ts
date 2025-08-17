@@ -188,3 +188,13 @@ export interface GalleryModalProps {
   isSubmitting: boolean;
   uploadImageProgress: boolean;
 }
+
+export interface Team {
+  position: number;
+  name: string;
+  played: number;
+  won: number;
+  drawn: number;
+  lost: number;
+  points: number;
+}

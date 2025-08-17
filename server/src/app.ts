@@ -21,7 +21,7 @@ connectDB();
 
 app.use(
   cors({
-    origin: [process.env.CORS_ORIGIN_PROD!],
+    origin: [process.env.CORS_ORIGIN_DEV!],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,

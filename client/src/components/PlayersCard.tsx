@@ -1,36 +1,40 @@
+import { Link } from "react-router";
 import type { Player } from "../types";
 
 interface PlayersCardProps {
   players: Player[];
-  onPlayerSelect: (player: Player) => void;
 }
 
-const PlayersCard = ({ players, onPlayerSelect }: PlayersCardProps) => {
+const PlayersCard = ({ players }: PlayersCardProps) => {
+  if (!players || players.length === 0) {
+    return (
+      <p className="text-center text-gray-600 text-lg col-span-full">
+        No players available.
+      </p>
+    );
+  }
+
   return (
     <section>
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
         {players.map((player) => (
-          <div
-            key={player._id}
-            className="bg-blue-50 rounded-xl shadow-md overflow-hidden cursor-pointer hover:shadow-lg transform hover:scale-105 transition-all duration-300 border border-blue-200"
-            onClick={() => onPlayerSelect(player)}
-          >
-            <img
-              loading="lazy"
-              src={player.img || "/zinme.jpg"}
-              alt={player.name}
-              className="w-full h-40 object-cover rounded-t-xl"
-            />
-            <div className="p-4 text-center">
-              <span className="block text-sm font-bold text-[#003b75] mb-1">
-                Kit Number - {player.number}
-              </span>
-              <h3 className="text-lg font-semibold text-[#003b75]">
+          <Link to={`/player/${player._id}`} key={player._id}>
+            <div className="cursor-pointer bg-white shadow rounded-lg overflow-hidden transition transform hover:-translate-y-1 hover:shadow-lg">
+              {/* Player Image */}
+              <img
+                loading="lazy"
+                src={player.img || "/zinme.jpg"}
+                alt={player.name}
+                className="w-full h-[280px] object-cover object-top"
+              />
+
+              {/* Number + Name Bar */}
+              <div className="bg-[#003b75] text-white text-center py-2 font-semibold">
+                <span className="mr-2">{player.number}</span>
                 {player.name}
-              </h3>
-              <p className="text-[#003b75] text-sm">{player.position}</p>
+              </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </section>
