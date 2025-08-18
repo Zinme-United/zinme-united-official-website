@@ -66,6 +66,7 @@ export interface Gallery {
   eventDate?: string;
   images: IImage[];
   thumbnailUrl?: string;
+  category: "match" | "activity";
   createdAt: string;
   updatedAt: string;
 }
@@ -76,6 +77,7 @@ export interface GalleryFormData {
   eventDate?: string;
   images: IImage[];
   thumbnailUrl?: string;
+  category: "match" | "activity";
 }
 
 export type ActivityType = "event" | "training" | "match";

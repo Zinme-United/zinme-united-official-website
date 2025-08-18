@@ -110,6 +110,7 @@ const GalleryManagementPage: React.FC = () => {
       thumbnailUrl:
         editingGallery?.thumbnailUrl ||
         (finalImages.length > 0 ? finalImages[0].url : undefined),
+      category: formData.category,
     };
     console.log(
       "Gallery Payload being sent:",
@@ -271,6 +272,9 @@ const GalleryManagementPage: React.FC = () => {
                     <th className="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Event Date
                     </th>
+                    <th className="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Category
+                    </th>
                     <th className="py-3 px-6 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Images
                     </th>
@@ -305,6 +309,13 @@ const GalleryManagementPage: React.FC = () => {
                       <td className="py-4 px-6 whitespace-nowrap text-sm text-[#003b75]">
                         {gallery.eventDate
                           ? new Date(gallery.eventDate).toLocaleDateString()
+                          : "N/A"}
+                      </td>
+                      <td className="py-4 px-6 whitespace-nowrap text-sm text-[#003b75]">
+                        {gallery.category === "match"
+                          ? "Match"
+                          : gallery.category === "activity"
+                          ? "Activity"
                           : "N/A"}
                       </td>
                       <td className="py-4 px-6 whitespace-nowrap text-sm text-[#003b75] text-center">

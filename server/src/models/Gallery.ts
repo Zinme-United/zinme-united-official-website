@@ -12,6 +12,7 @@ export interface IGallery extends Document {
   eventDate?: Date;
   images: IImage[];
   thumbnailUrl?: string;
+  category: "match" | "activity";
 }
 
 const ImageSchema: Schema = new Schema(
@@ -30,6 +31,11 @@ const GallerySchema: Schema = new Schema(
     eventDate: { type: Date },
     images: { type: [ImageSchema], default: [] },
     thumbnailUrl: { type: String },
+    category: {
+      type: String,
+      enum: ["match", "activity"],
+      required: true,
+    },
   },
   { timestamps: true }
 );

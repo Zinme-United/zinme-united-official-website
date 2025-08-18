@@ -35,11 +35,17 @@ export const uploadGalleryImage = asyncHandler(
 
 export const createGallery = asyncHandler(
   async (req: Request, res: Response) => {
-    const { title, description, eventDate, images, thumbnailUrl } = req.body;
+    const { title, description, eventDate, images, thumbnailUrl, category } =
+      req.body;
 
     if (!title) {
       res.status(400);
       throw new Error("Gallery title is required.");
+    }
+
+    if (!category || !["match", "activity"].includes(category)) {
+      res.status(400);
+      throw new Error("Category must be either 'match' or 'activity'.");
     }
 
     if (
@@ -65,6 +71,7 @@ export const createGallery = asyncHandler(
       eventDate,
       images,
       thumbnailUrl,
+      category,
     });
 
     const createdGallery = await gallery.save();
@@ -78,10 +85,18 @@ export const createGallery = asyncHandler(
 
 export const getGalleries = asyncHandler(
   async (req: Request, res: Response) => {
-    const galleries = await Gallery.find({}).sort({
+    const { category } = req.query;
+
+    const filter: any = {};
+    if (category && ["match", "activity"].includes(category as string)) {
+      filter.category = category;
+    }
+
+    const galleries = await Gallery.find(filter).sort({
       eventDate: -1,
       createdAt: -1,
     });
+
     res.status(200).json({
       status: true,
       message: "Galleries fetched successfully.",
@@ -110,7 +125,8 @@ export const getGalleryById = asyncHandler(
 
 export const updateGallery = asyncHandler(
   async (req: Request, res: Response) => {
-    const { title, description, eventDate, images, thumbnailUrl } = req.body;
+    const { title, description, eventDate, images, thumbnailUrl, category } =
+      req.body;
 
     const gallery = await Gallery.findById(req.params.id);
 
@@ -118,6 +134,7 @@ export const updateGallery = asyncHandler(
       gallery.title = title || gallery.title;
       gallery.description = description ?? gallery.description;
       gallery.eventDate = eventDate ?? gallery.eventDate;
+      gallery.category = category ?? gallery.category;
 
       if (
         Array.isArray(images) &&

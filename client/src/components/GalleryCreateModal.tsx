@@ -48,7 +48,7 @@ const GalleryModal: React.FC<GalleryModalProps> = ({
             ? new Date(editingGallery.eventDate).toISOString().split("T")[0]
             : ""
         );
-
+        setValue("category", editingGallery.category);
         setCurrentImages(editingGallery.images || []);
       } else {
         reset();
@@ -182,6 +182,29 @@ const GalleryModal: React.FC<GalleryModalProps> = ({
                 {...register("eventDate")}
                 className="w-full p-3 border text-black border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#003b75]"
               />
+            </div>
+
+            <div>
+              <label
+                htmlFor="category"
+                className="block text-sm font-medium text-[#003b75] mb-1"
+              >
+                Category <span className="text-red-500">*</span>
+              </label>
+              <select
+                id="category"
+                {...register("category")}
+                className="w-full p-3 border text-black border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#003b75]"
+              >
+                <option value="">Select Category</option>
+                <option value="match">Match Gallery</option>
+                <option value="activity">Activities Gallery</option>
+              </select>
+              {errors.category && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.category.message}
+                </p>
+              )}
             </div>
 
             {/* Image Upload Section */}

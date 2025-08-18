@@ -1,34 +1,43 @@
 import { useParams, useNavigate } from "react-router";
-import { ArrowLeft, Calendar } from "lucide-react";
-import useGalleries from "../../hooks/useGalleries";
+import { ArrowLeft, Calendar, X } from "lucide-react";
+import { useState } from "react";
+import useGetGalleryById from "../../hooks/useGetGalleryById";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const GalleryDetailPage = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { galleries } = useGalleries();
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
-  const gallery = galleries?.find((g) => g._id === id);
+  const { data: gallery, isLoading, isError, error } = useGetGalleryById(id);
 
-  if (!gallery) {
+  // Loading state
+  if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-100">
-        <p className="text-xl font-semibold text-red-600">Gallery not found.</p>
-        <button
-          onClick={() => navigate(-1)}
-          className="ml-4 px-4 py-2 bg-[#003b75] text-white rounded-lg shadow hover:bg-blue-900"
-        >
-          Back
-        </button>
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
+        <ClipLoader color="#003b75" size={50} />
       </div>
     );
   }
 
-  const coverImg = gallery.images[0]?.url || "/default-cover.jpg";
+  // Error state
+  if (isError || !gallery) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-6">
+        <p className="text-xl font-semibold text-red-600">
+          {error?.message || "Gallery not found."}
+        </p>
+      </div>
+    );
+  }
+
+  const coverImg =
+    gallery?.thumbnailUrl || gallery?.images[0]?.url || "/zinme.jpg";
 
   return (
-    <div className="bg-gray-50 font-inter">
+    <div className="font-inter">
       {/* Hero Section */}
-      <div className="relative h-[300px] md:h-[400px] overflow-hidden">
+      <div className="relative h-[300px] md:h-[400px] overflow-hidden rounded-xl">
         <img
           src={coverImg}
           alt={gallery.title}
@@ -52,7 +61,7 @@ const GalleryDetailPage = () => {
           )}
         </div>
 
-        {/* Back + Share buttons */}
+        {/* Back button */}
         <div className="absolute top-4 left-4 flex space-x-2">
           <button
             onClick={() => navigate(-1)}
@@ -64,18 +73,19 @@ const GalleryDetailPage = () => {
       </div>
 
       {/* Gallery Grid */}
-      <div className="max-w-screen-xl mx-auto px-6 py-12">
-        {gallery.images.length > 0 ? (
+      <div className="max-w-screen-xl mx-auto py-12">
+        {gallery.images && gallery.images.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {gallery.images.map((img, index) => (
               <div
                 key={img.url + index}
-                className="relative group overflow-hidden rounded-xl shadow-md"
+                className="relative group overflow-hidden rounded-xl shadow-md cursor-zoom-in"
+                onClick={() => setSelectedImage(img.url)}
               >
                 <img
                   src={img.url}
                   alt={img.caption || `Image ${index + 1}`}
-                  className="w-full h-64 object-cover transform group-hover:scale-105 transition duration-500"
+                  className="w-full h-auto object-contain transition duration-500 group-hover:scale-105"
                 />
                 {img.caption && (
                   <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-sm px-3 py-2 opacity-0 group-hover:opacity-100 transition">
@@ -91,6 +101,30 @@ const GalleryDetailPage = () => {
           </p>
         )}
       </div>
+
+      {/* Lightbox */}
+      {selectedImage && (
+        <div
+          className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center"
+          onClick={() => setSelectedImage(null)}
+        >
+          <button
+            className="absolute top-6 cursor-pointer right-6 bg-white/20 hover:bg-white/40 text-white p-2 rounded-full"
+            onClick={(e) => {
+              e.stopPropagation();
+              setSelectedImage(null);
+            }}
+          >
+            <X size={24} />
+          </button>
+          <img
+            src={selectedImage}
+            alt="Full view"
+            className="max-w-full max-h-full object-contain rounded-lg shadow-lg"
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
     </div>
   );
 };
