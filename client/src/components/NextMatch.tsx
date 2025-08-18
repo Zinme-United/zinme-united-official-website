@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Calendar, MapPin } from "lucide-react";
 import type { Activity } from "../types";
-import ClipLoader from "react-spinners/ClipLoader";
 
 interface NextMatchBannerProps {
   nextMatch: Activity | undefined;
-  isLoading: boolean;
   error: Error | null;
 }
 
 const NextMatchBanner: React.FC<NextMatchBannerProps> = ({
   nextMatch,
-  isLoading,
   error,
 }) => {
   const [countdown, setCountdown] = useState({
@@ -50,15 +47,6 @@ const NextMatchBanner: React.FC<NextMatchBannerProps> = ({
 
     return () => clearInterval(interval);
   }, [nextMatch]);
-
-  if (isLoading) {
-    return (
-      <div className="bg-[#003b75] text-white p-8 rounded-xl shadow-lg flex flex-col items-center justify-center min-h-[200px]">
-        <ClipLoader color="#fff" loading={isLoading} size={40} />
-        <p className="mt-4 text-lg">Loading next match...</p>
-      </div>
-    );
-  }
 
   if (error) {
     return (

@@ -3,31 +3,20 @@ import { format } from "date-fns";
 import type { News } from "../types";
 import type { AxiosError } from "axios";
 import type React from "react";
-import ClipLoader from "react-spinners/ClipLoader";
 import { Link } from "react-router";
 
 interface Props {
   news: News[] | undefined;
-  isLoading: boolean;
   error: AxiosError | null;
 }
 
-const LatestNewsAndUpdates: React.FC<Props> = ({ news, isLoading, error }) => {
+const LatestNewsAndUpdates: React.FC<Props> = ({ news, error }) => {
   const latestNews = (news || [])
     .sort(
       (a, b) =>
         new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
     )
     .slice(0, 3);
-
-  if (isLoading) {
-    return (
-      <div className="bg-[#003b75] text-white p-8 rounded-xl shadow-lg flex flex-col items-center justify-center min-h-[200px]">
-        <ClipLoader color="#fff" loading={isLoading} size={40} />
-        <p className="mt-4 text-lg">Loading news...</p>
-      </div>
-    );
-  }
 
   if (error) {
     return (

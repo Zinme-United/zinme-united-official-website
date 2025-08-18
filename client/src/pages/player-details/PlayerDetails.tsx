@@ -130,10 +130,6 @@ const PlayerDetailPage = () => {
                     </span>{" "}
                     {player.number}
                   </p>
-                  <p>
-                    <span className="font-semibold text-white">Gender:</span>{" "}
-                    {player.gender}
-                  </p>
                 </div>
 
                 {/* Bio */}
