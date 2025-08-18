@@ -8,9 +8,7 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 
 type HeroSectionProps = {
-  /** Optional: pass the next match Activity to show the overlay card */
   nextMatch?: Activity | null;
-  /** Optional: override slides (fallbacks included) */
   slides?: Array<{
     image: string;
     headline: string;
@@ -49,7 +47,7 @@ const HeroSection = ({
   slides = defaultSlides,
 }: HeroSectionProps) => {
   return (
-    <section className="relative rounded-b-xl overflow-hidden">
+    <section className="relative rounded-xl overflow-hidden">
       {/* Carousel */}
       <Swiper
         modules={[Autoplay, Pagination, Navigation]}

@@ -1,38 +1,31 @@
 import ClipLoader from "react-spinners/ClipLoader";
-import { HeroSection, LatestNewsAndUpdates, NextMatch } from "../../components";
+import { HeroSection, NextMatch } from "../../components";
 import useActivities from "../../hooks/useActivities";
-import useNews from "../../hooks/useNews";
+
+import PartnersBanner from "../../components/PartnersBanner";
 
 const Home = () => {
   const { nextMatch, nextMatchLoading, nextMatchError } = useActivities({
     params: { isNextMatch: true },
     enabled: true,
   });
-  const { newsArticles, newsLoading, newsError } = useNews();
 
-  if (nextMatchLoading || newsLoading) {
+  if (nextMatchLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <ClipLoader
-          color="#003b75"
-          loading={nextMatchLoading || newsLoading}
-          size={40}
-        />
+        <ClipLoader color="#003b75" loading={nextMatchLoading} size={40} />
       </div>
     );
   }
 
   return (
     <div className="min-h-screen bg-gray-100 font-inter">
-      {/* Hero Section */}
-      <HeroSection nextMatch={nextMatch || null} />
-
       <div className="container mx-auto p-6 md:p-10">
+        <HeroSection nextMatch={nextMatch || null} />
+
         <NextMatch nextMatch={nextMatch} error={nextMatchError} />
 
-        <LatestNewsAndUpdates news={newsArticles} error={newsError} />
-
-        {/* <FeaturedContentAndHighlights /> */}
+        <PartnersBanner />
       </div>
     </div>
   );

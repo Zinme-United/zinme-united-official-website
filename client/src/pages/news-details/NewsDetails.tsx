@@ -12,11 +12,11 @@ const NewsDetails = () => {
 
   if (singleNewsLoading)
     return (
-      <div className="bg-[#003b75] text-white p-8 rounded-xl shadow-lg flex flex-col items-center justify-center min-h-[200px]">
+      <div className="text-white p-8 rounded-xl shadow-lg flex flex-col items-center justify-center min-h-[200px]">
         <ClipLoader color="#fff" loading={singleNewsLoading} size={40} />
-        <p className="mt-4 text-lg">Loading news...</p>
       </div>
     );
+
   if (singleNewsError || !singleNews)
     return <p className="text-center text-red-600 mt-12">News not found.</p>;
 
