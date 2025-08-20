@@ -1,4 +1,4 @@
-import { Users, Activity, Home, Newspaper } from "lucide-react";
+import { Users, Activity, Home, Newspaper, HeartHandshake } from "lucide-react";
 import type { RouteLink } from "../components/Navbar";
 
 export const routeLinks: RouteLink[] = [
@@ -7,6 +7,12 @@ export const routeLinks: RouteLink[] = [
     label: "Home",
     route: "/",
     icon: Home,
+  },
+  {
+    id: 5,
+    label: "Our Club",
+    route: "/our-club",
+    icon: HeartHandshake,
   },
   {
     id: 2,

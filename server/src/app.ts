@@ -11,6 +11,7 @@ import coachRoutes from "./routes/coach.route";
 import galleryRoutes from "./routes/gallery.route";
 import activityRoutes from "./routes/activity.route";
 import newsRoutes from "./routes/news.route";
+import ourClubRoutes from "./routes/ourclub.route";
 import { errorHandler } from "./middleware/error.middleware";
 
 dotenv.config();
@@ -40,6 +41,7 @@ app.use("/api/coaches", coachRoutes);
 app.use("/api/galleries", galleryRoutes);
 app.use("/api/activities", activityRoutes);
 app.use("/api/news", newsRoutes);
+app.use("/api/our-club", ourClubRoutes);
 
 app.get("/", (req, res) => {
   res.send("Football Team Website Backend API is running...");

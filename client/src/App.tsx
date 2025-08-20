@@ -23,6 +23,8 @@ import NewsDetails from "./pages/news-details/NewsDetails";
 import PlayerDetailPage from "./pages/player-details/PlayerDetails";
 import GalleryDetailPage from "./pages/gallery-details/GalleryDetailsPage";
 import NewsPage from "./pages/news/NewsPage";
+import ClubPage from "./pages/our-club/ClubPage";
+import ClubManagementPage from "./pages/club-management/ClubManagementPage";
 
 const PublicLayout = () => {
   return (
@@ -44,6 +46,10 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home />,
+      },
+      {
+        path: "our-club",
+        element: <ClubPage />,
       },
       {
         path: "activities",
@@ -101,6 +107,10 @@ const router = createBrowserRouter([
           {
             path: "activities",
             element: <ActivityManagementPage />,
+          },
+          {
+            path: "club",
+            element: <ClubManagementPage />,
           },
           {
             children: [

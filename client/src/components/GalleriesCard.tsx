@@ -73,7 +73,7 @@ const GalleriesCard = ({ galleries }: GalleriesCardProps) => {
   return (
     <section className="my-12 bg-white rounded-xl shadow-lg p-6 md:p-8">
       <h2 className="text-3xl font-bold text-[#003b75] mb-6 text-center">
-        Galleries
+        Gallery
       </h2>
 
       {/* Tabs */}
@@ -86,7 +86,7 @@ const GalleriesCard = ({ galleries }: GalleriesCardProps) => {
               : "text-gray-500 hover:text-[#003b75]"
           }`}
         >
-          Match Galleries
+          Match Gallery
         </button>
         <button
           onClick={() => setActiveTab("activity")}
@@ -96,7 +96,7 @@ const GalleriesCard = ({ galleries }: GalleriesCardProps) => {
               : "text-gray-500 hover:text-[#003b75]"
           }`}
         >
-          Activities Galleries
+          Activities Gallery
         </button>
       </div>
 

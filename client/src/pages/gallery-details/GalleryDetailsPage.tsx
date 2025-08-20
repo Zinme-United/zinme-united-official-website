@@ -37,38 +37,66 @@ const GalleryDetailPage = () => {
   return (
     <div className="font-inter">
       {/* Hero Section */}
-      <div className="relative h-[300px] md:h-[400px] overflow-hidden rounded-xl">
-        <img
-          src={coverImg}
-          alt={gallery.title}
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-black/80" />
-        <div className="absolute bottom-8 left-6 md:left-12 text-white">
-          <h1 className="text-3xl md:text-5xl font-extrabold">
-            {gallery.title}
-          </h1>
-          {gallery.eventDate && (
-            <p className="flex items-center mt-2 text-sm md:text-lg text-gray-200">
-              <Calendar size={18} className="mr-2" />
-              {new Date(gallery.eventDate).toLocaleDateString()}
-            </p>
-          )}
-          {gallery.description && (
-            <p className="mt-3 text-gray-200 max-w-2xl">
-              {gallery.description}
-            </p>
-          )}
-        </div>
+      <div className="relative mx-auto max-w-screen-xl rounded-xl overflow-hidden">
+        <div className="relative aspect-[4/3] sm:aspect-[16/9] lg:aspect-[21/9] min-h-[280px]">
+          <img
+            src={coverImg}
+            alt={gallery.title}
+            className="absolute inset-0 w-full h-full object-cover"
+            loading="eager"
+            fetchPriority="high"
+          />
 
-        {/* Back button */}
-        <div className="absolute top-4 left-4 flex space-x-2">
-          <button
-            onClick={() => navigate(-1)}
-            className="bg-white/20 hover:bg-white/40 p-2 rounded-full text-white cursor-pointer"
-          >
-            <ArrowLeft size={22} />
-          </button>
+          {/* Gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/70" />
+
+          {/* Content container with responsive padding */}
+          <div className="absolute inset-0 flex items-end">
+            <div className="w-full px-4 sm:px-6 md:px-10 pb-5 sm:pb-7 md:pb-10">
+              {/* Mobile-friendly readable block behind text */}
+              <div className="inline-block sm:bg-transparent bg-black/35 backdrop-blur-[2px] rounded-lg sm:rounded-none px-2 py-1 sm:px-0 sm:py-0">
+                <h1
+                  className="text-white font-extrabold leading-tight
+                         text-2xl xs:text-3xl sm:text-4xl md:text-5xl"
+                >
+                  {gallery.title}
+                </h1>
+
+                {gallery.eventDate && (
+                  <p
+                    className="mt-1 sm:mt-2 flex items-center text-gray-200
+                          text-xs xs:text-sm md:text-lg"
+                  >
+                    <Calendar size={18} className="mr-2" />
+                    {new Date(gallery.eventDate).toLocaleDateString()}
+                  </p>
+                )}
+
+                {gallery.description && (
+                  <p
+                    className="mt-2 sm:mt-3 text-gray-200 max-w-3xl
+                          text-xs xs:text-sm sm:text-base line-clamp-3 sm:line-clamp-none"
+                  >
+                    {gallery.description}
+                  </p>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Back button with safe area and bigger tap target */}
+          <div className="absolute top-3 left-3 sm:top-4 sm:left-4">
+            <button
+              onClick={() => navigate(-1)}
+              className="cursor-pointer inline-flex items-center justify-center
+                   w-10 h-10 sm:w-11 sm:h-11 rounded-full
+                   bg-white/25 hover:bg-white/40 text-white transition"
+              style={{ paddingTop: "env(safe-area-inset-top)" }}
+              aria-label="Go back"
+            >
+              <ArrowLeft size={22} />
+            </button>
+          </div>
         </div>
       </div>
 

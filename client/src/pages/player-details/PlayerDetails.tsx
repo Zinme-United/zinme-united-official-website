@@ -45,25 +45,21 @@ const PlayerDetailPage = () => {
   return (
     <>
       <section className="relative overflow-hidden text-white">
-        {/* BG image */}
         <div
           className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url("/zinme.jpg")` }}
+          style={{ backgroundImage: `url(${player.img})` }}
         />
-        {/* Gradient & readable panel */}
+
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/60 to-black/80" />
 
         <div className="relative z-10">
           <div className="max-w-screen-xl mx-auto px-6 py-16 md:py-20">
             <div className="grid grid-cols-1 md:grid-cols-[1.3fr_0.9fr] gap-10 items-center">
-              {/* Left: text + stats + pitch */}
               <div className="relative">
-                {/* Jersey number watermark */}
                 <span className="absolute -top-10 -left-2 select-none text-white/10 font-extrabold leading-none text-[120px] md:text-[160px]">
                   {player.number}
                 </span>
 
-                {/* Name + position */}
                 <div className="relative">
                   <h1 className="text-4xl md:text-5xl font-extrabold drop-shadow-sm">
                     {player.name}
@@ -76,7 +72,6 @@ const PlayerDetailPage = () => {
                   </p>
                 </div>
 
-                {/* Quick stats */}
                 <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-3">
                   <div className="bg-white/10 rounded-lg p-3 text-center backdrop-blur">
                     <p className="text-2xl font-extrabold">
@@ -118,7 +113,6 @@ const PlayerDetailPage = () => {
                   )}
                 </div>
 
-                {/* Info list */}
                 <div className="mt-6 grid grid-cols-2 gap-4 text-sm">
                   <p>
                     <span className="font-semibold text-white">Position:</span>{" "}
@@ -132,12 +126,10 @@ const PlayerDetailPage = () => {
                   </p>
                 </div>
 
-                {/* Bio */}
                 <p className="mt-6 text-gray-100/90 text-sm leading-relaxed">
                   {player.bio}
                 </p>
 
-                {/* Pitch card (compact) */}
                 <div className="mt-8 rounded-2xl bg-[#0D5BD7] shadow-lg ring-1 ring-white/10 p-4 md:p-5">
                   <h3 className="text-lg font-bold mb-3">Main Position</h3>
                   <div className="flex justify-center">
@@ -155,7 +147,6 @@ const PlayerDetailPage = () => {
                 </div>
               </div>
 
-              {/* Right: player image card */}
               <div className="justify-self-center md:justify-self-end">
                 <div className="relative">
                   <img
@@ -164,7 +155,7 @@ const PlayerDetailPage = () => {
                     className="w-[300px] h-[420px] md:w-[340px] md:h-[460px] object-cover rounded-2xl shadow-2xl border-4 border-white/15"
                     loading="eager"
                   />
-                  {/* subtle decorative glow */}
+
                   <div className="absolute -inset-2 -z-10 rounded-3xl bg-white/5 blur-2xl" />
                 </div>
               </div>
@@ -173,7 +164,6 @@ const PlayerDetailPage = () => {
         </div>
       </section>
 
-      {/* ================= Partners ================= */}
       <section className="bg-white py-12">
         <h2 className="text-center text-2xl font-bold text-[#003b75] mb-8">
           Our Partners
