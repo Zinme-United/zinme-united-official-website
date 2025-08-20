@@ -55,6 +55,19 @@ export const playerFormSchema = z.object({
   position: z.string().min(1, "Position is required"),
   img: z.string().optional(),
   bio: z.string().min(10, "Biography must be at least 10 characters"),
+  age: z
+    .number()
+    .int()
+    .positive("Age must be a positive integer")
+    .min(1, "Age must be at least 1")
+    .max(100, "Age cannot exceed 100"),
+  dateOfBirth: z
+    .string()
+    .min(1, "Date of birth is required")
+    .refine(
+      (val) => !isNaN(Date.parse(val)),
+      "Invalid date format (DD-MM-YYYY)"
+    ),
   gender: z.enum(["Male", "Female"], {
     message: "Gender must be Male or Female",
   }),

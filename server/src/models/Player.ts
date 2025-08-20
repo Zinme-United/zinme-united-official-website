@@ -27,6 +27,8 @@ const PlayerSchema: Schema = new Schema(
     position: { type: String, required: true },
     img: { type: String, required: true },
     bio: { type: String, required: true },
+    age: { type: Number, required: true },
+    dateOfBirth: { type: Date, required: true },
     gender: {
       type: String,
       required: true,

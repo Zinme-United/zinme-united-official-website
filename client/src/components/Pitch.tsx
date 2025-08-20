@@ -7,7 +7,9 @@ type Marker =
 const ROLE_TO_COORD = {
   GK: { x: 6, y: 50 },
   LB: { x: 18, y: 22 },
-  CB: { x: 15, y: 38 },
+  LCB: { x: 15, y: 38 },
+  CB: { x: 15, y: 50 },
+  RCB: { x: 15, y: 62 },
   RB: { x: 18, y: 78 },
   DM: { x: 35, y: 50 },
   LCM: { x: 46, y: 38 },

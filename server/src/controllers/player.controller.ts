@@ -36,8 +36,18 @@ export const uploadPlayerImage = asyncHandler(
 
 export const createPlayer = asyncHandler(
   async (req: Request, res: Response) => {
-    const { name, number, position, img, bio, gender, stats, social } =
-      req.body;
+    const {
+      name,
+      number,
+      position,
+      img,
+      bio,
+      age,
+      dateOfBirth,
+      gender,
+      stats,
+      social,
+    } = req.body;
 
     // Basic validation
     if (
@@ -46,13 +56,15 @@ export const createPlayer = asyncHandler(
       !position ||
       !img ||
       !bio ||
+      !age ||
+      !dateOfBirth ||
       !gender ||
       !stats ||
       !stats.appearances
     ) {
       res.status(400);
       throw new Error(
-        "Please include all required player fields: name, number, position, bio, gender, and player stats with appearances, and ensure an image is provided."
+        "Please include all required player fields: name, number, position, bio, age, date of birth, gender, and player stats with appearances, and ensure an image is provided."
       );
     }
 
@@ -70,6 +82,8 @@ export const createPlayer = asyncHandler(
       position,
       img,
       bio,
+      age,
+      dateOfBirth,
       gender,
       stats,
       social,
@@ -118,8 +132,18 @@ export const getPlayerById = asyncHandler(
 // @access  Admin
 export const updatePlayer = asyncHandler(
   async (req: Request, res: Response) => {
-    const { name, number, position, img, bio, gender, stats, social } =
-      req.body;
+    const {
+      name,
+      number,
+      position,
+      img,
+      bio,
+      age,
+      dateOfBirth,
+      gender,
+      stats,
+      social,
+    } = req.body;
 
     const player = await Player.findById(req.params.id);
 
@@ -130,6 +154,8 @@ export const updatePlayer = asyncHandler(
       player.position = position || player.position;
       player.img = img || player.img;
       player.bio = bio || player.bio;
+      player.age = age || player.age;
+      player.dateOfBirth = dateOfBirth || player.dateOfBirth;
       player.gender = gender || player.gender;
 
       if (stats) {

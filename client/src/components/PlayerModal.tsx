@@ -31,6 +31,8 @@ const PlayerFormModal: React.FC<PlayerFormModalProps> = ({
       position: "",
       img: "",
       bio: "",
+      age: 0,
+      dateOfBirth: "",
       gender: "Male",
       stats: { appearances: 0, goals: 0, assists: 0, cleanSheets: 0 },
       social: { facebook: "", twitter: "", instagram: "" },
@@ -47,6 +49,8 @@ const PlayerFormModal: React.FC<PlayerFormModalProps> = ({
           position: editingPlayer.position,
           img: editingPlayer.img, // Set existing image URL for internal form state (optional for display)
           bio: editingPlayer.bio,
+          age: editingPlayer.age,
+          dateOfBirth: editingPlayer.dateOfBirth,
           gender: editingPlayer.gender,
           stats: {
             appearances: editingPlayer.stats.appearances,
@@ -71,6 +75,8 @@ const PlayerFormModal: React.FC<PlayerFormModalProps> = ({
           position: "",
           img: "",
           bio: "",
+          age: 0,
+          dateOfBirth: "",
           gender: "Male",
           stats: { appearances: 0, goals: 0, assists: 0, cleanSheets: 0 },
           social: { facebook: "", twitter: "", instagram: "" },
@@ -203,6 +209,42 @@ const PlayerFormModal: React.FC<PlayerFormModalProps> = ({
             {errors.gender && (
               <p className="text-red-500 text-xs mt-1">
                 {errors.gender.message}
+              </p>
+            )}
+          </div>
+          <div>
+            <label
+              htmlFor="age"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Age
+            </label>
+            <input
+              type="number"
+              id="age"
+              {...register("age", { valueAsNumber: true })}
+              className="mt-1 block w-full text-black border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
+            />
+            {errors.age && (
+              <p className="text-red-500 text-xs mt-1">{errors.age.message}</p>
+            )}
+          </div>
+          <div>
+            <label
+              htmlFor="dateOfBirth"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Date of Birth
+            </label>
+            <input
+              type="date"
+              id="dateOfBirth"
+              {...register("dateOfBirth")}
+              className="mt-1 block w-full text-black border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
+            />
+            {errors.dateOfBirth && (
+              <p className="text-red-500 text-xs mt-1">
+                {errors.dateOfBirth.message}
               </p>
             )}
           </div>

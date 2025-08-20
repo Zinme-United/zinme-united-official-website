@@ -4,6 +4,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 import usePlayerById from "../../hooks/useGetPlayerById";
 import Pitch from "../../components/Pitch";
 import { positionToMarkers } from "../../utils/positionToMarkers";
+import { format } from "date-fns";
 
 const partners = [
   { id: 1, name: "Adidas", logo: "/adidas.png", url: "#" },
@@ -123,6 +124,18 @@ const PlayerDetailPage = () => {
                       Kit Number:
                     </span>{" "}
                     {player.number}
+                  </p>
+                  <p>
+                    <span className="font-semibold text-white">Age:</span>{" "}
+                    {player.age}
+                  </p>
+                  <p>
+                    <span className="font-semibold text-white">
+                      Date of Birth:
+                    </span>{" "}
+                    {player.dateOfBirth
+                      ? format(player.dateOfBirth, "dd-MM-yyyy")
+                      : null}
                   </p>
                 </div>
 

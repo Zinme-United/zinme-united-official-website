@@ -32,6 +32,8 @@ export interface Player {
   position: string;
   img: string;
   bio: string;
+  age: number;
+  dateOfBirth: string;
   gender: "Male" | "Female";
   stats: {
     appearances: number;

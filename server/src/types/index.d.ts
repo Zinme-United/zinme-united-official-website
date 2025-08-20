@@ -19,6 +19,8 @@ export interface IPlayer extends Document {
   position: string;
   img: string;
   bio: string;
+  age: number;
+  dateOfBirth: string;
   gender: "Male" | "Female";
   stats: PlayerStats;
   social?: PlayerSocial;
