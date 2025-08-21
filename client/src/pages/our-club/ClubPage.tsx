@@ -155,69 +155,67 @@ export default function ClubPage() {
       </section>
 
       {/* Intro + Stats */}
-      <section>
-        <div className="mx-auto max-w-screen-xl py-8 sm:py-10 md:py-12">
-          <div className="grid gap-8 md:grid-cols-3">
-            <div className="px-4 sm:px-6 md:col-span-2 md:px-0">
-              <div className="flex items-center gap-2">
-                <span className="inline-flex h-6 w-6 items-center justify-center rounded bg-[#003b75] text-white">
-                  <Sparkles className="h-3.5 w-3.5" />
-                </span>
-                <h2 className="text-2xl font-bold text-[#003b75] sm:text-3xl">
-                  Who We Are
-                </h2>
-              </div>
-              {club?.description && (
-                <p className="mt-4 leading-relaxed text-gray-700">
-                  {club.description}
-                </p>
-              )}
-              <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-                <Link
-                  to="/activities"
-                  className="inline-flex items-center justify-center rounded-full bg-[#003b75] px-4 py-2 text-sm font-medium text-white shadow transition hover:bg-blue-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
-                >
-                  <span className="text-white">See Our Activities</span>
-                  <ChevronRight
-                    color="white"
-                    className="ml-1 h-4 w-4"
-                    aria-hidden="true"
-                  />
-                </Link>
-                <Link
-                  to="https://www.facebook.com/zmutdfc"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center rounded-full border border-[#003b75]/30 bg-white px-4 py-2 text-sm font-medium text-[#003b75] transition hover:bg-gray-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#003b75]/40"
-                >
-                  Get in Touch
-                </Link>
-              </div>
+      <div className="mx-auto max-w-screen-xl py-8 sm:py-10 md:py-12">
+        <div className="grid gap-8 md:grid-cols-3">
+          <div className="px-3 sm:px-6 md:col-span-2">
+            <div className="flex items-center gap-2">
+              <span className="inline-flex h-6 w-6 items-center justify-center rounded bg-[#003b75] text-white">
+                <Sparkles className="h-3.5 w-3.5" />
+              </span>
+              <h2 className="text-2xl font-bold text-[#003b75] sm:text-3xl">
+                Who We Are
+              </h2>
             </div>
+            {club?.description && (
+              <p className="mt-4 leading-relaxed text-gray-700">
+                {club.description}
+              </p>
+            )}
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              <Link
+                to="/activities"
+                className="inline-flex items-center justify-center rounded-full bg-[#003b75] px-4 py-2 text-sm font-medium text-white shadow transition hover:bg-blue-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+              >
+                <span className="text-white">See Our Activities</span>
+                <ChevronRight
+                  color="white"
+                  className="ml-1 h-4 w-4"
+                  aria-hidden="true"
+                />
+              </Link>
+              <Link
+                to="https://www.facebook.com/zmutdfc"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center rounded-full border border-[#003b75]/30 bg-white px-4 py-2 text-sm font-medium text-[#003b75] transition hover:bg-gray-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#003b75]/40"
+              >
+                Get in Touch
+              </Link>
+            </div>
+          </div>
 
-            <div className="px-4 sm:px-0">
-              <div className="grid grid-cols-2 gap-3 sm:gap-4">
-                {stats.map((s) => (
-                  <div
-                    key={s.label}
-                    className="group rounded-xl border border-gray-200 bg-white p-4 text-center shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
-                  >
-                    <div className="mx-auto mb-2 inline-flex h-8 w-8 items-center justify-center rounded-full bg-[#003b75]/10 text-[#003b75]">
-                      {statIcon(s.label)}
-                    </div>
-                    <div className="text-xl font-extrabold text-[#003b75] sm:text-2xl">
-                      {s.value}
-                    </div>
-                    <div className="mt-1 text-[10px] font-medium uppercase tracking-wide text-gray-500 sm:text-xs">
-                      {s.label}
-                    </div>
+          <div className="px-4 sm:px-0">
+            <div className="grid grid-cols-2 gap-3 sm:gap-4">
+              {stats.map((s) => (
+                <div
+                  key={s.label}
+                  className="group rounded-xl border border-gray-200 bg-white p-4 text-center shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+                >
+                  <div className="mx-auto mb-2 inline-flex h-8 w-8 items-center justify-center rounded-full bg-[#003b75]/10 text-[#003b75]">
+                    {statIcon(s.label)}
                   </div>
-                ))}
-              </div>
+                  <div className="text-xl font-extrabold text-[#003b75] sm:text-2xl">
+                    {s.value}
+                  </div>
+                  <div className="mt-1 text-[10px] font-medium uppercase tracking-wide text-gray-500 sm:text-xs">
+                    {s.label}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
-      </section>
+      </div>
 
       {/* Values */}
       <section className="rounded-xl bg-white">
