@@ -1,10 +1,10 @@
 import { useParams, useNavigate } from "react-router";
-import ClipLoader from "react-spinners/ClipLoader";
 // import { FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa";
 import usePlayerById from "../../hooks/useGetPlayerById";
 import Pitch from "../../components/Pitch";
 import { positionToMarkers } from "../../utils/positionToMarkers";
 import { format } from "date-fns";
+import Loader from "../../components/Loader";
 
 const partners = [
   { id: 1, name: "Adidas", logo: "/adidas.png", url: "#" },
@@ -22,7 +22,7 @@ const PlayerDetailPage = () => {
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-100">
-        <ClipLoader color="#003b75" size={50} />
+        <Loader size={100} />
       </div>
     );
   }

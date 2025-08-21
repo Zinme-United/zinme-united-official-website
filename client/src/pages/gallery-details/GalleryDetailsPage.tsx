@@ -2,7 +2,7 @@ import { useParams, useNavigate } from "react-router";
 import { ArrowLeft, Calendar, X } from "lucide-react";
 import { useState } from "react";
 import useGetGalleryById from "../../hooks/useGetGalleryById";
-import ClipLoader from "react-spinners/ClipLoader";
+import Loader from "../../components/Loader";
 
 const GalleryDetailPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -15,7 +15,7 @@ const GalleryDetailPage = () => {
   if (isLoading) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
-        <ClipLoader color="#003b75" size={50} />
+        <Loader size={100} />
       </div>
     );
   }

@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 import { Link } from "react-router";
 import { useGetAbout } from "../../hooks/useOurClub";
-import ClipLoader from "react-spinners/ClipLoader";
+import Loader from "../../components/Loader";
 
 // Local fallbacks if API fields are empty
 const FALLBACK_STATS = [
@@ -82,7 +82,7 @@ export default function ClubPage() {
   if (isLoading) {
     return (
       <div className="flex h-screen items-center justify-center">
-        <ClipLoader color="#003b75" loading={isLoading} size={50} />
+        <Loader size={100} />
       </div>
     );
   }
@@ -251,7 +251,7 @@ export default function ClubPage() {
             Our Journey
           </h2>
           <ol className="relative mt-6 border-s border-gray-200">
-            {milestones.map((m: any, i: number) => (
+            {milestones.map((m, i: number) => (
               <li key={`${m.title}-${i}`} className="ms-4 mb-8 sm:mb-10">
                 <span className="absolute -left-[9px] flex h-5 w-5 items-center justify-center rounded-full border-2 border-white bg-[#003b75] ring-2 ring-[#003b75]/25" />
                 <h3 className="text-sm font-semibold text-[#003b75] sm:text-base">

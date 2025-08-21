@@ -1,8 +1,8 @@
 import { useNavigate, useParams } from "react-router";
 import { format } from "date-fns";
 import { ArrowLeft } from "lucide-react";
-import ClipLoader from "react-spinners/ClipLoader";
 import useSingleNews from "../../hooks/useSingleNews";
+import Loader from "../../components/Loader";
 
 const NewsDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -13,7 +13,7 @@ const NewsDetails = () => {
   if (singleNewsLoading)
     return (
       <div className="text-white p-8 rounded-xl shadow-lg flex flex-col items-center justify-center min-h-[200px]">
-        <ClipLoader color="#fff" loading={singleNewsLoading} size={40} />
+        <Loader size={100} />
       </div>
     );
 

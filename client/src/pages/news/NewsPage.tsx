@@ -1,14 +1,15 @@
 import React from "react";
 import useNews from "../../hooks/useNews";
 import { LatestNewsAndUpdates } from "../../components";
+import Loader from "../../components/Loader";
 
 const NewsPage: React.FC = () => {
   const { newsArticles, newsLoading, newsError } = useNews();
 
   if (newsLoading) {
     return (
-      <div className="flex justify-center items-center min-h-[50vh]">
-        <div className="animate-spin rounded-full h-12 w-12 border-4 border-t-[#003b75] border-gray-300"></div>
+      <div className="flex justify-center items-center min-h-screen">
+        <Loader size={100} />
       </div>
     );
   }

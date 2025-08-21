@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { X, Trash2 } from "lucide-react";
-import ClipLoader from "react-spinners/ClipLoader";
+import Loader from "./Loader";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { GalleryModalProps, IImage } from "../types";
@@ -318,7 +318,7 @@ const GalleryModal: React.FC<GalleryModalProps> = ({
               >
                 {isSubmitting || uploadImageProgress ? (
                   <>
-                    <ClipLoader color="#fff" size={20} className="mr-2" />
+                    <Loader size={20} className="mr-2" />
                     {editingGallery ? "Saving..." : "Adding..."}
                   </>
                 ) : editingGallery ? (

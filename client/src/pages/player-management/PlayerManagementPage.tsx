@@ -14,7 +14,7 @@ import type { PlayerFormData } from "../../schemas/playerSchemas";
 import PlayerFormModal from "../../components/PlayerModal"; // Adjusted import path
 import { ConfirmationModal } from "../../components"; // Assuming this is correct
 import { toast } from "react-toastify";
-import ClipLoader from "react-spinners/ClipLoader";
+import Loader from "../../components/Loader";
 
 const PLAYERS_PER_PAGE = 10;
 
@@ -160,16 +160,7 @@ const PlayerManagementPage: React.FC = () => {
   if (playersLoading) {
     return (
       <div className="flex items-center flex-column justify-center min-h-[400px] bg-white rounded-lg shadow-md">
-        <ClipLoader
-          color="#003b75"
-          loading={playersLoading}
-          size={50}
-          aria-label="Loading Spinner"
-          data-testid="loader"
-        />
-        <p className="text-xl font-semibold text-gray-700">
-          Loading players...
-        </p>
+        <Loader size={100} />
       </div>
     );
   }

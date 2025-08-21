@@ -7,8 +7,8 @@ import {
 } from "../../components";
 import useGalleries from "../../hooks/useGalleries";
 import type { Activity } from "../../types";
-import ClipLoader from "react-spinners/ClipLoader";
 import useActivities from "../../hooks/useActivities";
+import Loader from "../../components/Loader";
 
 const Activities = () => {
   const { galleries, galleriesLoading, galleriesError } = useGalleries();
@@ -55,13 +55,7 @@ const Activities = () => {
   if (galleriesLoading || activitiesLoading) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
-        <ClipLoader
-          color="#003b75"
-          loading={galleriesLoading || activitiesLoading}
-          size={50}
-          aria-label="Loading Spinner"
-          data-testid="loader"
-        />
+        <Loader size={100} />
       </div>
     );
   }

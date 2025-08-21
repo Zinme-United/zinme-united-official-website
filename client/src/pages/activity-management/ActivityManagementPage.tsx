@@ -15,8 +15,8 @@ import type { Activity } from "../../types";
 import { ActivityFormModal, ConfirmationModal } from "../../components";
 import ActivityDetailsModal from "../../components/ActivityDetailsModal";
 import { toast } from "react-toastify";
-import ClipLoader from "react-spinners/ClipLoader";
 import type { ActivityFormInputs } from "../../schemas/activitySchemas";
+import Loader from "../../components/Loader";
 
 const ACTIVITIES_PER_PAGE = 10;
 
@@ -176,16 +176,7 @@ const ActivityManagementPage: React.FC = () => {
   if (activitiesLoading) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[400px] bg-white rounded-lg shadow-md">
-        <ClipLoader
-          color="#003b75"
-          loading={activitiesLoading}
-          size={50}
-          aria-label="Loading Spinner"
-          data-testid="loader"
-        />
-        <p className="text-xl font-semibold text-gray-700 mt-4">
-          Loading activities...
-        </p>
+        <Loader size={100} />
       </div>
     );
   }

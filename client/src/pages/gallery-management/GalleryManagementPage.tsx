@@ -13,8 +13,8 @@ import useGalleries from "../../hooks/useGalleries";
 import type { Gallery, GalleryFormData, IImage } from "../../types";
 import { ConfirmationModal, GalleryCreateModal } from "../../components";
 import { toast } from "react-toastify";
-import ClipLoader from "react-spinners/ClipLoader";
 import type { GalleryFormInputs } from "../../schemas/gallerySchemas";
+import Loader from "../../components/Loader";
 
 const GALLERIES_PER_PAGE = 10;
 
@@ -201,16 +201,7 @@ const GalleryManagementPage: React.FC = () => {
   if (galleriesLoading) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[400px] bg-white rounded-lg shadow-md">
-        <ClipLoader
-          color="#003b75"
-          loading={galleriesLoading}
-          size={50}
-          aria-label="Loading Spinner"
-          data-testid="loader"
-        />
-        <p className="text-xl font-semibold text-gray-700 mt-4">
-          Loading galleries...
-        </p>
+        <Loader size={100} />
       </div>
     );
   }

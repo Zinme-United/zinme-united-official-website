@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { X } from "lucide-react";
-import ClipLoader from "react-spinners/ClipLoader";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { Activity } from "../types";
@@ -10,6 +9,7 @@ import {
 } from "../schemas/activitySchemas";
 import useActivities from "../hooks/useActivities";
 import { toast } from "react-toastify";
+import Loader from "./Loader";
 
 interface ActivityModalProps {
   isOpen: boolean;
@@ -517,7 +517,7 @@ const ActivityModal: React.FC<ActivityModalProps> = ({
               >
                 {isSubmitting || isLogoUploading ? (
                   <>
-                    <ClipLoader color="#fff" size={20} className="mr-2" />
+                    <Loader size={20} className="mr-2" />
                     {isLogoUploading
                       ? "Adding..."
                       : editingActivity

@@ -12,7 +12,7 @@ import useNews from "../../hooks/useNews";
 import type { News, NewsCreateUpdatePayload } from "../../types";
 import { ConfirmationModal, NewsCreateModal } from "../../components";
 import { toast } from "react-toastify";
-import ClipLoader from "react-spinners/ClipLoader";
+import Loader from "../../components/Loader";
 
 const NEWS_PER_PAGE = 10;
 
@@ -142,13 +142,7 @@ const NewsManagementPage: React.FC = () => {
   if (newsLoading) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[400px] bg-white rounded-lg shadow-md">
-        <ClipLoader
-          color="#003b75"
-          loading={newsLoading}
-          size={50}
-          aria-label="Loading Spinner"
-          data-testid="loader"
-        />
+        <Loader size={100} />
         <p className="text-xl font-semibold text-gray-700 mt-4">
           Loading news articles...
         </p>

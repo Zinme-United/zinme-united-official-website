@@ -1,8 +1,8 @@
 import React from "react";
 import usePlayers from "../../hooks/usePlayers";
 import useAuth from "../../hooks/useAuth";
-import ClipLoader from "react-spinners/ClipLoader";
 import useActivities from "../../hooks/useActivities";
+import Loader from "../../components/Loader";
 
 const AdminDashboard: React.FC = () => {
   const { players, playersError, playersLoading } = usePlayers();
@@ -12,13 +12,7 @@ const AdminDashboard: React.FC = () => {
   if (playersLoading || allUsersLoading || activitiesLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-100">
-        <ClipLoader
-          color="#003b75"
-          loading={playersLoading}
-          size={50}
-          aria-label="Loading Spinner"
-          data-testid="loader"
-        />
+        <Loader size={100} />
       </div>
     );
   }

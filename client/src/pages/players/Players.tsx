@@ -2,7 +2,7 @@
 // import type { Player } from "../../types";
 // import usePlayers from "../../hooks/usePlayers";
 // import { PlayersCard } from "../../components";
-// import ClipLoader from "react-spinners/ClipLoader";
+// import Loader from "react-spinners/Loader";
 
 // type SelectedGenderType = "Male" | "Female";
 
@@ -45,7 +45,7 @@
 //   if (playersLoading) {
 //     return (
 //       <div className="min-h-screen flex items-center justify-center bg-gray-100">
-//         <ClipLoader
+//         <Loader
 //           color="#003b75"
 //           loading={playersLoading}
 //           size={50}
@@ -142,8 +142,8 @@ import { useState, useMemo, useEffect, useRef } from "react";
 import type { Player } from "../../types";
 import usePlayers from "../../hooks/usePlayers";
 import { PlayersCard } from "../../components";
-import ClipLoader from "react-spinners/ClipLoader";
 import { Search, X } from "lucide-react";
+import Loader from "../../components/Loader";
 
 // Tabs for gender + chips for position + hero search bar
 
@@ -223,12 +223,7 @@ const Players = () => {
   if (playersLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-100">
-        <ClipLoader
-          color="#003b75"
-          loading={playersLoading}
-          size={50}
-          aria-label="Loading Spinner"
-        />
+        <Loader size={100} />
       </div>
     );
   }

@@ -1,13 +1,13 @@
 // client/src/components/NewsModal.tsx
 import React, { useEffect, useState } from "react";
 import { X } from "lucide-react";
-import ClipLoader from "react-spinners/ClipLoader";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { News, NewsCreateUpdatePayload } from "../types";
 import { newsFormSchema, type NewsFormInputs } from "../schemas/newsSchemas";
 import useNews from "../hooks/useNews"; // Import useNews hook
 import { toast } from "react-toastify"; // For notifications
+import Loader from "./Loader";
 
 interface NewsModalProps {
   isOpen: boolean;
@@ -326,7 +326,7 @@ const NewsModal: React.FC<NewsModalProps> = ({
               >
                 {isLoading ? (
                   <>
-                    <ClipLoader color="#fff" size={20} className="mr-2" />
+                    <Loader size={20} className="mr-2" />
                     {isImageUploading
                       ? "Adding..."
                       : editingNews

@@ -1,8 +1,9 @@
 import React, { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Calendar, ChevronLeft, ChevronRight, XCircle, X } from "lucide-react";
-import ClipLoader from "react-spinners/ClipLoader";
+
 import type { Activity } from "../types";
+import Loader from "./Loader";
 
 interface EventCalendarProps {
   activities: Activity[];
@@ -31,10 +32,7 @@ const EventCalendar: React.FC<EventCalendarProps> = ({
   if (isLoading) {
     return (
       <section className="my-12 bg-white rounded-xl shadow-lg p-6 md:p-8 flex flex-col items-center justify-center min-h-[300px]">
-        <ClipLoader color="#003b75" size={50} />
-        <p className="text-xl font-semibold text-gray-700 mt-4">
-          Loading calendar events...
-        </p>
+        <Loader size={100} />
       </section>
     );
   }

@@ -7,7 +7,6 @@ import {
   Loader2,
   Image as ImageIcon,
 } from "lucide-react";
-import ClipLoader from "react-spinners/ClipLoader";
 import { toast } from "react-toastify";
 import { ConfirmationModal } from "../../components";
 import {
@@ -17,6 +16,7 @@ import {
 } from "../../hooks/useOurClub";
 import type { OurClubInput } from "../../schemas/ourClubSchemas";
 import AboutFormModal from "../../components/OurClubCreateModal";
+import Loader from "../../components/Loader";
 
 const ClubManagementPage: React.FC = () => {
   const { data: about, isLoading, isError, error } = useGetAbout();
@@ -54,10 +54,7 @@ const ClubManagementPage: React.FC = () => {
   if (isLoading) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[400px] bg-white rounded-lg shadow-md">
-        <ClipLoader color="#003b75" size={50} />
-        <p className="mt-3 text-xl font-semibold text-gray-700">
-          Loading About…
-        </p>
+        <Loader size={100} />
       </div>
     );
   }
