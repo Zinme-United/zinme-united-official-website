@@ -141,6 +141,7 @@ const Activities = () => {
           </div>
         </div>
       </section>
+
       {selectedActivityForDetails && (
         <ActivityDetailsModal
           isOpen={!!selectedActivityForDetails}
