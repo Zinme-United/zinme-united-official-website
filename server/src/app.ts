@@ -25,7 +25,7 @@ app.use(
     origin: [
       "https://zmutd.vercel.app",
       "https://zinme-united-official-website.onrender.com",
-      process.env.CORS_ORIGIN_FRONTEND!
+      "https://zmutd.dailyhighlight.online/"
     ],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
