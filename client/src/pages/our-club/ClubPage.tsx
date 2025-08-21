@@ -157,7 +157,7 @@ export default function ClubPage() {
       {/* Intro + Stats */}
       <div className="mx-auto max-w-screen-xl py-8 sm:py-10 md:py-12">
         <div className="grid gap-8 md:grid-cols-3">
-          <div className="px-3 sm:px-6 md:col-span-2">
+          <div className="px-0 sm:px-6 md:col-span-2">
             <div className="flex items-center gap-2">
               <span className="inline-flex h-6 w-6 items-center justify-center rounded bg-[#003b75] text-white">
                 <Sparkles className="h-3.5 w-3.5" />
@@ -194,7 +194,7 @@ export default function ClubPage() {
             </div>
           </div>
 
-          <div className="px-4 sm:px-0">
+          <div className="px-0 sm:px-0">
             <div className="grid grid-cols-2 gap-3 sm:gap-4">
               {stats.map((s) => (
                 <div
