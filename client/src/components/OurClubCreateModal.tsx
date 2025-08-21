@@ -109,7 +109,7 @@ const AboutFormModal: React.FC<Props> = ({
             <X size={22} />
           </button>
 
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">
+          <h2 className="text-2xl md:text-3xl font-bold text-[#003b75] mb-6">
             {defaultValues ? "Edit About" : "Create About"}
           </h2>
 
@@ -167,7 +167,7 @@ const AboutFormModal: React.FC<Props> = ({
                 </label>
                 <input
                   {...register("title")}
-                  className="w-full p-3 border border-gray-300 rounded-md"
+                  className="w-full p-3 border border-gray-300 rounded-md text-[#003b75]"
                 />
                 {errors.title && (
                   <p className="text-red-500 text-sm mt-1">
@@ -181,7 +181,7 @@ const AboutFormModal: React.FC<Props> = ({
                 </label>
                 <input
                   {...register("subtitle")}
-                  className="w-full p-3 border border-gray-300 rounded-md"
+                  className="w-full p-3 border border-gray-300 rounded-md text-[#003b75]"
                 />
               </div>
             </div>
@@ -193,7 +193,7 @@ const AboutFormModal: React.FC<Props> = ({
               <textarea
                 {...register("description")}
                 rows={3}
-                className="w-full p-3 border border-gray-300 rounded-md"
+                className="w-full p-3 border border-gray-300 rounded-md text-[#003b75]"
               />
             </div>
 
@@ -205,7 +205,7 @@ const AboutFormModal: React.FC<Props> = ({
                 <textarea
                   {...register("mission")}
                   rows={3}
-                  className="w-full p-3 border border-gray-300 rounded-md"
+                  className="w-full p-3 border border-gray-300 rounded-md text-[#003b75]"
                 />
               </div>
               <div>
@@ -215,7 +215,7 @@ const AboutFormModal: React.FC<Props> = ({
                 <textarea
                   {...register("vision")}
                   rows={3}
-                  className="w-full p-3 border border-gray-300 rounded-md"
+                  className="w-full p-3 border border-gray-300 rounded-md text-[#003b75]"
                 />
               </div>
               <div>
@@ -225,7 +225,7 @@ const AboutFormModal: React.FC<Props> = ({
                 <input
                   {...register("foundedYear")}
                   placeholder="2024"
-                  className="w-full p-3 border border-gray-300 rounded-md"
+                  className="w-full p-3 border border-gray-300 rounded-md text-[#003b75]"
                 />
               </div>
             </div>
@@ -248,12 +248,12 @@ const AboutFormModal: React.FC<Props> = ({
                     <input
                       {...register(`stats.${i}.label`)}
                       placeholder="Label"
-                      className="border rounded p-2"
+                      className="border rounded p-2 text-[#003b75]"
                     />
                     <input
                       {...register(`stats.${i}.value`)}
                       placeholder="Value"
-                      className="border rounded p-2"
+                      className="border rounded p-2 text-[#003b75]"
                     />
                     <button
                       type="button"
@@ -289,17 +289,17 @@ const AboutFormModal: React.FC<Props> = ({
                     <input
                       {...register(`milestones.${i}.year`)}
                       placeholder="Year (e.g. 2024–2025)"
-                      className="border rounded p-2"
+                      className="border rounded p-2 text-[#003b75]"
                     />
                     <input
                       {...register(`milestones.${i}.title`)}
                       placeholder="Title"
-                      className="border rounded p-2"
+                      className="border rounded p-2 text-[#003b75]"
                     />
                     <input
                       {...register(`milestones.${i}.desc`)}
                       placeholder="Description"
-                      className="border rounded p-2 md:col-span-2"
+                      className="border rounded p-2 md:col-span-2 text-[#003b75]"
                     />
                     <button
                       type="button"
@@ -331,17 +331,17 @@ const AboutFormModal: React.FC<Props> = ({
                     <input
                       {...register(`values.${i}.title`)}
                       placeholder="Title"
-                      className="border rounded p-2"
+                      className="border rounded p-2 text-[#003b75]"
                     />
                     <input
                       {...register(`values.${i}.desc`)}
                       placeholder="Description"
-                      className="border rounded p-2"
+                      className="border rounded p-2 text-[#003b75]"
                     />
                     <input
                       {...register(`values.${i}.icon`)}
                       placeholder="Icon (optional, e.g. HeartHandshake)"
-                      className="border rounded p-2"
+                      className="border rounded p-2 text-[#003b75]"
                     />
                     <button
                       type="button"
@@ -364,7 +364,7 @@ const AboutFormModal: React.FC<Props> = ({
                 <input
                   {...register("ctaText")}
                   placeholder="Support or Sponsor Us"
-                  className="w-full p-3 border border-gray-300 rounded-md"
+                  className="w-full p-3 border border-gray-300 rounded-md text-[#003b75]"
                 />
               </div>
               <div>
@@ -374,7 +374,7 @@ const AboutFormModal: React.FC<Props> = ({
                 <input
                   {...register("ctaLink")}
                   placeholder="https://example.com/contact"
-                  className="w-full p-3 border border-gray-300 rounded-md"
+                  className="w-full p-3 border border-gray-300 rounded-md text-[#003b75]"
                 />
                 {errors.ctaLink && (
                   <p className="text-red-500 text-sm mt-1">
@@ -388,7 +388,7 @@ const AboutFormModal: React.FC<Props> = ({
               <button
                 type="button"
                 onClick={onClose}
-                className="px-4 py-2 border border-gray-300 rounded-md cursor-pointer"
+                className="px-4 py-2 border border-gray-300 rounded-md cursor-pointer text-[#003b75]"
                 disabled={isSubmitting}
               >
                 Cancel

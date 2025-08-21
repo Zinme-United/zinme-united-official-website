@@ -78,7 +78,5 @@ const OurClubSchema = new Schema<IOurClub>(
   { timestamps: true }
 );
 
-OurClubSchema.index({ _id: 1 });
-
 const OurClub = mongoose.model<IOurClub>("OurClub", OurClubSchema);
 export default OurClub;
