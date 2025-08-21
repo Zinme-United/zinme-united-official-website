@@ -12,7 +12,7 @@ const NewsDetails = () => {
 
   if (singleNewsLoading)
     return (
-      <div className="text-white p-8 rounded-xl shadow-lg flex flex-col items-center justify-center min-h-[200px]">
+      <div className="min-h-screen flex flex-col items-center justify-center bg-white">
         <Loader size={100} />
       </div>
     );

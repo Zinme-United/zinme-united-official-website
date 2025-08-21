@@ -28,7 +28,7 @@ import ClubManagementPage from "./pages/club-management/ClubManagementPage";
 
 const PublicLayout = () => {
   return (
-    <div className="min-h-screen flex flex-col bg-gray-100">
+    <div className="min-h-screen flex flex-col bg-white">
       <Navbar />
       <div className="flex-grow container mx-auto px-4 py-8">
         <Outlet />

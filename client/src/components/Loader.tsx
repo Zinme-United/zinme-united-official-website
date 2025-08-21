@@ -9,6 +9,7 @@ type LoaderProps = {
   speed?: number;
   style?: CSSProperties;
   className?: string;
+  fullscreen?: boolean; // 👈 new prop to toggle overlay mode
 };
 
 function Loader({
@@ -18,7 +19,41 @@ function Loader({
   speed = 1,
   style,
   className,
+  fullscreen = false,
 }: LoaderProps) {
+  const content = (
+    <Lottie
+      animationData={loadingAnim}
+      loop={loop}
+      autoplay={autoplay}
+      // @ts-expect-error lottie-react forwards this to lottie-web
+      speed={speed}
+      style={{ background: "transparent" }}
+    />
+  );
+
+  if (fullscreen) {
+    return (
+      <div
+        className={className}
+        aria-label="Loading"
+        role="status"
+        style={{
+          position: "fixed",
+          inset: 0,
+          zIndex: 9999,
+          display: "grid",
+          placeItems: "center",
+          background: "rgba(0,0,0,0.6)",
+          backdropFilter: "blur(6px)",
+          ...style,
+        }}
+      >
+        <div style={{ width: size, height: size }}>{content}</div>
+      </div>
+    );
+  }
+
   return (
     <div
       style={{
@@ -31,13 +66,7 @@ function Loader({
       aria-label="Loading"
       role="status"
     >
-      <Lottie
-        animationData={loadingAnim}
-        loop={loop}
-        autoplay={autoplay}
-        // @ts-expect-error lottie-react forwards this to lottie-web
-        speed={speed}
-      />
+      {content}
     </div>
   );
 }

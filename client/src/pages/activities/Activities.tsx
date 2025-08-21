@@ -54,7 +54,7 @@ const Activities = () => {
 
   if (galleriesLoading || activitiesLoading) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
+      <div className="min-h-screen flex flex-col items-center justify-center bg-white">
         <Loader size={100} />
       </div>
     );
@@ -62,7 +62,7 @@ const Activities = () => {
 
   if (galleriesError || activitiesError) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-red-100 border border-red-400 text-red-700 p-6 rounded-lg shadow-md">
+      <div className="min-h-screen flex items-center justify-center bg-white border border-red-400 text-red-700 p-6 rounded-lg shadow-md">
         <XCircle className="h-6 w-6 mr-2" />
         <p className="text-xl font-semibold">
           Error loading data:{" "}
@@ -73,7 +73,7 @@ const Activities = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 font-inter p-6 md:p-10">
+    <div className="min-h-screen bg-white font-inter p-6 md:p-10">
       <h1 className="text-5xl font-extrabold text-[#003b75] mb-10 text-center">
         Club Activities
       </h1>

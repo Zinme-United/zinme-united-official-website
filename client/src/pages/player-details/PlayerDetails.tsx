@@ -21,7 +21,7 @@ const PlayerDetailPage = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <div className="min-h-screen flex items-center justify-center bg-white">
         <Loader size={100} />
       </div>
     );
@@ -29,7 +29,7 @@ const PlayerDetailPage = () => {
 
   if (error || !player) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
+      <div className="min-h-screen flex flex-col items-center justify-center bg-white">
         <p className="text-xl font-semibold text-red-600 mb-4">
           {error ? "Error loading player." : "Player not found."}
         </p>
