@@ -219,7 +219,7 @@ export default function ClubPage() {
 
       {/* Values */}
       <section className="rounded-xl bg-white">
-        <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-10 md:px-8 md:py-12">
+        <div className="mx-auto max-w-screen-xl py-8 sm:px-6 sm:py-10 md:px-8 md:py-12">
           <h2 className="text-2xl font-bold text-[#003b75] sm:text-3xl">
             What We Stand For
           </h2>
@@ -268,7 +268,7 @@ export default function ClubPage() {
 
       {/* Future Goals */}
       <section className="mt-10 rounded-xl bg-white sm:mt-12">
-        <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-10 md:px-8 md:py-12">
+        <div className="mx-auto max-w-screen-xl py-8 sm:px-6 sm:py-10 md:px-8 md:py-12">
           <div className="grid gap-8 lg:grid-cols-2">
             <div>
               <h2 className="text-2xl font-bold text-[#003b75] sm:text-3xl">

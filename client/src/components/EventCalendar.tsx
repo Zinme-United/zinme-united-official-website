@@ -1,138 +1,249 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useMemo, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { Calendar, ChevronLeft, ChevronRight, XCircle, X } from "lucide-react";
-
+import {
+  CalendarIcon,
+  ChevronLeft,
+  ChevronRight,
+  Clock,
+  MapPin,
+  Search,
+  Star,
+  X,
+} from "lucide-react";
 import type { Activity } from "../types";
-import Loader from "./Loader";
 
 interface EventCalendarProps {
   activities: Activity[];
   currentMonth: Date;
   onNextMonth: () => void;
   onPrevMonth: () => void;
-  isLoading: boolean;
-  error: Error | null;
 }
+
+type TypeFilter = "all" | "match" | "training" | "other";
 
 const EventCalendar: React.FC<EventCalendarProps> = ({
   activities,
   currentMonth,
   onNextMonth,
   onPrevMonth,
-  isLoading,
-  error,
 }) => {
   const [selectedActivity, setSelectedActivity] = useState<Activity | null>(
     null
   );
+  const [typeFilter, setTypeFilter] = useState<TypeFilter>("all");
+  const [featuredOnly, setFeaturedOnly] = useState(false);
+  const [query, setQuery] = useState("");
 
   const getMonthName = (date: Date) =>
     date.toLocaleString("default", { month: "long", year: "numeric" });
 
-  if (isLoading) {
-    return (
-      <section className="my-12 bg-white rounded-xl shadow-lg p-6 md:p-8 flex flex-col items-center justify-center min-h-[300px]">
-        <Loader size={100} />
-      </section>
-    );
-  }
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    return activities.filter((a) => {
+      const typeOk =
+        typeFilter === "all"
+          ? true
+          : a.type === typeFilter ||
+            (typeFilter === "other" &&
+              a.type !== "match" &&
+              a.type !== "training");
 
-  if (error) {
-    return (
-      <section className="my-12 bg-red-100 border border-red-400 text-red-700 p-6 rounded-lg shadow-md flex items-center justify-center min-h-[300px]">
-        <XCircle className="h-6 w-6 mr-2" />
-        <p className="text-xl font-semibold">
-          Error loading events: {error.message}
-        </p>
-      </section>
+      const featuredOk = featuredOnly ? !!a.isFeaturedEvent : true;
+
+      const queryOk =
+        !q ||
+        a.title.toLowerCase().includes(q) ||
+        a.location.toLowerCase().includes(q) ||
+        (a.opponent ? a.opponent.toLowerCase().includes(q) : false);
+
+      return typeOk && featuredOk && queryOk;
+    });
+  }, [activities, typeFilter, featuredOnly, query]);
+
+  const groupedByDay = useMemo(() => {
+    const map = new Map<string, Activity[]>();
+    for (const a of filtered) {
+      const key = new Date(a.date).toISOString().slice(0, 10);
+      if (!map.has(key)) map.set(key, []);
+      map.get(key)!.push(a);
+    }
+    return Array.from(map.entries()).sort(
+      (a, b) => new Date(a[0]).getTime() - new Date(b[0]).getTime()
     );
-  }
+  }, [filtered]);
 
   return (
-    <section className="my-12 bg-white rounded-xl shadow-lg p-6 md:p-8">
-      <h2 className="text-3xl font-bold text-[#003b75] mb-6 text-center">
+    <section className="my-6 sm:my-10 bg-white rounded-xl shadow-lg p-4 sm:p-6">
+      <h2 className="text-2xl sm:text-3xl font-bold text-[#003b75] mb-3 sm:mb-4 text-center">
         Event Calendar
       </h2>
 
-      {/* Month Navigation */}
-      <div className="flex justify-between items-center mb-6">
-        <button
-          onClick={onPrevMonth}
-          className="p-2 rounded-full text-[#003b75] hover:bg-blue-200 transition"
-        >
-          <ChevronLeft size={24} />
-        </button>
-        <h3 className="text-2xl font-semibold text-[#003b75]">
-          {getMonthName(currentMonth)}
-        </h3>
-        <button
-          onClick={onNextMonth}
-          className="p-2 rounded-full text-[#003b75] hover:bg-blue-200 transition"
-        >
-          <ChevronRight size={24} />
-        </button>
-      </div>
+      {/* Controls: stack on mobile, row on md+ */}
+      <div className="flex flex-col md:flex-row md:items-center gap-3 md:gap-4 justify-between mb-4 sm:mb-6">
+        {/* Month Nav */}
+        <div className="flex items-center justify-between md:justify-start gap-2">
+          <button
+            onClick={onPrevMonth}
+            className="p-2 rounded-full text-[#003b75] hover:bg-blue-100 transition cursor-pointer"
+            aria-label="Previous month"
+          >
+            <ChevronLeft size={22} />
+          </button>
+          <div className="text-lg sm:text-xl font-semibold text-[#003b75] text-center min-w-[180px]">
+            {getMonthName(currentMonth)}
+          </div>
+          <button
+            onClick={onNextMonth}
+            className="p-2 rounded-full text-[#003b75] hover:bg-blue-100 transition cursor-pointer"
+            aria-label="Next month"
+          >
+            <ChevronRight size={22} />
+          </button>
+        </div>
 
-      {/* Activities */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {activities.length > 0 ? (
-          activities.map((activity) => (
-            <div
-              key={activity._id}
-              className="bg-blue-50 p-4 rounded-lg border border-blue-200 shadow-sm cursor-pointer hover:shadow-md transition"
-              onClick={() => setSelectedActivity(activity)}
+        {/* Search (grows on wide screens) */}
+        <div className="relative w-full md:w-auto md:min-w-[280px]">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+          <input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search events"
+            className="w-full pl-9 pr-9 py-2 text-[#003b75] text-sm border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#003b75]/30"
+          />
+          {query && (
+            <button
+              onClick={() => setQuery("")}
+              className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-md hover:bg-gray-100 cursor-pointer"
+              aria-label="Clear search"
             >
-              <div className="flex items-center space-x-3 mb-2">
-                <Calendar size={20} className="text-[#003b75]" />
-                <span className="font-semibold text-[#003b75]">
-                  {new Date(activity.date).toLocaleDateString()} at{" "}
-                  {activity.time || "N/A"}
-                </span>
-              </div>
-              <h4 className="text-xl font-bold text-[#003b75] mb-1">
-                {activity.title}
-              </h4>
-              <p className="text-[#003b75] text-sm mb-2">
-                Location: {activity.location}
-                {activity.opponent && ` vs. ${activity.opponent}`}
-              </p>
-              {activity.result && (
-                <p className="text-[#003b75] text-sm mb-2">
-                  Result: {activity.result}
-                </p>
-              )}
-              <span
-                className={`inline-block text-xs font-medium px-2.5 py-0.5 rounded-full
-                ${
-                  activity.type === "match"
-                    ? "bg-red-200 text-red-800"
-                    : activity.type === "training"
-                    ? "bg-green-200 text-green-800"
-                    : "bg-blue-200 text-blue-800"
-                }`}
-              >
-                {activity.type.charAt(0).toUpperCase() + activity.type.slice(1)}
-              </span>
-              {activity.isNextMatch && (
-                <span className="ml-2 inline-block bg-yellow-200 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
-                  Next Match
-                </span>
-              )}
-              {activity.isFeaturedEvent && (
-                <span className="ml-2 inline-block bg-purple-200 text-purple-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
-                  Featured Event
-                </span>
-              )}
-            </div>
-          ))
-        ) : (
-          <p className="col-span-full text-center text-gray-600 text-lg">
-            No activities scheduled for this month.
-          </p>
-        )}
+              <X className="h-4 w-4 text-gray-500" />
+            </button>
+          )}
+        </div>
       </div>
 
-      {/* Modal for Activity Details */}
+      {/* Filters: horizontal scroll on small screens */}
+      <div className="relative -mx-4 sm:mx-0 px-4 sm:px-0 mb-4 sm:mb-6">
+        <div className="flex gap-2 overflow-x-auto scrollbar-none py-1">
+          {(["all", "match", "training", "other"] as const).map((t) => {
+            const active = typeFilter === t;
+            const label = t === "all" ? "All" : t[0].toUpperCase() + t.slice(1);
+            return (
+              <button
+                key={t}
+                onClick={() => setTypeFilter(t)}
+                className={`px-3 py-1.5 rounded-full text-xs sm:text-sm border whitespace-nowrap transition cursor-pointer
+                  ${
+                    active
+                      ? "bg-[#003b75] text-white border-[#003b75]"
+                      : "bg-white text-gray-800 border-gray-300 hover:bg-gray-100"
+                  }`}
+                aria-pressed={active}
+              >
+                {label}
+              </button>
+            );
+          })}
+          <button
+            onClick={() => setFeaturedOnly((v) => !v)}
+            className={`px-3 py-1.5 rounded-full text-xs sm:text-sm border transition cursor-pointer inline-flex items-center gap-1 whitespace-nowrap
+              ${
+                featuredOnly
+                  ? "bg-yellow-400/20 text-yellow-900 border-yellow-300"
+                  : "bg-white text-gray-800 border-gray-300 hover:bg-gray-100"
+              }`}
+            aria-pressed={featuredOnly}
+          >
+            <Star className="h-3.5 w-3.5" /> Featured
+          </button>
+        </div>
+      </div>
+
+      {/* Grouped by day */}
+      {groupedByDay.length === 0 ? (
+        <p className="text-center text-gray-600 py-8 sm:py-10">
+          No activities match your filters.
+        </p>
+      ) : (
+        <div className="space-y-4 sm:space-y-6">
+          {groupedByDay.map(([day, items]) => {
+            const d = new Date(day);
+            return (
+              <div
+                key={day}
+                className="bg-blue-50 rounded-xl border border-blue-100 p-3 sm:p-4"
+              >
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="inline-flex items-center px-2.5 py-1 rounded-md bg-white text-[#003b75] font-semibold text-xs sm:text-sm border border-blue-100">
+                    <CalendarIcon className="h-4 w-4 mr-1" />
+                    {d.toLocaleDateString(undefined, {
+                      weekday: "short",
+                      day: "2-digit",
+                      month: "short",
+                      year: "numeric",
+                    })}
+                  </span>
+                </div>
+
+                {/* Responsive card grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3 sm:gap-4">
+                  {items.map((a) => (
+                    <button
+                      key={a._id}
+                      onClick={() => setSelectedActivity(a)}
+                      className="text-left group bg-white border border-blue-100 rounded-lg p-3 sm:p-4 hover:shadow-md transition cursor-pointer"
+                    >
+                      <div className="flex flex-wrap items-center justify-between gap-2">
+                        <h4 className="text-base sm:text-lg font-bold text-[#003b75] group-hover:underline">
+                          {a.title}
+                        </h4>
+                        <span
+                          className={`text-[10px] sm:text-xs font-semibold px-2 py-1 rounded-full
+                            ${
+                              a.type === "match"
+                                ? "bg-red-100 text-red-800"
+                                : a.type === "training"
+                                ? "bg-green-100 text-green-800"
+                                : "bg-yellow-100 text-yellow-800"
+                            }`}
+                        >
+                          {a.type[0].toUpperCase() + a.type.slice(1)}
+                        </span>
+                      </div>
+
+                      <div className="mt-2 text-xs sm:text-sm text-[#003b75] space-x-0 sm:space-x-3 space-y-1 sm:space-y-0">
+                        <span className="inline-flex items-center">
+                          <Clock className="h-4 w-4 mr-1" />
+                          {a.time || "TBA"}
+                        </span>
+                        <span className="inline-flex items-center sm:ml-3">
+                          <MapPin className="h-4 w-4 mr-1" />
+                          {a.location}
+                          {a.opponent ? ` • vs ${a.opponent}` : ""}
+                        </span>
+                      </div>
+
+                      <div className="mt-2 flex flex-wrap gap-2">
+                        {a.isNextMatch && (
+                          <span className="text-[10px] sm:text-xs font-semibold px-2 py-0.5 rounded-full bg-yellow-200 text-yellow-900">
+                            Next Match
+                          </span>
+                        )}
+                        {a.isFeaturedEvent && (
+                          <span className="text-[10px] sm:text-xs font-semibold px-2 py-0.5 rounded-full bg-purple-200 text-purple-900">
+                            Featured
+                          </span>
+                        )}
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+
       <Transition appear show={!!selectedActivity} as={Fragment}>
         <Dialog
           as="div"

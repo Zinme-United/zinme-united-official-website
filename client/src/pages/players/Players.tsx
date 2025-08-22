@@ -400,7 +400,7 @@ const Players = () => {
       </section>
 
       {/* Content */}
-      <div className="max-w-screen-xl mx-auto px-6 pb-12 mt-2">
+      <div className="max-w-screen-xl mx-auto pb-12 mt-2">
         <PlayersCard players={filteredPlayers} />
       </div>
     </div>

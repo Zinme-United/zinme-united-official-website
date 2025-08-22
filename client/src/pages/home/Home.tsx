@@ -20,7 +20,7 @@ const Home = () => {
 
   return (
     <div className="min-h-screen bg-white font-inter">
-      <div className="container mx-auto p-6 md:p-10">
+      <div className="container mx-auto">
         <HeroSection nextMatch={nextMatch || null} />
 
         <NextMatch nextMatch={nextMatch} error={nextMatchError} />

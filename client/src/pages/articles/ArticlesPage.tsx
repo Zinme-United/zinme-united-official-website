@@ -230,7 +230,7 @@ const ArticlesPage: React.FC = () => {
       {/* Featured hero */}
       {featured && (
         <section className="relative">
-          <div className="max-w-7xl mx-auto px-4 pt-8">
+          <div className="max-w-7xl mx-auto pt-8">
             <article className="relative overflow-hidden rounded-2xl bg-[#0b4e8a] text-white">
               <div className="absolute inset-0">
                 <img
@@ -281,7 +281,7 @@ const ArticlesPage: React.FC = () => {
       )}
 
       {/* Grid */}
-      <section className="max-w-7xl mx-auto px-4 py-8">
+      <section className="max-w-7xl mx-auto py-8">
         {rest.length === 0 ? (
           <div className="text-center bg-white border rounded-xl p-10">
             <p className="text-gray-700">

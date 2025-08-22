@@ -25,8 +25,13 @@ const Navbar = () => {
           <div>
             <Link
               to="/"
-              className="flex items-center py-2 px-2 text-indigo-300 hover:text-white"
+              className="flex items-center py-2 px-2 text-indigo-300 hover:text-white gap-2"
             >
+              <img
+                src="/ZMUTD Official.png"
+                alt="Zinme United"
+                className="h-8 w-auto"
+              />
               <span className="font-bold text-xl text-white">Zinme United</span>
             </Link>
           </div>
