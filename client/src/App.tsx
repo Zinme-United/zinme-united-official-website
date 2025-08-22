@@ -19,12 +19,12 @@ import PlayerManagementPage from "./pages/player-management/PlayerManagementPage
 import GalleryManagementPage from "./pages/gallery-management/GalleryManagementPage";
 import ActivityManagementPage from "./pages/activity-management/ActivityManagementPage";
 import NewsManagementPage from "./pages/news-management/NewsManagementPage";
-import NewsDetails from "./pages/news-details/NewsDetails";
 import PlayerDetailPage from "./pages/player-details/PlayerDetails";
 import GalleryDetailPage from "./pages/gallery-details/GalleryDetailsPage";
-import NewsPage from "./pages/news/NewsPage";
 import ClubPage from "./pages/our-club/ClubPage";
 import ClubManagementPage from "./pages/club-management/ClubManagementPage";
+import ArticlesPage from "./pages/articles/ArticlesPage";
+import ArticlesDetails from "./pages/articles-details/ArticlesDetails";
 
 const PublicLayout = () => {
   return (
@@ -68,12 +68,12 @@ const router = createBrowserRouter([
         element: <GalleryDetailPage />,
       },
       {
-        path: "news",
-        element: <NewsPage />,
+        path: "articles",
+        element: <ArticlesPage />,
       },
       {
-        path: "news/:id",
-        element: <NewsDetails />,
+        path: "articles/:id",
+        element: <ArticlesDetails />,
       },
     ],
   },

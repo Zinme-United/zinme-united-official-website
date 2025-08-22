@@ -81,7 +81,7 @@ const LatestNewsAndUpdates: React.FC<Props> = ({ news, error }) => {
                 {news.content.slice(0, 150)}...
               </p>
               <Link
-                to={`/news/${news._id}`}
+                to={`/articles/${news._id}`}
                 className="text-[#003b75] font-semibold flex items-center"
               >
                 Read More <ChevronRight size={16} className="ml-1" />

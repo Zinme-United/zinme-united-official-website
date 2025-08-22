@@ -28,8 +28,8 @@ export const routeLinks: RouteLink[] = [
   },
   {
     id: 4,
-    label: "News",
-    route: "/news",
+    label: "Articles",
+    route: "/articles",
     icon: Newspaper,
   },
 ];
