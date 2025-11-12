@@ -352,7 +352,9 @@ export default function ClubPage() {
             </div>
             <div className="flex sm:justify-end">
               <Link
-                to="/contact"
+                to="https://www.facebook.com/zmutdfc"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center rounded-full bg-white px-4 py-2 text-sm font-semibold text-[#003b75] transition hover:bg-blue-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#003b75]/40 sm:px-5 sm:py-3"
               >
                 Contact Us{" "}

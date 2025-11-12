@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { routeLinks } from "../constants";
 import { Menu, X, type LucideIcon } from "lucide-react";
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router"; // add useLocation
 import useAuth from "../hooks/useAuth";
 
 export interface RouteLink {
@@ -14,14 +14,17 @@ export interface RouteLink {
 const Navbar = () => {
   const { isLoggedIn, user } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation(); // current route path
 
-  const toggleMenu = () => {
-    setIsOpen((prevState) => !prevState);
-  };
+  const toggleMenu = () => setIsOpen((prev) => !prev);
+
+  const isActive = (path: string) => location.pathname === path;
+
   return (
     <nav className="bg-[#003b75] shadow-lg">
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex justify-between items-center h-16">
+          {/* Logo */}
           <div>
             <Link
               to="/"
@@ -38,14 +41,17 @@ const Navbar = () => {
 
           {/* Desktop Menu Links */}
           <div className="hidden sm:flex items-center space-x-4">
-            {/* Public Route Links */}
             {routeLinks.map((link) => {
               const Icon = link.icon;
               return (
                 <Link
                   key={link.id}
                   to={link.route}
-                  className="py-2 px-3 hover:text-white flex items-center transition-colors duration-200"
+                  className={`py-2 px-3 flex items-center transition-colors duration-200 ${
+                    isActive(link.route)
+                      ? "text-[#FFD700] font-bold border-b-2 border-[#FFD700]"
+                      : "text-white/80 hover:text-[#FFD700]"
+                  }`}
                 >
                   <Icon size={18} className="mr-1 text-white" />
                   <p className="text-white">{link.label}</p>
@@ -53,18 +59,21 @@ const Navbar = () => {
               );
             })}
 
-            {/* Conditional Admin Panel Link (Desktop) */}
             {isLoggedIn && user?.role === "admin" && (
               <Link
                 to="/admin"
-                className="py-2 px-3 cursor-pointer hover:text-white flex items-center transition-colors duration-200"
+                className={`py-2 px-3 flex items-center transition-colors duration-200 ${
+                  isActive("/admin")
+                    ? "text-white border-b-2 border-yellow-400 pb-1"
+                    : "text-white/80 hover:text-white"
+                }`}
               >
                 <p className="text-white">Admin Panel</p>
               </Link>
             )}
           </div>
 
-          {/* Mobile menu button */}
+          {/* Mobile Menu Button */}
           <div className="sm:hidden flex items-center">
             <button
               onClick={toggleMenu}
@@ -76,17 +85,20 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile menu content */}
+      {/* Mobile Menu */}
       <div className={`sm:hidden ${isOpen ? "block" : "hidden"}`}>
-        {/* Public Route Links (Mobile) */}
         {routeLinks.map((link) => {
           const Icon = link.icon;
           return (
             <Link
               key={link.id}
               to={link.route}
-              className="block py-3 px-4 text-indigo-300 hover:bg-indigo-800 transition-colors duration-200 flex items-center"
               onClick={() => setIsOpen(false)}
+              className={`block py-3 px-4 flex items-center transition-colors duration-200 ${
+                isActive(link.route)
+                  ? "bg-[#0056b3] text-white px-3 py-1 shadow-md"
+                  : "text-white/80 hover:text-white"
+              }`}
             >
               <Icon size={18} className="mr-1 text-white" />
               <p className="text-white">{link.label}</p>
@@ -94,12 +106,15 @@ const Navbar = () => {
           );
         })}
 
-        {/* Conditional Admin Panel Link (Mobile) */}
         {isLoggedIn && user?.role === "admin" && (
           <Link
             to="/admin"
-            className="block py-3 px-4 text-indigo-300 hover:bg-indigo-800 transition-colors duration-200 flex items-center"
             onClick={() => setIsOpen(false)}
+            className={`block py-3 px-4 flex items-center transition-colors duration-200 ${
+              isActive("/admin")
+                ? "bg-indigo-600 text-white"
+                : "text-indigo-300 hover:bg-indigo-800"
+            }`}
           >
             Admin Panel
           </Link>

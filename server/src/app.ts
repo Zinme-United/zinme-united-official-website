@@ -26,6 +26,7 @@ app.use(
       "https://zmutd.vercel.app",
       "https://zinme-united-official-website.onrender.com",
       "https://zmutd.dailyhighlight.online",
+      "http://localhost:5173",
     ],
     credentials: true,
   })

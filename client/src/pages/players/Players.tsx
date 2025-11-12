@@ -252,7 +252,7 @@ const Players = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 mx-auto">
+    <div className="min-h-screen mx-auto">
       {/* HERO with big search */}
       <section className="relative rounded-t-xl isolate overflow-hidden bg-gradient-to-br from-[#001e3a] via-[#003b75] to-[#0a7abf]">
         <div
