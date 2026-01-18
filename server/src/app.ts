@@ -27,6 +27,7 @@ app.use(
       "https://zinme-united-official-website.onrender.com",
       "https://zmutd.dailyhighlight.online",
       "http://localhost:5173",
+      "https://zinmeutd.com
     ],
     credentials: true,
   })
