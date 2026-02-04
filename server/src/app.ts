@@ -24,13 +24,11 @@ app.use(
   cors({
     origin: [
       "https://zmutd.vercel.app",
-      "https://zinme-united-official-website.onrender.com",
-      "https://zmutd.dailyhighlight.online",
       "http://localhost:5173",
-      "https://zinmeutd.com
+      "https://zinmeutd.com",
     ],
     credentials: true,
-  })
+  }),
 );
 
 app.use(requestLogger);
