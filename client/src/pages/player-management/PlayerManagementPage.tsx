@@ -15,6 +15,7 @@ import PlayerFormModal from "../../components/PlayerModal"; // Adjusted import p
 import { ConfirmationModal } from "../../components"; // Assuming this is correct
 import { toast } from "react-toastify";
 import Loader from "../../components/Loader";
+import PlayerQRModal from "../../components/PlayerQrcodeModal";
 
 const PLAYERS_PER_PAGE = 10;
 
@@ -30,6 +31,7 @@ const PlayerManagementPage: React.FC = () => {
   } = usePlayers();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [qrModalOpen, setQrModalOpen] = useState(false);
   const [editingPlayer, setEditingPlayer] = useState<Player | null>(null);
   const [isConfirmDeleteModalOpen, setIsConfirmDeleteModalOpen] =
     useState(false);
@@ -191,6 +193,7 @@ const PlayerManagementPage: React.FC = () => {
             }}
             className="px-3 py-2 border text-[#003b75] border-gray-300 rounded-md"
           />
+
           {/* <input
             type="text"
             placeholder="Filter by number"
@@ -323,6 +326,12 @@ const PlayerManagementPage: React.FC = () => {
 
           <div className="flex justify-center items-center mt-4 space-x-2">
             <button
+              onClick={() => setQrModalOpen(true)}
+              className="flex items-center px-4 py-2 bg-green-600 text-black rounded-md shadow-md"
+            >
+              Generate QR Codes
+            </button>
+            <button
               onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
               disabled={currentPage === 1}
               className="p-2 cursor-pointer rounded-full text-[#003b75] disabled:opacity-30"
@@ -369,6 +378,12 @@ const PlayerManagementPage: React.FC = () => {
           "this player"
         }? This action cannot be undone.`}
         isConfirming={deletePlayerMutation.isPending}
+      />
+
+      <PlayerQRModal
+        isOpen={qrModalOpen}
+        onClose={() => setQrModalOpen(false)}
+        players={players || []}
       />
     </div>
   );
