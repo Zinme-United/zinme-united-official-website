@@ -220,7 +220,7 @@ const GalleryManagementPage: React.FC = () => {
   return (
     <div className="p-6 bg-white bg-opacity-80 rounded-lg shadow-md">
       <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
-        <h1 className="text-3xl font-bold text-[#003b75]">
+        <h1 className="text-3xl font-bold text-primary">
           Gallery Management
         </h1>
         <div className="flex items-center gap-3">
@@ -232,11 +232,11 @@ const GalleryManagementPage: React.FC = () => {
               setSearchTerm(e.target.value);
               setCurrentPage(1);
             }}
-            className="px-3 py-2 border text-[#003b75] border-gray-300 rounded-md"
+            className="px-3 py-2 border text-primary border-gray-300 rounded-md"
           />
           <button
             onClick={handleAddGallery}
-            className="flex items-center px-4 py-2 bg-[#003b75] text-white rounded-md cursor-pointer transition-colors shadow-md"
+            className="flex items-center px-4 py-2 bg-primary text-white rounded-md cursor-pointer transition-colors shadow-md"
             disabled={isSubmitting || isImageUploading}
           >
             <Plus size={20} className="mr-2" /> Add New Gallery
@@ -291,32 +291,32 @@ const GalleryManagementPage: React.FC = () => {
                           </div>
                         )}
                       </td>
-                      <td className="py-4 px-6 whitespace-nowrap text-sm font-medium text-[#003b75]">
+                      <td className="py-4 px-6 whitespace-nowrap text-sm font-medium text-primary">
                         {gallery.title}
                       </td>
-                      <td className="py-4 px-6 text-sm text-[#003b75] max-w-xs truncate">
+                      <td className="py-4 px-6 text-sm text-primary max-w-xs truncate">
                         {gallery.description || "N/A"}
                       </td>
-                      <td className="py-4 px-6 whitespace-nowrap text-sm text-[#003b75]">
+                      <td className="py-4 px-6 whitespace-nowrap text-sm text-primary">
                         {gallery.eventDate
                           ? new Date(gallery.eventDate).toLocaleDateString()
                           : "N/A"}
                       </td>
-                      <td className="py-4 px-6 whitespace-nowrap text-sm text-[#003b75]">
+                      <td className="py-4 px-6 whitespace-nowrap text-sm text-primary">
                         {gallery.category === "match"
                           ? "Match"
                           : gallery.category === "activity"
                           ? "Activity"
                           : "N/A"}
                       </td>
-                      <td className="py-4 px-6 whitespace-nowrap text-sm text-[#003b75] text-center">
+                      <td className="py-4 px-6 whitespace-nowrap text-sm text-primary text-center">
                         {gallery.images.length}
                       </td>
                       <td className="py-4 px-6 whitespace-nowrap text-right text-sm font-medium">
                         <div className="flex justify-center items-center space-x-2">
                           <button
                             onClick={() => handleEditGallery(gallery)}
-                            className="text-[#003b75] hover:text-[#003b75] cursor-pointer bg-blue-100 p-2 rounded-full"
+                            className="text-primary hover:text-primary cursor-pointer bg-blue-100 p-2 rounded-full"
                             title="Edit Gallery"
                             disabled={isSubmitting || isImageUploading}
                           >
@@ -352,23 +352,23 @@ const GalleryManagementPage: React.FC = () => {
             <button
               onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
               disabled={currentPage === 1}
-              className="p-2 cursor-pointer rounded-full text-[#003b75] disabled:opacity-30"
+              className="p-2 cursor-pointer rounded-full text-primary disabled:opacity-30"
               title="Previous Page"
             >
-              <ChevronLeft color="#003b75" size={24} />
+              <ChevronLeft className="text-primary" size={24} />
             </button>
 
-            <span className="text-[#003b75] font-medium">
+            <span className="text-primary font-medium">
               Page {currentPage} of {totalPages}
             </span>
 
             <button
               onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
               disabled={currentPage === totalPages}
-              className="p-2 cursor-pointer rounded-full text-[#003b75] disabled:opacity-30"
+              className="p-2 cursor-pointer rounded-full text-primary disabled:opacity-30"
               title="Next Page"
             >
-              <ChevronRight color="#003b75" size={24} />
+              <ChevronRight className="text-primary" size={24} />
             </button>
           </div>
         </>

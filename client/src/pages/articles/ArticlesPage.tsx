@@ -124,7 +124,7 @@ const ArticlesPage: React.FC = () => {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search articles (press / to focus)"
-              className="w-full pl-9 pr-9 py-2 text-sm border text-[#003b75] border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#003b75]/30"
+              className="w-full pl-9 pr-9 py-2 text-sm border text-primary border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-primary/30"
             />
             {query && (
               <button
@@ -146,7 +146,7 @@ const ArticlesPage: React.FC = () => {
               id="sort"
               value={sort}
               onChange={(e) => setSort(e.target.value as SortKey)}
-              className="text-sm border border-gray-300 rounded-lg px-3 py-2 bg-white text-[#003b75]"
+              className="text-sm border border-gray-300 rounded-lg px-3 py-2 bg-white text-primary"
             >
               <option value="latest">Latest</option>
               <option value="oldest">Oldest</option>
@@ -185,7 +185,7 @@ const ArticlesPage: React.FC = () => {
               ))}
               <button
                 onClick={clearAll}
-                className="text-xs px-3 py-1 rounded-lg border bg-gray-100 cursor-pointer text-[#003b75] hover:bg-gray-50"
+                className="text-xs px-3 py-1 rounded-lg border bg-gray-100 cursor-pointer text-primary hover:bg-gray-50"
               >
                 Clear all
               </button>
@@ -197,8 +197,8 @@ const ArticlesPage: React.FC = () => {
         <div className="bg-white/80">
           <div className="max-w-7xl mx-auto px-4 pb-3 overflow-x-auto">
             <div className="flex items-center gap-2 py-2">
-              <span className="inline-flex items-center text-xs text-[#003b75] mr-1">
-                <Tag className="h-4 w-4 mr-1" color="#003b75" /> Tags:
+              <span className="inline-flex items-center text-xs text-primary mr-1">
+                <Tag className="h-4 w-4 mr-1" className="text-primary" /> Tags:
               </span>
               {allTags.length === 0 ? (
                 <span className="text-xs text-gray-500">No tags</span>
@@ -212,7 +212,7 @@ const ArticlesPage: React.FC = () => {
                       className={`px-3 py-1.5 cursor-pointer rounded-full text-xs border whitespace-nowrap transition
                         ${
                           active
-                            ? "bg-[#003b75] text-white border-[#003b75]"
+                            ? "bg-primary text-white border-primary"
                             : "bg-white text-gray-800 border-gray-300 hover:bg-gray-100"
                         }`}
                       aria-pressed={active}
@@ -231,7 +231,7 @@ const ArticlesPage: React.FC = () => {
       {featured && (
         <section className="relative">
           <div className="max-w-7xl mx-auto pt-8">
-            <article className="relative overflow-hidden rounded-2xl bg-[#0b4e8a] text-white">
+            <article className="relative overflow-hidden rounded-2xl bg-primary-dark text-white">
               <div className="absolute inset-0">
                 <img
                   src={featured.imageUrl || "/zinme.jpg"}
@@ -269,7 +269,7 @@ const ArticlesPage: React.FC = () => {
                 <div className="mt-6">
                   <Link
                     to={`/articles/${featured._id}`}
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white text-[#003b75] font-semibold hover:bg-blue-50"
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white text-primary font-semibold hover:bg-blue-50"
                   >
                     Read article <ArrowUpRight className="h-4 w-4" />
                   </Link>
@@ -327,7 +327,7 @@ const ArticleCard: React.FC<{ a: News }> = ({ a }) => {
               {a.tags.slice(0, 3).map((t) => (
                 <span
                   key={t}
-                  className="text-[11px] bg-blue-50 text-[#003b75] px-2 py-1 rounded-full border border-blue-100"
+                  className="text-[11px] bg-blue-50 text-primary px-2 py-1 rounded-full border border-blue-100"
                 >
                   #{t}
                 </span>
@@ -340,7 +340,7 @@ const ArticleCard: React.FC<{ a: News }> = ({ a }) => {
               {a.content.length > 160 ? "…" : ""}
             </p>
           )}
-          <span className="mt-4 inline-flex items-center gap-1 text-[#003b75] font-semibold">
+          <span className="mt-4 inline-flex items-center gap-1 text-primary font-semibold">
             Read <ChevronRight className="h-4 w-4" />
           </span>
         </div>

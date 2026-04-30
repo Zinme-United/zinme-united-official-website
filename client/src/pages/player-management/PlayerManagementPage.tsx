@@ -181,7 +181,7 @@ const PlayerManagementPage: React.FC = () => {
   return (
     <div className="p-6 bg-white bg-opacity-80 rounded-lg shadow-md">
       <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
-        <h1 className="text-3xl font-bold text-[#003b75]">Player Management</h1>
+        <h1 className="text-3xl font-bold text-primary">Player Management</h1>
         <div className="flex items-center gap-3">
           <input
             type="text"
@@ -191,7 +191,7 @@ const PlayerManagementPage: React.FC = () => {
               setSearchTerm(e.target.value);
               setCurrentPage(1);
             }}
-            className="px-3 py-2 border text-[#003b75] border-gray-300 rounded-md"
+            className="px-3 py-2 border text-primary border-gray-300 rounded-md"
           />
 
           {/* <input
@@ -202,7 +202,7 @@ const PlayerManagementPage: React.FC = () => {
               setNumberFilter(e.target.value);
               setCurrentPage(1);
             }}
-            className="px-3 py-2 text-[#003b75] border border-gray-300 rounded-md"
+            className="px-3 py-2 text-primary border border-gray-300 rounded-md"
           />
           <select
             value={positionFilter}
@@ -210,7 +210,7 @@ const PlayerManagementPage: React.FC = () => {
               setPositionFilter(e.target.value);
               setCurrentPage(1);
             }}
-            className="px-3 py-2 text-[#003b75] border border-gray-300 rounded-md"
+            className="px-3 py-2 text-primary border border-gray-300 rounded-md"
           >
             <option value="All">All Positions</option>
             <option value="GK">Goalkeeper</option>
@@ -224,7 +224,7 @@ const PlayerManagementPage: React.FC = () => {
               setGenderFilter(e.target.value as "Male" | "Female");
               setCurrentPage(1);
             }}
-            className="px-3 py-2 text-[#003b75] border border-gray-300 rounded-md"
+            className="px-3 py-2 text-primary border border-gray-300 rounded-md"
           >
             <option value="Male">Male</option>
             <option value="Female">Female</option>
@@ -232,7 +232,7 @@ const PlayerManagementPage: React.FC = () => {
 
           <button
             onClick={handleAddPlayer}
-            className="flex items-center px-4 py-2 bg-[#003b75] text-white rounded-md cursor-pointer transition-colors shadow-md"
+            className="flex items-center px-4 py-2 bg-primary text-white rounded-md cursor-pointer transition-colors shadow-md"
             disabled={isSubmitting}
           >
             <Plus size={20} className="mr-2" /> Add New Player
@@ -278,16 +278,16 @@ const PlayerManagementPage: React.FC = () => {
                           className="h-10 w-10 rounded-full object-cover"
                         />
                       </td>
-                      <td className="py-4 px-6 whitespace-nowrap text-sm font-medium text-[#003b75]">
+                      <td className="py-4 px-6 whitespace-nowrap text-sm font-medium text-primary">
                         {player.name}
                       </td>
-                      <td className="py-4 px-6 whitespace-nowrap text-sm text-[#003b75]">
+                      <td className="py-4 px-6 whitespace-nowrap text-sm text-primary">
                         {player.number}
                       </td>
-                      <td className="py-4 px-6 whitespace-nowrap text-sm text-[#003b75]">
+                      <td className="py-4 px-6 whitespace-nowrap text-sm text-primary">
                         {player.position}
                       </td>
-                      <td className="py-4 px-6 whitespace-nowrap text-sm text-[#003b75]">
+                      <td className="py-4 px-6 whitespace-nowrap text-sm text-primary">
                         {player.gender}
                       </td>
                       <td className="py-4 px-6 whitespace-nowrap text-right text-sm font-medium">
@@ -334,23 +334,23 @@ const PlayerManagementPage: React.FC = () => {
             <button
               onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
               disabled={currentPage === 1}
-              className="p-2 cursor-pointer rounded-full text-[#003b75] disabled:opacity-30"
+              className="p-2 cursor-pointer rounded-full text-primary disabled:opacity-30"
               title="Previous Page"
             >
-              <ChevronLeft color="#003b75" size={24} />
+              <ChevronLeft className="text-primary" size={24} />
             </button>
 
-            <span className="text-[#003b75] font-medium">
+            <span className="text-primary font-medium">
               Page {currentPage} of {totalPages}
             </span>
 
             <button
               onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
               disabled={currentPage === totalPages}
-              className="p-2 cursor-pointer rounded-full text-[#003b75] disabled:opacity-30"
+              className="p-2 cursor-pointer rounded-full text-primary disabled:opacity-30"
               title="Next Page"
             >
-              <ChevronRight color="#003b75" size={24} />
+              <ChevronRight className="text-primary" size={24} />
             </button>
           </div>
         </>

@@ -145,7 +145,7 @@ export default function ClubPage() {
             {/* Corner badge */}
             {club?.subtitle && (
               <div className="absolute right-2 top-2 sm:right-4 sm:top-4">
-                <span className="inline-flex items-center rounded-full bg-white/90 px-2.5 py-1 text-[10px] font-semibold text-[#003b75] shadow sm:text-xs">
+                <span className="inline-flex items-center rounded-full bg-white/90 px-2.5 py-1 text-[10px] font-semibold text-primary shadow sm:text-xs">
                   {club.subtitle}
                 </span>
               </div>
@@ -159,10 +159,10 @@ export default function ClubPage() {
         <div className="grid gap-8 md:grid-cols-3">
           <div className="px-0 sm:px-6 md:col-span-2">
             <div className="flex items-center gap-2">
-              <span className="inline-flex h-6 w-6 items-center justify-center rounded bg-[#003b75] text-white">
+              <span className="inline-flex h-6 w-6 items-center justify-center rounded bg-primary text-white">
                 <Sparkles className="h-3.5 w-3.5" />
               </span>
-              <h2 className="text-2xl font-bold text-[#003b75] sm:text-3xl">
+              <h2 className="text-2xl font-bold text-primary sm:text-3xl">
                 Who We Are
               </h2>
             </div>
@@ -174,12 +174,11 @@ export default function ClubPage() {
             <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <Link
                 to="/activities"
-                className="inline-flex items-center justify-center rounded-full bg-[#003b75] px-4 py-2 text-sm font-medium text-white shadow transition hover:bg-blue-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+                className="inline-flex items-center justify-center rounded-full bg-primary px-4 py-2 text-sm font-medium text-white shadow transition hover:bg-blue-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
               >
                 <span className="text-white">See Our Activities</span>
                 <ChevronRight
-                  color="white"
-                  className="ml-1 h-4 w-4"
+                  className="ml-1 h-4 w-4 text-white"
                   aria-hidden="true"
                 />
               </Link>
@@ -187,7 +186,7 @@ export default function ClubPage() {
                 to="https://www.facebook.com/zmutdfc"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-full border border-[#003b75]/30 bg-white px-4 py-2 text-sm font-medium text-[#003b75] transition hover:bg-gray-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#003b75]/40"
+                className="inline-flex items-center justify-center rounded-full border border-primary/30 bg-white px-4 py-2 text-sm font-medium text-primary transition hover:bg-gray-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
               >
                 Get in Touch
               </Link>
@@ -201,10 +200,10 @@ export default function ClubPage() {
                   key={s.label}
                   className="group rounded-xl border border-gray-200 bg-white p-4 text-center shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
                 >
-                  <div className="mx-auto mb-2 inline-flex h-8 w-8 items-center justify-center rounded-full bg-[#003b75]/10 text-[#003b75]">
+                  <div className="mx-auto mb-2 inline-flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 text-primary">
                     {statIcon(s.label)}
                   </div>
-                  <div className="text-xl font-extrabold text-[#003b75] sm:text-2xl">
+                  <div className="text-xl font-extrabold text-primary sm:text-2xl">
                     {s.value}
                   </div>
                   <div className="mt-1 text-[10px] font-medium uppercase tracking-wide text-gray-500 sm:text-xs">
@@ -220,7 +219,7 @@ export default function ClubPage() {
       {/* Values */}
       <section className="rounded-xl bg-white">
         <div className="mx-auto max-w-screen-xl py-8 sm:px-6 sm:py-10 md:px-8 md:py-12">
-          <h2 className="text-2xl font-bold text-[#003b75] sm:text-3xl">
+          <h2 className="text-2xl font-bold text-primary sm:text-3xl">
             What We Stand For
           </h2>
           <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -229,7 +228,7 @@ export default function ClubPage() {
                 key={v.title}
                 className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition hover:shadow-md sm:p-6"
               >
-                <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#003b75]/10 text-[#003b75]">
+                <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
                   {v.icon}
                 </div>
                 <h3 className="text-base font-semibold text-gray-900 sm:text-lg">
@@ -247,14 +246,14 @@ export default function ClubPage() {
       {/* Timeline */}
       <section className="mt-10 rounded-xl bg-gray-50 sm:mt-12">
         <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-10 md:px-8 md:py-12">
-          <h2 className="text-2xl font-bold text-[#003b75] sm:text-3xl">
+          <h2 className="text-2xl font-bold text-primary sm:text-3xl">
             Our Journey
           </h2>
           <ol className="relative mt-6 border-s border-gray-200">
             {milestones.map((m, i: number) => (
               <li key={`${m.title}-${i}`} className="ms-4 mb-8 sm:mb-10">
-                <span className="absolute -left-[9px] flex h-5 w-5 items-center justify-center rounded-full border-2 border-white bg-[#003b75] ring-2 ring-[#003b75]/25" />
-                <h3 className="text-sm font-semibold text-[#003b75] sm:text-base">
+                <span className="absolute -left-[9px] flex h-5 w-5 items-center justify-center rounded-full border-2 border-white bg-primary ring-2 ring-primary/25" />
+                <h3 className="text-sm font-semibold text-primary sm:text-base">
                   {m.year} • {m.title}
                 </h3>
                 <p className="mt-1 text-sm text-gray-700 sm:text-base">
@@ -271,7 +270,7 @@ export default function ClubPage() {
         <div className="mx-auto max-w-screen-xl py-8 sm:px-6 sm:py-10 md:px-8 md:py-12">
           <div className="grid gap-8 lg:grid-cols-2">
             <div>
-              <h2 className="text-2xl font-bold text-[#003b75] sm:text-3xl">
+              <h2 className="text-2xl font-bold text-primary sm:text-3xl">
                 Looking Ahead
               </h2>
               <p className="mt-3 text-sm text-gray-700 sm:text-base">
@@ -296,11 +295,10 @@ export default function ClubPage() {
                   to="https://www.facebook.com/zmutdfc"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-6 inline-flex items-center rounded-full bg-[#003b75] px-4 py-2 text-white shadow transition hover:bg-blue-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+                  className="mt-6 inline-flex items-center rounded-full bg-primary px-4 py-2 text-white shadow transition hover:bg-blue-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
                 >
                   <HeartHandshake
-                    color="white"
-                    className="mr-2 h-4 w-4"
+                    className="mr-2 h-4 w-4 text-white"
                     aria-hidden="true"
                   />
                   <span className="text-white">{club.ctaText}</span>
@@ -312,7 +310,7 @@ export default function ClubPage() {
             <div className="rounded-2xl border border-gray-200 bg-gray-50 p-4 shadow-sm sm:p-6">
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#003b75]/10 text-[#003b75]">
+                  <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
                     <Rocket className="h-6 w-6" aria-hidden="true" />
                   </div>
                   <h3 className="text-lg font-semibold text-gray-900">
@@ -339,7 +337,7 @@ export default function ClubPage() {
 
       {/* CTA band */}
       <section className="mt-10 pb-10 sm:mt-12 sm:pb-12">
-        <div className="mx-auto max-w-screen-xl rounded-2xl bg-[#003b75] px-4 py-6 text-white sm:px-8 sm:py-10">
+        <div className="mx-auto max-w-screen-xl rounded-2xl bg-primary px-4 py-6 text-white sm:px-8 sm:py-10">
           <div className="grid items-center gap-6 sm:grid-cols-3">
             <div className="sm:col-span-2">
               <h3 className="text-xl font-bold sm:text-2xl">
@@ -355,7 +353,7 @@ export default function ClubPage() {
                 to="https://www.facebook.com/zmutdfc"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center rounded-full bg-white px-4 py-2 text-sm font-semibold text-[#003b75] transition hover:bg-blue-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#003b75]/40 sm:px-5 sm:py-3"
+                className="inline-flex items-center rounded-full bg-white px-4 py-2 text-sm font-semibold text-primary transition hover:bg-blue-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 sm:px-5 sm:py-3"
               >
                 Contact Us{" "}
                 <ChevronRight className="ml-1 h-4 w-4" aria-hidden="true" />
