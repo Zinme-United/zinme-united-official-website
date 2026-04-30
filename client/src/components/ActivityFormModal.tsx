@@ -203,7 +203,7 @@ const ActivityModal: React.FC<ActivityModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-[#003b75] bg-opacity-75 flex items-center justify-center z-50 p-4">
+    <div className="fixed inset-0 bg-primary bg-opacity-75 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
         <div className="p-6 md:p-8 relative">
           <button
@@ -222,7 +222,7 @@ const ActivityModal: React.FC<ActivityModalProps> = ({
             <div>
               <label
                 htmlFor="title"
-                className="block text-sm font-medium text-[#003b75] mb-1"
+                className="block text-sm font-medium text-primary mb-1"
               >
                 Title <span className="text-red-500">*</span>
               </label>
@@ -230,7 +230,7 @@ const ActivityModal: React.FC<ActivityModalProps> = ({
                 type="text"
                 id="title"
                 {...register("title")}
-                className="w-full p-3 border text-black border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#003b75]"
+                className="w-full p-3 border text-black border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
               />
               {errors.title && (
                 <p className="text-red-500 text-sm mt-1">
@@ -242,7 +242,7 @@ const ActivityModal: React.FC<ActivityModalProps> = ({
             <div>
               <label
                 htmlFor="description"
-                className="block text-sm font-medium text-[#003b75] mb-1"
+                className="block text-sm font-medium text-primary mb-1"
               >
                 Description
               </label>
@@ -250,21 +250,21 @@ const ActivityModal: React.FC<ActivityModalProps> = ({
                 id="description"
                 {...register("description")}
                 rows={3}
-                className="w-full p-3 border text-black border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#003b75]"
+                className="w-full p-3 border text-black border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
               ></textarea>
             </div>
 
             <div>
               <label
                 htmlFor="type"
-                className="block text-sm font-medium text-[#003b75] mb-1"
+                className="block text-sm font-medium text-primary mb-1"
               >
                 Type <span className="text-red-500">*</span>
               </label>
               <select
                 id="type"
                 {...register("type")}
-                className="w-full p-3 border text-black border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#003b75]"
+                className="w-full p-3 border text-black border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
               >
                 <option value="event">Event</option>
                 <option value="training">Training</option>
@@ -281,7 +281,7 @@ const ActivityModal: React.FC<ActivityModalProps> = ({
               <div>
                 <label
                   htmlFor="date"
-                  className="block text-sm font-medium text-[#003b75] mb-1"
+                  className="block text-sm font-medium text-primary mb-1"
                 >
                   Date <span className="text-red-500">*</span>
                 </label>
@@ -289,7 +289,7 @@ const ActivityModal: React.FC<ActivityModalProps> = ({
                   type="date"
                   id="date"
                   {...register("date")}
-                  className="w-full p-3 border text-black border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#003b75]"
+                  className="w-full p-3 border text-black border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                 />
                 {errors.date && (
                   <p className="text-red-500 text-sm mt-1">
@@ -300,7 +300,7 @@ const ActivityModal: React.FC<ActivityModalProps> = ({
               <div>
                 <label
                   htmlFor="time"
-                  className="block text-sm font-medium text-[#003b75] mb-1"
+                  className="block text-sm font-medium text-primary mb-1"
                 >
                   Time
                 </label>
@@ -308,7 +308,7 @@ const ActivityModal: React.FC<ActivityModalProps> = ({
                   type="time"
                   id="time"
                   {...register("time")}
-                  className="w-full p-3 border text-black border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#003b75]"
+                  className="w-full p-3 border text-black border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                 />
               </div>
             </div>
@@ -316,7 +316,7 @@ const ActivityModal: React.FC<ActivityModalProps> = ({
             <div>
               <label
                 htmlFor="location"
-                className="block text-sm font-medium text-[#003b75] mb-1"
+                className="block text-sm font-medium text-primary mb-1"
               >
                 Location <span className="text-red-500">*</span>
               </label>
@@ -324,7 +324,7 @@ const ActivityModal: React.FC<ActivityModalProps> = ({
                 type="text"
                 id="location"
                 {...register("location")}
-                className="w-full p-3 border text-black border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#003b75]"
+                className="w-full p-3 border text-black border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
               />
               {errors.location && (
                 <p className="text-red-500 text-sm mt-1">
@@ -339,7 +339,7 @@ const ActivityModal: React.FC<ActivityModalProps> = ({
                 <div>
                   <label
                     htmlFor="opponent"
-                    className="block text-sm font-medium text-[#003b75] mb-1"
+                    className="block text-sm font-medium text-primary mb-1"
                   >
                     Opponent
                   </label>
@@ -347,13 +347,13 @@ const ActivityModal: React.FC<ActivityModalProps> = ({
                     type="text"
                     id="opponent"
                     {...register("opponent")}
-                    className="w-full p-3 border text-black border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#003b75]"
+                    className="w-full p-3 border text-black border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                   />
                 </div>
                 <div>
                   <label
                     htmlFor="result"
-                    className="block text-sm font-medium text-[#003b75] mb-1"
+                    className="block text-sm font-medium text-primary mb-1"
                   >
                     Result (e.g., "3-1 Win", "0-0 Draw")
                   </label>
@@ -361,7 +361,7 @@ const ActivityModal: React.FC<ActivityModalProps> = ({
                     type="text"
                     id="result"
                     {...register("result")}
-                    className="w-full p-3 border text-black border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#003b75]"
+                    className="w-full p-3 border text-black border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                   />
                 </div>
 
@@ -369,7 +369,7 @@ const ActivityModal: React.FC<ActivityModalProps> = ({
                 <div className="md:col-span-2">
                   <label
                     htmlFor="homeTeamLogoFile"
-                    className="block text-sm font-medium text-[#003b75] mb-1"
+                    className="block text-sm font-medium text-primary mb-1"
                   >
                     Home Team Logo
                   </label>
@@ -384,7 +384,7 @@ const ActivityModal: React.FC<ActivityModalProps> = ({
                         setHomeLogoPreviewUrl
                       )
                     }
-                    className="w-full p-3 border text-black border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#003b75] file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[#003b75] file:text-white"
+                    className="w-full p-3 border text-black border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-white"
                   />
                   {(homeLogoPreviewUrl || editingActivity?.homeTeamLogoUrl) && (
                     <div className="mt-2 flex items-center space-x-2">
@@ -420,7 +420,7 @@ const ActivityModal: React.FC<ActivityModalProps> = ({
                 <div className="md:col-span-2">
                   <label
                     htmlFor="opponentTeamLogoFile"
-                    className="block text-sm font-medium text-[#003b75] mb-1"
+                    className="block text-sm font-medium text-primary mb-1"
                   >
                     Opponent Team Logo
                   </label>
@@ -435,7 +435,7 @@ const ActivityModal: React.FC<ActivityModalProps> = ({
                         setOpponentLogoPreviewUrl
                       )
                     }
-                    className="w-full p-3 border text-black border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#003b75] file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[#003b75] file:text-white"
+                    className="w-full p-3 border text-black border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-white"
                   />
                   {(opponentLogoPreviewUrl ||
                     editingActivity?.opponentTeamLogoUrl) && (
@@ -476,7 +476,7 @@ const ActivityModal: React.FC<ActivityModalProps> = ({
                   type="checkbox"
                   id="isNextMatch"
                   {...register("isNextMatch")}
-                  className="h-4 w-4 text-[#003b75] border-gray-300 rounded focus:ring-[#003b75]"
+                  className="h-4 w-4 text-primary border-gray-300 rounded focus:ring-primary"
                 />
                 <label
                   htmlFor="isNextMatch"
@@ -490,7 +490,7 @@ const ActivityModal: React.FC<ActivityModalProps> = ({
                   type="checkbox"
                   id="isFeaturedEvent"
                   {...register("isFeaturedEvent")}
-                  className="h-4 w-4 text-[#003b75] border-gray-300 rounded focus:ring-[#003b75]"
+                  className="h-4 w-4 text-primary border-gray-300 rounded focus:ring-primary"
                 />
                 <label
                   htmlFor="isFeaturedEvent"
@@ -512,7 +512,7 @@ const ActivityModal: React.FC<ActivityModalProps> = ({
               </button>
               <button
                 type="submit"
-                className="px-6 py-2 bg-[#003b75] cursor-pointer text-white rounded-md transition-colors duration-200 flex items-center justify-center"
+                className="px-6 py-2 bg-primary cursor-pointer text-white rounded-md transition-colors duration-200 flex items-center justify-center"
                 disabled={isSubmitting || isLogoUploading}
               >
                 {isSubmitting || isLogoUploading ? (
