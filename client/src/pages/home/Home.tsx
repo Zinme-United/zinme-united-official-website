@@ -36,7 +36,7 @@ const Home = () => {
   const recentGalleries = galleries?.slice(0, 4);
 
   return (
-    <div className="min-h-screen bg-[#f8f9fa]">
+    <div className="min-h-screen bg-surface-alt">
       {/* Hero - full width, no container */}
       <HeroSection nextMatch={nextMatch || null} />
 

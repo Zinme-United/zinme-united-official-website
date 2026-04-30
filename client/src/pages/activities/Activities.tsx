@@ -74,7 +74,7 @@
 
 //   return (
 //     <div className="min-h-screen bg-white font-inter">
-//       <h1 className="text-5xl font-extrabold text-[#003b75] mb-10 text-center">
+//       <h1 className="text-5xl font-extrabold text-primary mb-10 text-center">
 //         Club Activities
 //       </h1>
 
@@ -223,7 +223,7 @@ const Activities = () => {
     <div className="relative min-h-screen bg-white font-inter">
       {/* Page title */}
       <header className="max-w-screen-xl mx-auto px-6 pt-10">
-        <h1 className="text-5xl font-extrabold text-[#003b75] text-center">
+        <h1 className="text-5xl font-extrabold text-primary text-center">
           Club Activities
         </h1>
       </header>

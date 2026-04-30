@@ -198,7 +198,7 @@ const ArticlesPage: React.FC = () => {
           <div className="max-w-7xl mx-auto px-4 pb-3 overflow-x-auto">
             <div className="flex items-center gap-2 py-2">
               <span className="inline-flex items-center text-xs text-primary mr-1">
-                <Tag className="h-4 w-4 mr-1" className="text-primary" /> Tags:
+                <Tag className="h-4 w-4 mr-1 text-primary" /> Tags:
               </span>
               {allTags.length === 0 ? (
                 <span className="text-xs text-gray-500">No tags</span>

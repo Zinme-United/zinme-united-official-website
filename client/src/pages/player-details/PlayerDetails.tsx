@@ -34,7 +34,7 @@ const PlayerDetailPage = () => {
         </p>
         <button
           onClick={() => navigate(-1)}
-          className="px-4 py-2 bg-[#003b75] text-white rounded-lg shadow hover:bg-blue-900"
+          className="px-4 py-2 bg-primary text-white rounded-lg shadow hover:bg-blue-900"
         >
           Back
         </button>
@@ -142,15 +142,15 @@ const PlayerDetailPage = () => {
                   {player.bio}
                 </p>
 
-                <div className="mt-8 rounded-2xl bg-[#0D5BD7] shadow-lg ring-1 ring-white/10 p-4 md:p-5">
+                <div className="mt-8 rounded-2xl shadow-lg ring-1 ring-white/10 p-4 md:p-5" style={{ backgroundColor: "var(--color-primary-light)" }}>
                   <h3 className="text-lg font-bold mb-3">Main Position</h3>
                   <div className="flex justify-center">
                     <Pitch
                       className="w-full max-w-[500px] aspect-[1.6] rounded-lg"
                       theme={{
-                        bg: "#0D5BD7",
+                        bg: "var(--color-primary-light)" /* token: --color-primary-light */,
                         line: "#FFFFFF",
-                        dotFill: "#69E36F",
+                        dotFill: "#69E36F" /* non-club color: pitch dot green */,
                         dotStroke: "rgba(0,0,0,0.25)",
                       }}
                       markers={positionToMarkers(player.position)}
@@ -177,7 +177,7 @@ const PlayerDetailPage = () => {
       </section>
 
       <section className="bg-white py-12">
-        <h2 className="text-center text-2xl font-bold text-[#003b75] mb-8">
+        <h2 className="text-center text-2xl font-bold text-primary mb-8">
           Our Partners
         </h2>
         <div className="max-w-screen-xl mx-auto grid grid-cols-2 sm:grid-cols-4 gap-6 px-6">

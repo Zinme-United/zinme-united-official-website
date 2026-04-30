@@ -43,8 +43,8 @@ const AdminDashboard: React.FC = () => {
       </p>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
         <div className="bg-blue-50 p-4 rounded-lg shadow-sm">
-          <h3 className="font-bold text-lg text-[#003b75]">Total Players</h3>
-          <p className="text-3xl text-[#003b75]">{players?.length}</p>
+          <h3 className="font-bold text-lg text-primary">Total Players</h3>
+          <p className="text-3xl text-primary">{players?.length}</p>
         </div>
         <div className="bg-green-50 p-4 rounded-lg shadow-sm">
           <h3 className="font-bold text-lg text-green-800">Total Users</h3>

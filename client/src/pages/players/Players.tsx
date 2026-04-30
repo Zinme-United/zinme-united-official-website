@@ -69,7 +69,7 @@
 //   if (!players || players.length === 0) {
 //     return (
 //       <div className="min-h-screen bg-gray-100 p-6 md:p-10 text-center">
-//         <h1 className="text-5xl font-extrabold text-[#003b75] mb-10">
+//         <h1 className="text-5xl font-extrabold text-primary mb-10">
 //           Our Team
 //         </h1>
 //         <p className="text-gray-700">No players found.</p>
@@ -80,7 +80,7 @@
 
 //   return (
 //     <div className="min-h-screen bg-gray-100 p-6 md:p-10 relative">
-//       <h1 className="text-5xl font-extrabold text-[#003b75] mb-10 text-center">
+//       <h1 className="text-5xl font-extrabold text-primary mb-10 text-center">
 //         Our Team
 //       </h1>
 
@@ -96,7 +96,7 @@
 //                 }
 //                 className={`py-2 px-4 rounded-lg text-sm font-semibold transition-all duration-300 cursor-pointer ${
 //                   selectedGenderFilter === gender
-//                     ? "bg-[#003b75] text-white shadow"
+//                     ? "bg-primary text-white shadow"
 //                     : "bg-white text-black hover:bg-gray-100 border border-gray-300"
 //                 }`}
 //               >
@@ -242,7 +242,7 @@ const Players = () => {
   if (!players || players.length === 0) {
     return (
       <div className="min-h-screen bg-gray-100 p-6 md:p-10 text-center">
-        <h1 className="text-5xl font-extrabold text-[#003b75] mb-10">
+        <h1 className="text-5xl font-extrabold text-primary mb-10">
           Our Team
         </h1>
         <p className="text-gray-700">No players found.</p>
@@ -254,7 +254,7 @@ const Players = () => {
   return (
     <div className="min-h-screen mx-auto">
       {/* HERO with big search */}
-      <section className="relative rounded-t-xl isolate overflow-hidden bg-gradient-to-br from-[#001e3a] via-[#003b75] to-[#0a7abf]">
+      <section className="relative rounded-t-xl isolate overflow-hidden bg-gradient-to-br from-primary-dark via-primary to-primary-light">
         <div
           className="absolute inset-0 opacity-10 bg-[url('/zinme.jpg')] bg-cover pointer-events-none"
           aria-hidden="true"
@@ -275,7 +275,7 @@ const Players = () => {
                   onClick={() => setSelectedGender(g as SelectedGenderType)}
                   className={`px-5 py-2.5 text-sm font-semibold rounded-xl transition-all cursor-pointer ${
                     isActive
-                      ? "bg-white text-[#003b75] shadow"
+                      ? "bg-white text-primary shadow"
                       : "text-white/90 hover:bg-white/10"
                   }`}
                   aria-pressed={isActive}
@@ -284,7 +284,7 @@ const Players = () => {
                   <span
                     className={`inline-flex items-center justify-center text-[11px] leading-none font-semibold rounded-full px-2 py-1 ${
                       isActive
-                        ? "bg-[#003b75] text-white"
+                        ? "bg-primary text-white"
                         : "bg-white/20 text-white"
                     }`}
                   >
@@ -329,7 +329,7 @@ const Players = () => {
                   onClick={() => togglePosition(pos)}
                   className={`px-3 py-1.5 rounded-full border text-sm transition-all cursor-pointer ${
                     active
-                      ? "bg-white text-[#003b75] border-white shadow"
+                      ? "bg-white text-primary border-white shadow"
                       : "bg-white/10 text-white border-white/30 hover:bg-white/20"
                   }`}
                   aria-pressed={active}
