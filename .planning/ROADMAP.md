@@ -28,11 +28,12 @@ Decimal phases appear between their surrounding integers in numeric order.
   2. Headings render in a bold custom web font and body text renders in a clean custom web font (no system fonts)
   3. Shared spacing, container width, and section padding tokens exist and are applied consistently
   4. Only one date library and one icon library remain in package.json
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 01-01: TBD
-- [ ] 01-02: TBD
+- [ ] 01-01-PLAN.md — Define @theme tokens, load Oswald + Inter fonts, set global typography, remove dayjs and react-icons
+- [ ] 01-02-PLAN.md — Migrate all 23 component files from hardcoded hex to semantic token classes
+- [ ] 01-03-PLAN.md — Migrate all 15 page and layout files from hardcoded hex to semantic token classes
 
 ### Phase 2: Layout Shell
 **Goal**: Visitors see professional football club navigation and layout on every page, with seamless mobile experience
@@ -90,7 +91,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Design System | 0/0 | Not started | - |
+| 1. Design System | 0/3 | Planning complete | - |
 | 2. Layout Shell | 0/0 | Not started | - |
 | 3. Home Page | 0/0 | Not started | - |
 | 4. Inner Pages | 0/0 | Not started | - |
