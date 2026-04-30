@@ -1,0 +1,104 @@
+# Requirements: Zinme United Website Redesign
+
+**Defined:** 2026-05-01
+**Core Value:** Visitors land on the site and immediately feel they're on a legitimate football club's website
+
+## v1 Requirements
+
+### Design System
+
+- [ ] **DSGN-01**: Site uses unified color palette with club colors defined in Tailwind config (no hardcoded hex values)
+- [ ] **DSGN-02**: Site uses custom typography with bold heading font and clean body font
+- [ ] **DSGN-03**: All pages use consistent spacing, container widths, and section padding via shared tokens
+- [ ] **DSGN-04**: Duplicate libraries consolidated (single date library, single icon library)
+
+### Navigation & Layout
+
+- [ ] **NAVL-01**: Navbar displays club crest and text-based navigation links (Home, Squad, Fixtures, News, Gallery, About)
+- [ ] **NAVL-02**: Navbar is sticky/fixed and stays visible on scroll
+- [ ] **NAVL-03**: Footer includes navigation links, social media icons, contact info, and dynamic copyright year
+- [ ] **NAVL-04**: Every page uses a shared PageHero component with title and background
+- [ ] **NAVL-05**: Mobile navigation is a polished slide-out menu with club branding and smooth transitions
+- [ ] **NAVL-06**: All pages are fully responsive across mobile, tablet, and desktop
+
+### Home Page
+
+- [ ] **HOME-01**: Hero section displays team photo/action shot with club crest prominently
+- [ ] **HOME-02**: Next match section shows upcoming fixture with opponent, date, venue, and countdown timer
+- [ ] **HOME-03**: Latest results section displays recent match scores as visual cards with team logos
+- [ ] **HOME-04**: Latest news section shows 2-3 recent articles with thumbnails and excerpts
+- [ ] **HOME-05**: Squad spotlight section previews featured players with links to squad page
+- [ ] **HOME-06**: Partners/sponsors banner displays club sponsor logos
+- [ ] **HOME-07**: Page sections animate in on scroll using Framer Motion
+
+### Inner Pages
+
+- [ ] **PAGE-01**: Squad page shows player cards grouped by position (GK, DEF, MID, FWD)
+- [ ] **PAGE-02**: Individual player profile pages display photo, bio, stats, and position
+- [ ] **PAGE-03**: Fixtures & Results page shows upcoming matches and past results with match cards
+- [ ] **PAGE-04**: News listing page displays articles as cards with thumbnails, titles, dates
+- [ ] **PAGE-05**: Individual news article page renders full content with images
+- [ ] **PAGE-06**: Gallery page displays photo grid with lightbox viewer for enlarging images
+- [ ] **PAGE-07**: About page presents club history, mission, values, and coaching staff profiles
+- [ ] **PAGE-08**: Smooth animated transitions between pages using Framer Motion
+
+## v2 Requirements
+
+### Enhanced Interactions
+
+- **ENHC-01**: Interactive squad formation view (pitch visualization with player positions)
+- **ENHC-02**: Social media feed integration on home page
+- **ENHC-03**: Match day photo galleries linked to specific fixtures
+
+## Out of Scope
+
+| Feature | Reason |
+|---------|--------|
+| E-commerce / merchandise shop | High complexity, not core to club identity |
+| Member login / fan accounts | Adds auth complexity for public users |
+| Live match updates / scores | Beyond amateur team capability to maintain |
+| Forum / comments | Moderation burden inappropriate for amateur club |
+| Video streaming | Storage/bandwidth costs too high |
+| Push notifications | Overkill for amateur site traffic |
+| Ticket purchasing | Amateur teams don't typically sell tickets online |
+| Multi-language support | Not requested, adds significant complexity |
+| Backend/API changes | All data already exists, frontend-only redesign |
+
+## Traceability
+
+| Requirement | Phase | Status |
+|-------------|-------|--------|
+| DSGN-01 | Phase 1 | Pending |
+| DSGN-02 | Phase 1 | Pending |
+| DSGN-03 | Phase 1 | Pending |
+| DSGN-04 | Phase 1 | Pending |
+| NAVL-01 | Phase 2 | Pending |
+| NAVL-02 | Phase 2 | Pending |
+| NAVL-03 | Phase 2 | Pending |
+| NAVL-04 | Phase 2 | Pending |
+| NAVL-05 | Phase 2 | Pending |
+| NAVL-06 | Phase 2 | Pending |
+| HOME-01 | Phase 3 | Pending |
+| HOME-02 | Phase 3 | Pending |
+| HOME-03 | Phase 3 | Pending |
+| HOME-04 | Phase 3 | Pending |
+| HOME-05 | Phase 3 | Pending |
+| HOME-06 | Phase 3 | Pending |
+| HOME-07 | Phase 3 | Pending |
+| PAGE-01 | Phase 4 | Pending |
+| PAGE-02 | Phase 4 | Pending |
+| PAGE-03 | Phase 4 | Pending |
+| PAGE-04 | Phase 4 | Pending |
+| PAGE-05 | Phase 4 | Pending |
+| PAGE-06 | Phase 4 | Pending |
+| PAGE-07 | Phase 4 | Pending |
+| PAGE-08 | Phase 4 | Pending |
+
+**Coverage:**
+- v1 requirements: 24 total
+- Mapped to phases: 24
+- Unmapped: 0
+
+---
+*Requirements defined: 2026-05-01*
+*Last updated: 2026-05-01 after initial definition*
