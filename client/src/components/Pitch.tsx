@@ -46,9 +46,9 @@ const Pitch: React.FC<PitchProps> = ({
   className = "w-full max-w-[560px] aspect-[1.6] rounded-xl shadow",
   showCenterCircle = true,
   theme = {
-    bg: "#003b75",
-    line: "#ffffff",
-    dotFill: "#66E26F",
+    bg: "var(--color-primary)" /* token: --color-primary */,
+    line: "var(--color-surface)" /* token: --color-surface */,
+    dotFill: "#66E26F" /* chart-specific green, not a club color */,
     dotStroke: "rgba(0,0,0,0.25)",
   },
 }) => (
@@ -170,7 +170,7 @@ const Pitch: React.FC<PitchProps> = ({
               y="8.5"
               textAnchor="middle"
               fontSize="3.2"
-              fill="#ffffff"
+              fill={theme.line}
               style={{ fontWeight: 700 }}
             >
               {label}

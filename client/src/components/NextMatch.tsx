@@ -72,7 +72,7 @@ const NextMatchBanner: React.FC<NextMatchBannerProps> = ({
 
   if (!nextMatch) {
     return (
-      <section className="bg-[#003b75] text-white p-8 rounded-2xl text-center mt-16 mb-8">
+      <section className="bg-primary text-white p-8 rounded-2xl text-center mt-16 mb-8">
         <p className="text-xl font-bold">No upcoming match scheduled</p>
         <p className="text-sm opacity-80 mt-1">Check back later for updates!</p>
       </section>
@@ -96,7 +96,7 @@ const NextMatchBanner: React.FC<NextMatchBannerProps> = ({
   return (
     <section className="relative overflow-hidden rounded-2xl mt-16 mb-8">
       {/* Background with pattern */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#001529] via-[#003b75] to-[#0062cc]" />
+      <div className="absolute inset-0 bg-gradient-to-br from-primary-dark via-primary to-primary-light" />
       <div className="absolute inset-0 opacity-[0.04]">
         <div
           className="w-full h-full"
@@ -111,7 +111,7 @@ const NextMatchBanner: React.FC<NextMatchBannerProps> = ({
       <div className="relative z-10 text-white px-6 md:px-12 py-10 md:py-14">
         {/* Section label */}
         <div className="text-center mb-2">
-          <span className="inline-block text-xs font-bold uppercase tracking-[0.3em] text-[#FFD700] bg-white/10 px-4 py-1.5 rounded-full">
+          <span className="inline-block text-xs font-bold uppercase tracking-[0.3em] text-accent bg-white/10 px-4 py-1.5 rounded-full">
             Next Match
           </span>
         </div>
@@ -156,7 +156,7 @@ const NextMatchBanner: React.FC<NextMatchBannerProps> = ({
 
           {/* VS */}
           <div className="flex flex-col items-center">
-            <span className="text-3xl md:text-5xl font-black text-[#FFD700] drop-shadow-lg">
+            <span className="text-3xl md:text-5xl font-black text-accent drop-shadow-lg">
               VS
             </span>
           </div>

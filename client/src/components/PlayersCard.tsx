@@ -29,7 +29,7 @@ const PlayersCard = ({ players }: PlayersCardProps) => {
               />
 
               {/* Number + Name Bar */}
-              <div className="bg-[#003b75] text-white text-center py-2 font-semibold">
+              <div className="bg-primary text-white text-center py-2 font-semibold">
                 <span className="mr-2">{player.number}</span>
                 {player.name}
               </div>

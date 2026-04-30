@@ -21,7 +21,7 @@ const Navbar = () => {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <nav className="bg-[#003b75] shadow-lg">
+    <nav className="bg-primary shadow-lg">
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
@@ -49,8 +49,8 @@ const Navbar = () => {
                   to={link.route}
                   className={`py-2 px-3 flex items-center transition-colors duration-200 ${
                     isActive(link.route)
-                      ? "text-[#FFD700] font-bold border-b-2 border-[#FFD700]"
-                      : "text-white/80 hover:text-[#FFD700]"
+                      ? "text-accent font-bold border-b-2 border-accent"
+                      : "text-white/80 hover:text-accent"
                   }`}
                 >
                   <Icon size={18} className="mr-1 text-white" />
@@ -96,7 +96,7 @@ const Navbar = () => {
               onClick={() => setIsOpen(false)}
               className={`block py-3 px-4 flex items-center transition-colors duration-200 ${
                 isActive(link.route)
-                  ? "bg-[#0056b3] text-white px-3 py-1 shadow-md"
+                  ? "bg-primary-light text-white px-3 py-1 shadow-md"
                   : "text-white/80 hover:text-white"
               }`}
             >

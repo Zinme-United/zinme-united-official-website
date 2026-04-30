@@ -12,16 +12,16 @@ const GalleryPreview = ({ galleries }: GalleryPreviewProps) => {
       {/* Section header */}
       <div className="flex items-center justify-between mb-8">
         <div>
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#FFD700] mb-1">
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-accent mb-1">
             Behind the Scenes
           </p>
-          <h2 className="text-3xl md:text-4xl font-extrabold text-[#003b75]">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-primary">
             Photo Gallery
           </h2>
         </div>
         <Link
           to="/activities"
-          className="hidden sm:flex items-center text-sm font-semibold text-[#003b75] hover:text-[#0056b3] transition-colors"
+          className="hidden sm:flex items-center text-sm font-semibold text-primary hover:text-primary-light transition-colors"
         >
           View All <ChevronRight size={16} className="ml-1" />
         </Link>
@@ -75,7 +75,7 @@ const GalleryPreview = ({ galleries }: GalleryPreviewProps) => {
       <div className="sm:hidden text-center mt-6">
         <Link
           to="/activities"
-          className="inline-flex items-center text-sm font-semibold text-[#003b75]"
+          className="inline-flex items-center text-sm font-semibold text-primary"
         >
           View All <ChevronRight size={16} className="ml-1" />
         </Link>

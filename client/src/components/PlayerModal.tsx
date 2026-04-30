@@ -260,7 +260,7 @@ const PlayerFormModal: React.FC<PlayerFormModalProps> = ({
               id="imageUpload"
               accept="image/*"
               onChange={handleFileChange}
-              className="mt-1 block w-full text-black border border-gray-300 cursor-pointer rounded-md shadow-sm p-2 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[#003b75] file:text-white"
+              className="mt-1 block w-full text-black border border-gray-300 cursor-pointer rounded-md shadow-sm p-2 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-white"
             />
             {imagePreviewUrl && (
               <div className="mt-4">
@@ -452,7 +452,7 @@ const PlayerFormModal: React.FC<PlayerFormModalProps> = ({
             <button
               type="submit"
               disabled={isSubmitting}
-              className="px-4 py-2 bg-[#003b75] text-white rounded-md shadow-sm cursor-pointer transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-4 py-2 bg-primary text-white rounded-md shadow-sm cursor-pointer transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isSubmitting ? (
                 <>

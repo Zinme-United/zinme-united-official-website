@@ -25,7 +25,7 @@ const FeaturedContentAndHighlights = () => {
             </p>
             <a
               href="#"
-              className="text-[#003b75] hover:text-[#003b75] font-semibold flex items-center"
+              className="text-primary hover:text-primary font-semibold flex items-center"
             >
               Watch Now <ChevronRight size={16} className="ml-1" />
             </a>
@@ -47,7 +47,7 @@ const FeaturedContentAndHighlights = () => {
             </p>
             <a
               href="#"
-              className="text-[#003b75] hover:text-[#003b75] font-semibold flex items-center"
+              className="text-primary hover:text-primary font-semibold flex items-center"
             >
               Read Interview <ChevronRight size={16} className="ml-1" />
             </a>

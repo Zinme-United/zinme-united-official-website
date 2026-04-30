@@ -38,7 +38,7 @@ const LoginForm: React.FC = () => {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-lg">
-        <h2 className="text-3xl font-bold text-center text-[#003b75] mb-8">
+        <h2 className="text-3xl font-bold text-center text-primary mb-8">
           Login
         </h2>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -53,7 +53,7 @@ const LoginForm: React.FC = () => {
               type="email"
               id="email"
               {...register("email")} // Register input with react-hook-form
-              className="mt-1 block w-full px-4 py-2 text-black border border-gray-300 rounded-md shadow-sm focus:[#003b75] focus:border-[#003b75] sm:text-sm"
+              className="mt-1 block w-full px-4 py-2 text-black border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm"
               placeholder="you@example.com"
             />
             {/* Display validation error message if any */}
@@ -120,7 +120,7 @@ const LoginForm: React.FC = () => {
               ${
                 loginMutation.isPending
                   ? "bg-blue-400 cursor-not-allowed"
-                  : "bg-[#003b75] cursor-pointer"
+                  : "bg-primary cursor-pointer"
               }
               focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500`}
           >
@@ -132,7 +132,7 @@ const LoginForm: React.FC = () => {
         <div className="mt-6 text-center">
           <a
             href="/forgot-password"
-            className="text-sm text-[#003b75] cursor-pointer"
+            className="text-sm text-primary cursor-pointer"
           >
             Forgot password?
           </a>
