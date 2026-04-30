@@ -1,5 +1,4 @@
 import { useParams, useNavigate } from "react-router";
-// import { FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa";
 import usePlayerById from "../../hooks/useGetPlayerById";
 import Pitch from "../../components/Pitch";
 import { positionToMarkers } from "../../utils/positionToMarkers";
