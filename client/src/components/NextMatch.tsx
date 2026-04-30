@@ -7,7 +7,6 @@ interface NextMatchBannerProps {
   error: Error | null;
 }
 
-// Convert empty string -> undefined
 const safeSrc = (s?: string | null) => (s && s.trim() ? s : undefined);
 
 const NextMatchBanner: React.FC<NextMatchBannerProps> = ({
@@ -21,8 +20,7 @@ const NextMatchBanner: React.FC<NextMatchBannerProps> = ({
     seconds: 0,
   });
 
-  // Fallbacks
-  const defaultHomeLogo = "/zinme.jpg";
+  const defaultHomeLogo = "/ZMUTD Official.png";
   const defaultOpponentLogo = useMemo(() => {
     const tag = nextMatch?.opponent?.trim()
       ? nextMatch.opponent.trim().split(/\s+/)[0].slice(0, 6).toUpperCase()
@@ -32,10 +30,9 @@ const NextMatchBanner: React.FC<NextMatchBannerProps> = ({
     )}`;
   }, [nextMatch?.opponent]);
 
-  // Build a safe target datetime if you have both date + time
   const targetDateTime = useMemo(() => {
     if (!nextMatch?.date) return null;
-    const datePart = nextMatch.date.split("T")[0]; // yyyy-mm-dd
+    const datePart = nextMatch.date.split("T")[0];
     const timePart = nextMatch.time?.trim() || "00:00";
     const dt = new Date(`${datePart}T${timePart}`);
     return Number.isNaN(dt.getTime()) ? null : dt.getTime();
@@ -50,13 +47,14 @@ const NextMatchBanner: React.FC<NextMatchBannerProps> = ({
         setCountdown({ days: 0, hours: 0, minutes: 0, seconds: 0 });
         return;
       }
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor(
-        (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-      );
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-      setCountdown({ days, hours, minutes, seconds });
+      setCountdown({
+        days: Math.floor(distance / (1000 * 60 * 60 * 24)),
+        hours: Math.floor(
+          (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        ),
+        minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
+        seconds: Math.floor((distance % (1000 * 60)) / 1000),
+      });
     };
     tick();
     const interval = setInterval(tick, 1000);
@@ -65,18 +63,18 @@ const NextMatchBanner: React.FC<NextMatchBannerProps> = ({
 
   if (error) {
     return (
-      <section className="bg-red-600 text-white p-6 md:p-8 rounded-xl shadow-lg text-center my-8 md:my-12">
-        <p className="text-xl font-bold">Error loading next match</p>
-        <p className="text-sm opacity-90 mt-1">{error.message}</p>
+      <section className="bg-red-50 border border-red-200 text-red-700 p-6 rounded-2xl text-center mt-16 mb-8">
+        <p className="text-lg font-bold">Error loading next match</p>
+        <p className="text-sm mt-1">{error.message}</p>
       </section>
     );
   }
 
   if (!nextMatch) {
     return (
-      <section className="bg-gray-800 text-white p-6 md:p-8 rounded-xl shadow-lg text-center my-8 md:my-12">
+      <section className="bg-[#003b75] text-white p-8 rounded-2xl text-center mt-16 mb-8">
         <p className="text-xl font-bold">No upcoming match scheduled</p>
-        <p className="text-sm opacity-90 mt-1">Check back later for updates!</p>
+        <p className="text-sm opacity-80 mt-1">Check back later for updates!</p>
       </section>
     );
   }
@@ -84,9 +82,9 @@ const NextMatchBanner: React.FC<NextMatchBannerProps> = ({
   const matchDate = new Date(nextMatch.date);
   const formattedDate = matchDate
     .toLocaleDateString("en-US", {
-      weekday: "short",
+      weekday: "long",
       day: "numeric",
-      month: "short",
+      month: "long",
       year: "numeric",
     })
     .toUpperCase();
@@ -96,104 +94,124 @@ const NextMatchBanner: React.FC<NextMatchBannerProps> = ({
     safeSrc(nextMatch.opponentTeamLogoUrl) ?? defaultOpponentLogo;
 
   return (
-    <section className="relative overflow-hidden rounded-2xl my-8 md:my-12">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#001e3a] via-[#003b75] to-[#0a7abf]" />
-      <div
-        className="absolute inset-0 opacity-15 bg-[url('/zinme.jpg')] bg-cover bg-center"
-        aria-hidden="true"
-      />
-      <div className="relative z-10 text-white px-5 md:px-8 py-8 md:py-10">
-        {/* Title */}
-        <div className="text-center">
-          <h2 className="text-3xl md:text-5xl font-extrabold drop-shadow-sm tracking-tight">
-            NEXT MATCH
-          </h2>
+    <section className="relative overflow-hidden rounded-2xl mt-16 mb-8">
+      {/* Background with pattern */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#001529] via-[#003b75] to-[#0062cc]" />
+      <div className="absolute inset-0 opacity-[0.04]">
+        <div
+          className="w-full h-full"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle, white 1px, transparent 1px)",
+            backgroundSize: "24px 24px",
+          }}
+        />
+      </div>
+
+      <div className="relative z-10 text-white px-6 md:px-12 py-10 md:py-14">
+        {/* Section label */}
+        <div className="text-center mb-2">
+          <span className="inline-block text-xs font-bold uppercase tracking-[0.3em] text-[#FFD700] bg-white/10 px-4 py-1.5 rounded-full">
+            Next Match
+          </span>
         </div>
 
         {/* Date & Time */}
-        <div className="mt-4 md:mt-6 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 text-blue-100">
-          <span className="inline-flex items-center text-lg md:text-2xl font-semibold">
-            <Calendar className="w-5 h-5 md:w-6 md:h-6 mr-2 opacity-90" />
+        <div className="mt-5 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-5 text-blue-100">
+          <span className="inline-flex items-center text-base md:text-lg font-medium">
+            <Calendar className="w-4 h-4 md:w-5 md:h-5 mr-2 opacity-70" />
             {formattedDate}
           </span>
           {nextMatch.time && (
             <>
-              <span className="hidden sm:inline opacity-50">•</span>
-              <span className="inline-flex items-center text-lg md:text-2xl font-semibold">
-                <Clock className="w-5 h-5 md:w-6 md:h-6 mr-2 opacity-90" />
+              <span className="hidden sm:inline text-white/30">|</span>
+              <span className="inline-flex items-center text-base md:text-lg font-medium">
+                <Clock className="w-4 h-4 md:w-5 md:h-5 mr-2 opacity-70" />
                 {nextMatch.time}
               </span>
             </>
           )}
         </div>
 
-        {/* Logos + VS */}
-        <div className="mt-6 md:mt-8 flex items-center justify-center gap-5 md:gap-8">
-          <img
-            loading="lazy"
-            src={homeLogoSrc}
-            alt="Home Team Logo"
-            className="w-16 h-16 md:w-20 md:h-20 rounded-full object-cover border-4 border-white/30 shadow"
-            onError={(e) => {
-              e.currentTarget.onerror = null;
-              e.currentTarget.src = defaultHomeLogo;
-            }}
-          />
-          <span className="text-3xl md:text-5xl font-extrabold text-blue-100 select-none">
-            VS
-          </span>
-          <img
-            loading="lazy"
-            src={opponentLogoSrc}
-            alt={`${nextMatch.opponent || "Opponent"} Logo`}
-            className="w-16 h-16 md:w-20 md:h-20 rounded-full object-cover border-4 border-white/30 shadow"
-            onError={(e) => {
-              e.currentTarget.onerror = null;
-              e.currentTarget.src = defaultOpponentLogo;
-            }}
-          />
-        </div>
+        {/* Teams matchup */}
+        <div className="mt-8 md:mt-10 flex items-center justify-center gap-6 md:gap-12">
+          {/* Home Team */}
+          <div className="flex flex-col items-center gap-3">
+            <div className="w-20 h-20 md:w-28 md:h-28 rounded-full bg-white/10 backdrop-blur-sm border-2 border-white/20 p-3 flex items-center justify-center shadow-lg">
+              <img
+                loading="lazy"
+                src={homeLogoSrc}
+                alt="Zinme United"
+                className="w-full h-full object-contain rounded-full"
+                onError={(e) => {
+                  e.currentTarget.onerror = null;
+                  e.currentTarget.src = defaultHomeLogo;
+                }}
+              />
+            </div>
+            <span className="text-sm md:text-base font-bold uppercase tracking-wide">
+              Zinme United
+            </span>
+          </div>
 
-        {/* Teams line */}
-        <p className="mt-4 md:mt-6 text-center text-2xl md:text-4xl font-extrabold tracking-wide">
-          Zinme United{" "}
-          {nextMatch.opponent ? `VS ${nextMatch.opponent}` : "— OPPONENT TBA —"}
-        </p>
+          {/* VS */}
+          <div className="flex flex-col items-center">
+            <span className="text-3xl md:text-5xl font-black text-[#FFD700] drop-shadow-lg">
+              VS
+            </span>
+          </div>
+
+          {/* Opponent */}
+          <div className="flex flex-col items-center gap-3">
+            <div className="w-20 h-20 md:w-28 md:h-28 rounded-full bg-white/10 backdrop-blur-sm border-2 border-white/20 p-3 flex items-center justify-center shadow-lg">
+              <img
+                loading="lazy"
+                src={opponentLogoSrc}
+                alt={`${nextMatch.opponent || "Opponent"}`}
+                className="w-full h-full object-contain rounded-full"
+                onError={(e) => {
+                  e.currentTarget.onerror = null;
+                  e.currentTarget.src = defaultOpponentLogo;
+                }}
+              />
+            </div>
+            <span className="text-sm md:text-base font-bold uppercase tracking-wide">
+              {nextMatch.opponent || "TBA"}
+            </span>
+          </div>
+        </div>
 
         {/* Location */}
         {nextMatch.location && (
-          <div className="mt-3 md:mt-4 flex items-center justify-center gap-2 text-blue-100">
-            <MapPin className="w-5 h-5 md:w-6 md:h-6" />
-            <p className="text-lg md:text-2xl font-medium">
+          <div className="mt-6 flex items-center justify-center gap-2 text-blue-200">
+            <MapPin className="w-4 h-4" />
+            <p className="text-sm md:text-base font-medium">
               {nextMatch.location}
             </p>
           </div>
         )}
 
         {/* Countdown */}
-        <div className="mt-6 md:mt-8 flex justify-center">
-          <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl px-4 py-4 md:px-6 md:py-6 shadow-inner">
-            <div className="grid grid-cols-4 gap-3 md:gap-6">
-              {[
-                { label: "DAYS", value: countdown.days },
-                { label: "HOURS", value: countdown.hours },
-                { label: "MINUTES", value: countdown.minutes },
-                { label: "SECONDS", value: countdown.seconds },
-              ].map((item) => (
-                <div
-                  key={item.label}
-                  className="flex flex-col items-center min-w-[60px]"
-                >
-                  <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-yellow-300 tabular-nums">
-                    {String(item.value).padStart(2, "0")}
-                  </span>
-                  <span className="text-[10px] sm:text-xs md:text-sm tracking-wider opacity-90">
-                    {item.label}
-                  </span>
-                </div>
-              ))}
-            </div>
+        <div className="mt-8 md:mt-10 flex justify-center">
+          <div className="grid grid-cols-4 gap-3 md:gap-5">
+            {[
+              { label: "Days", value: countdown.days },
+              { label: "Hours", value: countdown.hours },
+              { label: "Mins", value: countdown.minutes },
+              { label: "Secs", value: countdown.seconds },
+            ].map((item) => (
+              <div
+                key={item.label}
+                className="bg-white/10 backdrop-blur-sm border border-white/15 rounded-xl px-4 py-3 md:px-6 md:py-4 flex flex-col items-center min-w-[70px] md:min-w-[90px]"
+              >
+                <span className="text-3xl md:text-5xl font-black text-white tabular-nums leading-none">
+                  {String(item.value).padStart(2, "0")}
+                </span>
+                <span className="text-[10px] md:text-xs uppercase tracking-widest text-blue-200 mt-1.5">
+                  {item.label}
+                </span>
+              </div>
+            ))}
           </div>
         </div>
       </div>

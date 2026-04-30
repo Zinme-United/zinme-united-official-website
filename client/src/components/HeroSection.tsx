@@ -1,7 +1,7 @@
 import { Calendar, MapPin } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
-import Button from "./Button";
+import { Link } from "react-router";
 import type { Activity } from "../types";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -24,21 +24,21 @@ const defaultSlides = [
     headline: "Unleash the Passion",
     sub: "Join us for triumphs, dedication, and unforgettable moments.",
     ctaText: "Latest News",
-    ctaHref: "#news",
+    ctaHref: "/articles",
   },
   {
     image: "/zinme-group-photo.jpg",
     headline: "Matchday Experience",
     sub: "Feel the roar. Live the moment. Be part of the story.",
-    ctaText: "I have no idea:)",
-    ctaHref: "#tickets",
+    ctaText: "Meet the Squad",
+    ctaHref: "/players",
   },
   {
     image: "/zinme-training.jpg",
     headline: "Relentless Training",
     sub: "Commitment that defines champions.",
-    ctaText: "Watch Highlights",
-    ctaHref: "#highlights",
+    ctaText: "Our Club",
+    ctaHref: "/our-club",
   },
 ];
 
@@ -47,38 +47,42 @@ const HeroSection = ({
   slides = defaultSlides,
 }: HeroSectionProps) => {
   return (
-    <section className="relative rounded-xl overflow-hidden">
-      {/* Carousel */}
+    <section className="relative">
       <Swiper
         modules={[Autoplay, Pagination, Navigation]}
         autoplay={{ delay: 5000, disableOnInteraction: false }}
         loop
         pagination={{ clickable: true }}
         navigation
-        className="h-[460px] md:h-[640px]"
+        className="h-[500px] md:h-[700px]"
       >
         {slides.map((s, i) => (
           <SwiperSlide key={i}>
             <div
-              className="relative h-[460px] md:h-[640px] bg-cover bg-center"
+              className="relative h-[500px] md:h-[700px] bg-cover bg-center"
               style={{ backgroundImage: `url('${s.image}')` }}
             >
-              <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/70" />
-              <div className="relative z-10 h-full flex items-center justify-center text-center text-white px-4">
+              {/* Gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#001529] via-black/40 to-transparent" />
+
+              {/* Content */}
+              <div className="relative z-10 h-full flex items-center justify-center text-center text-white px-6">
                 <div className="max-w-3xl">
-                  <h1 className="text-4xl md:text-6xl font-extrabold drop-shadow mb-4">
+                  <p className="text-sm md:text-base uppercase tracking-[0.3em] text-[#FFD700] font-semibold mb-4">
+                    Zinme United FC
+                  </p>
+                  <h1 className="text-5xl md:text-7xl font-extrabold leading-tight drop-shadow-lg mb-5">
                     {s.headline}
                   </h1>
-                  <p className="text-lg md:text-xl mb-8 text-gray-100">
+                  <p className="text-lg md:text-xl mb-10 text-gray-200 max-w-xl mx-auto leading-relaxed">
                     {s.sub}
                   </p>
-                  <a href={s.ctaHref}>
-                    <Button
-                      style={{ color: "white", backgroundColor: "#003b75" }}
-                    >
-                      {s.ctaText}
-                    </Button>
-                  </a>
+                  <Link
+                    to={s.ctaHref}
+                    className="inline-block bg-[#FFD700] text-[#003b75] font-bold py-3 px-8 rounded-full text-base hover:bg-white hover:text-[#003b75] transition-all duration-300 transform hover:scale-105 shadow-lg"
+                  >
+                    {s.ctaText}
+                  </Link>
                 </div>
               </div>
             </div>
@@ -86,51 +90,63 @@ const HeroSection = ({
         ))}
       </Swiper>
 
-      {/* Next Match overlay (uses Activity fields) */}
+      {/* Next Match floating banner */}
       {nextMatch && (
-        <div className="pointer-events-none">
-          <div className="absolute left-1/2 -translate-x-1/2 bottom-4 md:bottom-6 w-[92%] md:w-auto">
-            <div className="pointer-events-auto mx-auto md:mx-0 md:ml-6 bg-white/95 backdrop-blur rounded-2xl shadow-2xl px-6 py-5 flex flex-col md:flex-row items-center gap-6 border border-white">
-              {/* Logos + VS */}
-              <div className="flex items-center gap-4">
-                <img
-                  src={nextMatch.homeTeamLogoUrl || "/default-logo.png"}
-                  alt="Home Team"
-                  className="w-14 h-14 object-contain bg-white rounded-full p-1"
-                />
-                <span className="text-xl font-bold text-gray-700">vs</span>
-                <img
-                  src={nextMatch.opponentTeamLogoUrl || "/default-logo.png"}
-                  alt={nextMatch.opponent || "Opponent"}
-                  className="w-14 h-14 object-contain bg-white rounded-full p-1"
-                />
-              </div>
+        <div className="absolute left-1/2 -translate-x-1/2 bottom-0 translate-y-1/2 z-20 w-[90%] max-w-3xl">
+          <div className="bg-white rounded-2xl shadow-2xl px-6 py-5 flex flex-col md:flex-row items-center gap-5 border border-gray-100">
+            {/* Logos + VS */}
+            <div className="flex items-center gap-4">
+              <img
+                src={nextMatch.homeTeamLogoUrl || "/ZMUTD Official.png"}
+                alt="Home Team"
+                className="w-14 h-14 object-contain rounded-full bg-gray-50 p-1 shadow-sm"
+              />
+              <span className="text-lg font-extrabold text-[#003b75] tracking-wider">
+                VS
+              </span>
+              <img
+                src={nextMatch.opponentTeamLogoUrl || "/zinme.jpg"}
+                alt={nextMatch.opponent || "Opponent"}
+                className="w-14 h-14 object-contain rounded-full bg-gray-50 p-1 shadow-sm"
+              />
+            </div>
 
-              {/* Info */}
-              <div className="flex-1 text-center md:text-left">
-                <p className="text-[#003b75] font-extrabold text-lg md:text-xl leading-tight">
-                  {nextMatch.title ||
-                    (nextMatch.opponent
-                      ? `vs ${nextMatch.opponent}`
-                      : "Upcoming Fixture")}
-                </p>
-                <div className="mt-1 flex flex-col gap-3 text-sm text-gray-700">
-                  {(nextMatch.date || nextMatch.time) && (
-                    <span className="inline-flex items-center gap-1">
-                      <Calendar size={16} />
-                      {nextMatch.date
-                        ? new Date(nextMatch.date).toLocaleDateString()
-                        : ""}
-                      {nextMatch.time ? ` • ${nextMatch.time}` : ""}
-                    </span>
-                  )}
-                  {nextMatch.location && (
-                    <span className="inline-flex items-center gap-1">
-                      <MapPin size={16} /> {nextMatch.location}
-                    </span>
-                  )}
-                </div>
+            {/* Match Info */}
+            <div className="flex-1 text-center md:text-left">
+              <p className="text-[#003b75] font-extrabold text-lg leading-tight">
+                {nextMatch.title ||
+                  (nextMatch.opponent
+                    ? `vs ${nextMatch.opponent}`
+                    : "Upcoming Fixture")}
+              </p>
+              <div className="mt-1 flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 text-sm text-gray-500">
+                {(nextMatch.date || nextMatch.time) && (
+                  <span className="inline-flex items-center gap-1">
+                    <Calendar size={14} className="text-[#003b75]" />
+                    {nextMatch.date
+                      ? new Date(nextMatch.date).toLocaleDateString("en-US", {
+                          weekday: "short",
+                          month: "short",
+                          day: "numeric",
+                        })
+                      : ""}
+                    {nextMatch.time ? ` \u2022 ${nextMatch.time}` : ""}
+                  </span>
+                )}
+                {nextMatch.location && (
+                  <span className="inline-flex items-center gap-1">
+                    <MapPin size={14} className="text-[#003b75]" />
+                    {nextMatch.location}
+                  </span>
+                )}
               </div>
+            </div>
+
+            {/* CTA */}
+            <div className="hidden md:block">
+              <span className="inline-block bg-[#003b75] text-white text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-full">
+                Matchday
+              </span>
             </div>
           </div>
         </div>

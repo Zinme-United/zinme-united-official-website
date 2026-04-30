@@ -1,72 +1,62 @@
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination, Navigation } from "swiper/modules";
-
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
-
-type HeroSectionProps = {
-  slides?: Array<{
-    id: number;
-    name: string;
-    logo: string;
-    url: string;
-  }>;
+const mainSponsor = {
+  name: "Meeting Point",
+  logo: "/meeting_poing.jpg",
 };
 
-const defaultSlides = [
-  {
-    id: 1,
-    name: "Adidas",
-    logo: "/adidas.png",
-    url: "https://www.adidas.com/",
-  },
-  {
-    id: 2,
-    name: "Coca Cola",
-    logo: "/coca-cola.png",
-    url: "https://www.coca-cola.com/",
-  },
-  {
-    id: 3,
-    name: "EA Sports",
-    logo: "/easports.png",
-    url: "https://www.easports.com/",
-  },
-  {
-    id: 4,
-    name: "Nike",
-    logo: "/nike.png",
-    url: "https://www.nike.com/",
-  },
+const coSponsors = [
+  { name: "Trust 8", logo: "/trust_8.jpg" },
+  { name: "Time On You", logo: "/time_on_you.jpg" },
+  { name: "Marco Paing", logo: "/marco_paing.jpg" },
 ];
 
-const HeroSection = ({ slides = defaultSlides }: HeroSectionProps) => {
+const PartnersBanner = () => {
   return (
-    <section className="relative rounded-xl overflow-hidden">
-      <h2 className="text-4xl font-bold text-[#003b75] mb-4 text-center">
-        Our Partners
-      </h2>
-      {/* Carousel */}
-      <Swiper
-        modules={[Autoplay, Pagination, Navigation]}
-        autoplay={{ delay: 5000, disableOnInteraction: false }}
-        loop
-        pagination={{ clickable: true }}
-        navigation
-        className="h-[280px] md:h-[300px]"
-      >
-        {slides.map((s, i) => (
-          <SwiperSlide key={i}>
+    <section className="my-12">
+      <div className="text-center mb-10">
+        <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#FFD700] mb-1">
+          Proudly Supported By
+        </p>
+        <h2 className="text-3xl md:text-4xl font-extrabold text-[#003b75]">
+          Our Sponsors
+        </h2>
+      </div>
+
+      {/* Main Sponsor */}
+      <div className="mb-8">
+        <p className="text-center text-xs font-bold uppercase tracking-[0.2em] text-gray-400 mb-4">
+          Main Sponsor
+        </p>
+        <div className="bg-white border border-gray-100 rounded-2xl shadow-sm p-8 flex items-center justify-center max-w-md mx-auto hover:shadow-lg transition-shadow duration-300">
+          <img
+            src={mainSponsor.logo}
+            alt={mainSponsor.name}
+            className="max-h-28 md:max-h-36 object-contain"
+          />
+        </div>
+      </div>
+
+      {/* Co-Sponsors */}
+      <div>
+        <p className="text-center text-xs font-bold uppercase tracking-[0.2em] text-gray-400 mb-4">
+          Co-Sponsors
+        </p>
+        <div className="grid grid-cols-3 gap-4 md:gap-6 max-w-2xl mx-auto">
+          {coSponsors.map((sponsor) => (
             <div
-              className="relative h-[460px] md:h-[640px] bg-cover bg-center"
-              style={{ backgroundImage: `url('${s.logo}')` }}
-            ></div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
+              key={sponsor.name}
+              className="bg-white border border-gray-100 rounded-2xl shadow-sm p-5 md:p-6 flex items-center justify-center hover:shadow-lg transition-shadow duration-300"
+            >
+              <img
+                src={sponsor.logo}
+                alt={sponsor.name}
+                className="max-h-16 md:max-h-20 object-contain"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
     </section>
   );
 };
 
-export default HeroSection;
+export default PartnersBanner;
