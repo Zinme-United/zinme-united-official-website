@@ -23,10 +23,12 @@ connectDB();
 app.use(
   cors({
     origin: [
+      process.env.CORS_ORIGIN_PROD,
+      process.env.CORS_ORIGIN_DEV,
+      process.env.CORS_ORIGIN_RENDER,
       "https://zmutd.vercel.app",
-      "http://localhost:5173",
       "https://zinmeutd.com",
-    ],
+    ].filter(Boolean) as string[],
     credentials: true,
   }),
 );
