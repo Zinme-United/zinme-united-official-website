@@ -8,9 +8,9 @@
 ### Design System
 
 - [ ] **DSGN-01**: Site uses unified color palette with club colors defined in Tailwind config (no hardcoded hex values)
-- [ ] **DSGN-02**: Site uses custom typography with bold heading font and clean body font
-- [ ] **DSGN-03**: All pages use consistent spacing, container widths, and section padding via shared tokens
-- [ ] **DSGN-04**: Duplicate libraries consolidated (single date library, single icon library)
+- [x] **DSGN-02**: Site uses custom typography with bold heading font and clean body font
+- [x] **DSGN-03**: All pages use consistent spacing, container widths, and section padding via shared tokens
+- [x] **DSGN-04**: Duplicate libraries consolidated (single date library, single icon library)
 
 ### Navigation & Layout
 
@@ -69,9 +69,9 @@
 | Requirement | Phase | Status |
 |-------------|-------|--------|
 | DSGN-01 | Phase 1 | Pending |
-| DSGN-02 | Phase 1 | Pending |
-| DSGN-03 | Phase 1 | Pending |
-| DSGN-04 | Phase 1 | Pending |
+| DSGN-02 | Phase 1 | Complete |
+| DSGN-03 | Phase 1 | Complete |
+| DSGN-04 | Phase 1 | Complete |
 | NAVL-01 | Phase 2 | Pending |
 | NAVL-02 | Phase 2 | Pending |
 | NAVL-03 | Phase 2 | Pending |
