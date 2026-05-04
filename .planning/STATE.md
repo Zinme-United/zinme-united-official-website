@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-last_updated: "2026-05-04T14:50:01.894Z"
+last_updated: "2026-05-04T15:20:40.428Z"
 progress:
-  total_phases: 3
+  total_phases: 4
   completed_phases: 3
-  total_plans: 7
-  completed_plans: 7
+  total_plans: 11
+  completed_plans: 9
 ---
 
 # Project State
@@ -18,23 +18,23 @@ progress:
 See: .planning/PROJECT.md (updated 2026-05-01)
 
 **Core value:** Visitors land on the site and immediately feel they're on a legitimate football club's website
-**Current focus:** Phase 3: Home Page
+**Current focus:** Phase 4: Inner Pages
 
 ## Current Position
 
-Phase: 3 of 4 (Home Page) -- COMPLETE
-Plan: 2 of 2 in current phase
-Status: Phase 03 Complete
-Last activity: 2026-05-04 -- Completed 03-02-PLAN.md (News, Squad Spotlight & Partners)
+Phase: 4 of 4 (Inner Pages)
+Plan: 2 of 4 in current phase
+Status: Executing Phase 04
+Last activity: 2026-05-04 -- Completed 04-02-PLAN.md (Fixtures & Results Page + Page Animations)
 
-Progress: [██████████] 100% (7/7 plans complete)
+Progress: [███████░░░] 73% (8/11 plans complete)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 7
-- Average duration: 2.7min
-- Total execution time: 0.32 hours
+- Total plans completed: 9
+- Average duration: 2.3min
+- Total execution time: 0.35 hours
 
 **By Phase:**
 
@@ -43,9 +43,10 @@ Progress: [██████████] 100% (7/7 plans complete)
 | 01-design-system | 3 | 10min | 3.3min |
 | 02-layout-shell | 2 | 4min | 2min |
 | 03-home-page | 2 | 5min | 2.5min |
+| 04-inner-pages | 2 | 3min | 1.5min |
 
 **Recent Trend:**
-- Last 5 plans: 01-03 (5min), 02-01 (1min), 02-02 (3min), 03-01 (3min), 03-02 (2min)
+- Last 5 plans: 02-02 (3min), 03-01 (3min), 03-02 (2min), 04-01 (2min), 04-02 (1min)
 - Trend: stable
 
 *Updated after each plan completion*
@@ -77,6 +78,10 @@ Recent decisions affecting current work:
 - [03-01]: Result border color parsing uses regex to detect score patterns like '3-1' for win/loss/draw indicators
 - [03-02]: SquadSpotlight uses startsWith matching on first 3 chars to handle both full position names and abbreviations
 - [03-02]: Removed GalleryPreview from home page entirely per plan requirements
+- [Phase 04-01]: Reused positionGroupMap pattern from SquadSpotlight with full labels as keys for section headers
+- [Phase 04-01]: Kept existing player card design as it already matches SquadSpotlight style
+- [04-02]: Used type='match' filter param instead of fetching all activities to reduce payload
+- [04-02]: Entry-only animation (no AnimatePresence exit) to avoid createBrowserRouter incompatibility
 
 ### Pending Todos
 
@@ -91,5 +96,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-05-04
-Stopped at: Completed 03-02-PLAN.md (News, Squad Spotlight & Partners) -- Phase 03 complete
-Resume file: .planning/phases/03-home-page/03-02-SUMMARY.md
+Stopped at: Completed 04-02-PLAN.md (Fixtures & Results Page + Page Animations)
+Resume file: .planning/phases/04-inner-pages/04-02-SUMMARY.md
