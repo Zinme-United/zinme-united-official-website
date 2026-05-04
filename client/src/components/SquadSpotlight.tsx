@@ -8,13 +8,18 @@ interface SquadSpotlightProps {
 
 const SquadSpotlight = ({ players }: SquadSpotlightProps) => {
   // Select one player per position group
-  const positionGroups = ["Goalkeeper", "Defender", "Midfielder", "Forward"];
-  const spotlightPlayers = positionGroups
-    .map((pos) =>
-      players.find(
-        (p) =>
-          p.position.toLowerCase() === pos.toLowerCase() ||
-          p.position.toLowerCase().startsWith(pos.toLowerCase().slice(0, 3)),
+  // Position values are abbreviations: GK, CB, LB, RB, CM, DM, AM, LW, RW, ST, CF, etc.
+  const positionGroupMap: Record<string, string[]> = {
+    GK: ["GK"],
+    DEF: ["CB", "LB", "RB", "LWB", "RWB", "SW"],
+    MID: ["CM", "DM", "AM", "LM", "RM", "CDM", "CAM"],
+    FWD: ["ST", "CF", "LW", "RW", "SS"],
+  };
+
+  const spotlightPlayers = Object.entries(positionGroupMap)
+    .map(([, abbrevs]) =>
+      players.find((p) =>
+        abbrevs.includes(p.position.replace(/\./g, "").toUpperCase().trim()),
       ),
     )
     .filter(Boolean) as Player[];
