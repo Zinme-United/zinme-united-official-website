@@ -61,11 +61,11 @@ Plans:
   3. Recent match results display as visual cards with team logos and scores
   4. Latest news section shows 2-3 articles with thumbnails and excerpts, and squad spotlight previews featured players
   5. Page sections animate into view on scroll with smooth Framer Motion transitions
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 03-01: TBD
-- [ ] 03-02: TBD
+- [ ] 03-01-PLAN.md — Install motion, create AnimatedSection, redesign HeroSection, build MatchesSection with countdown and results
+- [ ] 03-02-PLAN.md — Refactor news/squad/partners sections, rewrite Home.tsx with scroll animations
 
 ### Phase 4: Inner Pages
 **Goal**: Every content page is complete and data-driven, giving the site the depth of a real football club website
@@ -77,12 +77,13 @@ Plans:
   3. News listing page displays article cards with thumbnails, titles, and dates; clicking an article opens the full content with images
   4. Gallery page displays a photo grid and clicking a photo opens a lightbox viewer
   5. About page presents club history, mission, values, and coaching staff profiles
-**Plans**: TBD
+**Plans**: 4 plans
 
 Plans:
-- [ ] 04-01: TBD
-- [ ] 04-02: TBD
-- [ ] 04-03: TBD
+- [ ] 04-01-PLAN.md — Redesign Squad page with position grouping and polish Player Detail page
+- [ ] 04-02-PLAN.md — Redesign Fixtures & Results page with tabs and add page entry animations
+- [ ] 04-03-PLAN.md — Add pagination to News listing and "More News" section to Article detail
+- [ ] 04-04-PLAN.md — Create Gallery listing page with masonry grid/lightbox and polish About page
 
 ## Progress
 
@@ -92,6 +93,6 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Design System | 3/3 | Complete | 2026-05-01 |
-| 2. Layout Shell | 0/2 | Planning complete | - |
-| 3. Home Page | 0/0 | Not started | - |
-| 4. Inner Pages | 0/0 | Not started | - |
+| 2. Layout Shell | 2/2 | Complete | 2026-05-04 |
+| 3. Home Page | 0/2 | Planning complete | - |
+| 4. Inner Pages | 3/4 | In Progress | - |

@@ -4,14 +4,9 @@ import Pitch from "../../components/Pitch";
 import { positionToMarkers } from "../../utils/positionToMarkers";
 import { format } from "date-fns";
 import Loader from "../../components/Loader";
-import { ChevronRight } from "lucide-react";
-
-const partners = [
-  { id: 1, name: "Adidas", logo: "/adidas.png", url: "#" },
-  { id: 2, name: "Coca-Cola", logo: "/coca-cola.png", url: "#" },
-  { id: 3, name: "EA Sports", logo: "/easports.png", url: "#" },
-  { id: 4, name: "Nike", logo: "/nike.png", url: "#" },
-];
+import { ChevronRight, ChevronLeft } from "lucide-react";
+import AnimatedSection from "../../components/AnimatedSection";
+import { mainSponsor, coSponsors } from "../../components/PartnersBanner";
 
 const PlayerDetailPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -117,7 +112,7 @@ const PlayerDetailPage = () => {
       </section>
 
       {/* Stats bar */}
-      <section className="bg-primary text-white">
+      <AnimatedSection className="bg-primary text-white">
         <div className="max-w-screen-xl mx-auto px-6 py-6">
           <div className="flex flex-wrap justify-center md:justify-start gap-4 md:gap-6">
             <div className="text-center px-5 py-3 bg-white/10 rounded-lg backdrop-blur-sm min-w-[100px]">
@@ -160,10 +155,10 @@ const PlayerDetailPage = () => {
             )}
           </div>
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* Player details */}
-      <section className="bg-surface">
+      <AnimatedSection className="bg-surface" delay={0.1}>
         <div className="max-w-screen-xl mx-auto px-6 py-12 md:py-16">
           <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr] gap-10 lg:gap-16">
             {/* Left — Bio & Info */}
@@ -174,19 +169,31 @@ const PlayerDetailPage = () => {
 
               <div className="grid grid-cols-2 gap-4 mb-8">
                 <div className="bg-surface-alt rounded-lg p-4">
-                  <p className="text-xs uppercase tracking-wider text-text-muted mb-1">Position</p>
-                  <p className="font-heading text-lg text-text">{player.position}</p>
+                  <p className="text-xs uppercase tracking-wider text-text-muted mb-1">
+                    Position
+                  </p>
+                  <p className="font-heading text-lg text-text">
+                    {player.position}
+                  </p>
                 </div>
                 <div className="bg-surface-alt rounded-lg p-4">
-                  <p className="text-xs uppercase tracking-wider text-text-muted mb-1">Kit Number</p>
-                  <p className="font-heading text-lg text-text">#{player.number}</p>
+                  <p className="text-xs uppercase tracking-wider text-text-muted mb-1">
+                    Kit Number
+                  </p>
+                  <p className="font-heading text-lg text-text">
+                    #{player.number}
+                  </p>
                 </div>
                 <div className="bg-surface-alt rounded-lg p-4">
-                  <p className="text-xs uppercase tracking-wider text-text-muted mb-1">Age</p>
+                  <p className="text-xs uppercase tracking-wider text-text-muted mb-1">
+                    Age
+                  </p>
                   <p className="font-heading text-lg text-text">{player.age}</p>
                 </div>
                 <div className="bg-surface-alt rounded-lg p-4">
-                  <p className="text-xs uppercase tracking-wider text-text-muted mb-1">Date of Birth</p>
+                  <p className="text-xs uppercase tracking-wider text-text-muted mb-1">
+                    Date of Birth
+                  </p>
                   <p className="font-heading text-lg text-text">
                     {player.dateOfBirth
                       ? format(player.dateOfBirth, "dd MMM yyyy")
@@ -232,31 +239,45 @@ const PlayerDetailPage = () => {
             </div>
           </div>
         </div>
-      </section>
+      </AnimatedSection>
 
-      {/* Partners */}
-      <section className="bg-surface-alt py-12">
-        <h2 className="text-center text-2xl font-heading uppercase tracking-wide text-primary mb-8">
-          Our Partners
-        </h2>
-        <div className="max-w-screen-xl mx-auto grid grid-cols-2 sm:grid-cols-4 gap-6 px-6">
-          {partners.map((partner) => (
+      {/* Sponsors */}
+      <AnimatedSection className="bg-surface-alt py-12" delay={0.15}>
+        <div className="max-w-screen-xl mx-auto px-6">
+          <p className="text-center text-xs font-bold uppercase tracking-[0.2em] text-accent mb-6">
+            Proudly Supported By
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-6">
             <a
-              key={partner.id}
-              href={partner.url}
+              href={mainSponsor.url}
               target="_blank"
-              rel="noreferrer"
-              className="flex items-center justify-center grayscale hover:grayscale-0 transition"
+              rel="noopener noreferrer"
+              className="bg-white rounded-2xl shadow-sm p-4 hover:shadow-lg transition-shadow duration-300"
             >
               <img
-                src={partner.logo}
-                alt={partner.name}
-                className="max-h-12 object-contain"
+                src={mainSponsor.logo}
+                alt={mainSponsor.name}
+                className="h-14 md:h-16 object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
               />
             </a>
-          ))}
+            {coSponsors.map((s) => (
+              <a
+                key={s.name}
+                href={s.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-white rounded-2xl shadow-sm p-4 hover:shadow-lg transition-shadow duration-300"
+              >
+                <img
+                  src={s.logo}
+                  alt={s.name}
+                  className="h-10 md:h-12 object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+                />
+              </a>
+            ))}
+          </div>
         </div>
-      </section>
+      </AnimatedSection>
     </>
   );
 };

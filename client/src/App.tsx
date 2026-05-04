@@ -1,6 +1,7 @@
-import { createBrowserRouter, Outlet, RouterProvider } from "react-router";
+import { createBrowserRouter, Outlet, RouterProvider, useLocation } from "react-router";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { motion } from "motion/react";
 
 // Pages
 import Home from "./pages/home/Home";
@@ -22,16 +23,30 @@ import NewsManagementPage from "./pages/news-management/NewsManagementPage";
 import PlayerDetailPage from "./pages/player-details/PlayerDetails";
 import GalleryDetailPage from "./pages/gallery-details/GalleryDetailsPage";
 import ClubPage from "./pages/our-club/ClubPage";
+import GalleryPage from "./pages/gallery/GalleryPage";
 import ClubManagementPage from "./pages/club-management/ClubManagementPage";
 import ArticlesPage from "./pages/articles/ArticlesPage";
 import ArticlesDetails from "./pages/articles-details/ArticlesDetails";
 
+const AnimatedOutlet = () => {
+  const location = useLocation();
+  return (
+    <motion.main
+      key={location.pathname}
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.25, ease: "easeOut" }}
+      className="flex-grow"
+    >
+      <Outlet />
+    </motion.main>
+  );
+};
+
 const PublicLayout = () => (
   <div className="min-h-screen flex flex-col bg-surface">
     <Navbar />
-    <main className="flex-grow">
-      <Outlet />
-    </main>
+    <AnimatedOutlet />
     <Footer />
   </div>
 );
@@ -60,6 +75,10 @@ const router = createBrowserRouter([
       {
         path: "player/:id",
         element: <PlayerDetailPage />,
+      },
+      {
+        path: "gallery",
+        element: <GalleryPage />,
       },
       {
         path: "gallery-details/:id",

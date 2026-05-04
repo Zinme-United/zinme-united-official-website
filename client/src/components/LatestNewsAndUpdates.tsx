@@ -1,10 +1,9 @@
-import { ChevronRight, ChevronLeft } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { format } from "date-fns";
 import type { News } from "../types";
 import type { AxiosError } from "axios";
 import type React from "react";
 import { Link } from "react-router";
-import { useState } from "react";
 
 interface Props {
   news: News[] | undefined;
@@ -12,9 +11,6 @@ interface Props {
 }
 
 const LatestNewsAndUpdates: React.FC<Props> = ({ news, error }) => {
-  const [page, setPage] = useState(1);
-  const pageSize = 6;
-
   if (error) {
     return (
       <section className="my-12 text-center">
@@ -40,9 +36,8 @@ const LatestNewsAndUpdates: React.FC<Props> = ({ news, error }) => {
     );
   }
 
-  const totalPages = Math.ceil(news.length / pageSize);
-  const startIndex = (page - 1) * pageSize;
-  const paginatedNews = news.slice(startIndex, startIndex + pageSize);
+  const featured = news[0];
+  const smaller = news.slice(1, 3);
 
   return (
     <section className="my-12">
@@ -64,95 +59,80 @@ const LatestNewsAndUpdates: React.FC<Props> = ({ news, error }) => {
         </Link>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {paginatedNews.map((item) => (
-          <Link
-            to={`/articles/${item._id}`}
-            key={item._id}
-            className="group block"
-          >
-            <article className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden h-full">
-              {/* Image */}
-              <div className="relative overflow-hidden">
-                <img
-                  src={item.imageUrl || "/zinme.jpg"}
-                  alt={item.title}
-                  className="w-full h-52 object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                {item.isFeatured && (
-                  <span className="absolute top-3 left-3 bg-accent text-primary text-xs font-bold uppercase px-3 py-1 rounded-full">
-                    Featured
-                  </span>
-                )}
-              </div>
+      {/* Large featured card */}
+      <Link to={`/articles/${featured._id}`} className="group block mb-6">
+        <article className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden">
+          <div className="relative overflow-hidden">
+            <img
+              src={featured.imageUrl || "/zinme.jpg"}
+              alt={featured.title}
+              className="w-full h-64 md:h-80 object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+            {featured.isFeatured && (
+              <span className="absolute top-3 left-3 bg-accent text-primary text-xs font-bold uppercase px-3 py-1 rounded-full">
+                Featured
+              </span>
+            )}
+          </div>
+          <div className="p-6">
+            <p className="text-xs font-medium text-gray-400 uppercase tracking-wider mb-2">
+              {format(new Date(featured.publishedAt), "MMM dd, yyyy")}
+            </p>
+            <h3 className="text-xl font-bold text-text mb-2 group-hover:text-primary transition-colors">
+              {featured.title}
+            </h3>
+            <p className="text-sm text-gray-500 leading-relaxed">
+              {featured.content.slice(0, 150)}...
+            </p>
+            <span className="inline-flex items-center text-sm font-semibold text-primary mt-4 group-hover:gap-2 transition-all">
+              Read More{" "}
+              <ChevronRight
+                size={14}
+                className="ml-0.5 group-hover:translate-x-1 transition-transform"
+              />
+            </span>
+          </div>
+        </article>
+      </Link>
 
-              {/* Content */}
-              <div className="p-5">
-                {/* Date */}
-                <p className="text-xs font-medium text-gray-400 uppercase tracking-wider mb-2">
-                  {format(new Date(item.publishedAt), "MMM dd, yyyy")}
-                </p>
-
-                {/* Title */}
-                <h3 className="text-lg font-bold text-text mb-2 line-clamp-2 group-hover:text-primary transition-colors">
-                  {item.title}
-                </h3>
-
-                {/* Tags */}
-                {item.tags && item.tags.length > 0 && (
-                  <div className="flex flex-wrap gap-1.5 mb-3">
-                    {item.tags.slice(0, 3).map((tag, index) => (
-                      <span
-                        key={index}
-                        className="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded-full font-medium"
-                      >
-                        #{tag}
-                      </span>
-                    ))}
-                  </div>
-                )}
-
-                {/* Excerpt */}
-                <p className="text-sm text-gray-500 line-clamp-2 leading-relaxed">
-                  {item.content.slice(0, 120)}...
-                </p>
-
-                {/* Read More */}
-                <span className="inline-flex items-center text-sm font-semibold text-primary mt-4 group-hover:gap-2 transition-all">
-                  Read More{" "}
-                  <ChevronRight
-                    size={14}
-                    className="ml-0.5 group-hover:translate-x-1 transition-transform"
+      {/* Two smaller cards */}
+      {smaller.length > 0 && (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {smaller.map((item) => (
+            <Link
+              to={`/articles/${item._id}`}
+              key={item._id}
+              className="group block"
+            >
+              <article className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden h-full flex flex-col md:flex-row">
+                {/* Thumbnail */}
+                <div className="relative overflow-hidden md:w-1/3 flex-shrink-0">
+                  <img
+                    src={item.imageUrl || "/zinme.jpg"}
+                    alt={item.title}
+                    className="w-full h-32 md:h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                </span>
-              </div>
-            </article>
-          </Link>
-        ))}
-      </div>
-
-      {/* Pagination */}
-      {totalPages > 1 && (
-        <div className="flex items-center justify-center gap-2 mt-8">
-          <button
-            onClick={() => setPage((p) => Math.max(p - 1, 1))}
-            disabled={page === 1}
-            className="w-9 h-9 flex items-center justify-center rounded-full border border-gray-200 disabled:opacity-30 hover:bg-primary hover:text-white hover:border-primary transition-colors cursor-pointer disabled:cursor-not-allowed"
-          >
-            <ChevronLeft size={16} />
-          </button>
-
-          <span className="px-4 py-1 text-sm font-semibold text-gray-600">
-            {page} / {totalPages}
-          </span>
-
-          <button
-            onClick={() => setPage((p) => Math.min(p + 1, totalPages))}
-            disabled={page === totalPages}
-            className="w-9 h-9 flex items-center justify-center rounded-full border border-gray-200 disabled:opacity-30 hover:bg-primary hover:text-white hover:border-primary transition-colors cursor-pointer disabled:cursor-not-allowed"
-          >
-            <ChevronRight size={16} />
-          </button>
+                  {item.isFeatured && (
+                    <span className="absolute top-2 left-2 bg-accent text-primary text-xs font-bold uppercase px-2 py-0.5 rounded-full">
+                      Featured
+                    </span>
+                  )}
+                </div>
+                {/* Content */}
+                <div className="p-4 md:w-2/3 flex flex-col justify-center">
+                  <p className="text-xs font-medium text-gray-400 uppercase tracking-wider mb-1">
+                    {format(new Date(item.publishedAt), "MMM dd, yyyy")}
+                  </p>
+                  <h3 className="text-base font-bold text-text line-clamp-2 group-hover:text-primary transition-colors">
+                    {item.title}
+                  </h3>
+                  <p className="text-sm text-gray-500 line-clamp-2 leading-relaxed mt-1">
+                    {item.content.slice(0, 80)}...
+                  </p>
+                </div>
+              </article>
+            </Link>
+          ))}
         </div>
       )}
 

@@ -1,76 +1,5 @@
-// import { useNavigate, useParams } from "react-router";
-// import { format } from "date-fns";
-// import { ArrowLeft } from "lucide-react";
-// import useSingleNews from "../../hooks/useSingleNews";
-// import Loader from "../../components/Loader";
-
-// const ArticlesDetails = () => {
-//   const { id } = useParams<{ id: string }>();
-//   const navigate = useNavigate();
-
-//   const { singleNews, singleNewsLoading, singleNewsError } = useSingleNews(id);
-
-//   if (singleNewsLoading)
-//     return (
-//       <div className="min-h-screen flex flex-col items-center justify-center bg-white">
-//         <Loader size={100} />
-//       </div>
-//     );
-
-//   if (singleNewsError || !singleNews)
-//     return <p className="text-center text-red-600 mt-12">News not found.</p>;
-
-//   return (
-//     <div className="max-w-4xl mx-auto px-4">
-//       <button
-//         onClick={() => navigate(-1)}
-//         className="flex items-center text-primary mb-4 cursor-pointer"
-//       >
-//         <ArrowLeft className="w-5 h-5 mr-1" />
-//       </button>
-
-//       {singleNews.imageUrl && (
-//         <div className="w-full h-[60vh] mb-8 overflow-hidden rounded-xl shadow-md">
-//           <img
-//             src={singleNews.imageUrl}
-//             alt={singleNews.title}
-//             className="w-full h-full object-cover"
-//           />
-//         </div>
-//       )}
-
-//       <h1 className="text-3xl font-bold text-primary mb-2">
-//         {singleNews.title}
-//       </h1>
-//       <p className="text-sm text-gray-600 mb-4">
-//         By {singleNews.author} •{" "}
-//         {format(new Date(singleNews.publishedAt), "PPP")}
-//       </p>
-
-//       {singleNews.tags?.length ? (
-//         <div className="mb-4 flex flex-wrap gap-2">
-//           {singleNews.tags.map((tag, i) => (
-//             <span
-//               key={i}
-//               className="bg-blue-100 text-primary text-xs px-2 py-1 rounded-full"
-//             >
-//               #{tag}
-//             </span>
-//           ))}
-//         </div>
-//       ) : null}
-
-//       <p className="text-gray-800 leading-relaxed whitespace-pre-line">
-//         {singleNews.content}
-//       </p>
-//     </div>
-//   );
-// };
-
-// export default ArticlesDetails;
-
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useNavigate, useParams } from "react-router";
+import { useNavigate, useParams, Link } from "react-router";
 import { format } from "date-fns";
 import {
   ArrowLeft,
@@ -81,8 +10,10 @@ import {
   Link as LinkIcon,
 } from "lucide-react";
 import useSingleNews from "../../hooks/useSingleNews";
+import useNews from "../../hooks/useNews";
 import Loader from "../../components/Loader";
 import PageHero from "../../components/PageHero";
+import AnimatedSection from "../../components/AnimatedSection";
 
 const fallbackImg = "/zinme.jpg";
 
@@ -90,6 +21,20 @@ const ArticlesDetails = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { singleNews, singleNewsLoading, singleNewsError } = useSingleNews(id);
+  const { newsArticles } = useNews();
+
+  // Related articles for "More News" section
+  const relatedArticles = useMemo(() => {
+    if (!newsArticles || !id) return [];
+    return newsArticles
+      .filter((a) => a._id !== id)
+      .sort(
+        (a, b) =>
+          new Date(b.publishedAt).getTime() -
+          new Date(a.publishedAt).getTime()
+      )
+      .slice(0, 3);
+  }, [newsArticles, id]);
 
   // Reading progress bar
   const articleRef = useRef<HTMLDivElement | null>(null);
@@ -137,7 +82,7 @@ const ArticlesDetails = () => {
 
   if (singleNewsLoading) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-white">
+      <div className="min-h-screen flex flex-col items-center justify-center bg-surface">
         <Loader size={100} />
       </div>
     );
@@ -152,7 +97,7 @@ const ArticlesDetails = () => {
             {singleNewsError?.message || "Please go back and try again."}
           </p>
           <button
-            onClick={() => navigate(-1)}
+            onClick={() => navigate("/articles")}
             className="mt-4 inline-flex items-center px-4 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700 cursor-pointer"
           >
             <ArrowLeft className="w-4 h-4 mr-2" /> Back
@@ -165,7 +110,7 @@ const ArticlesDetails = () => {
   const cover = singleNews.imageUrl || fallbackImg;
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-surface">
       <PageHero
         title={singleNews.title}
         breadcrumbs={[
@@ -176,12 +121,12 @@ const ArticlesDetails = () => {
       />
 
       {/* Sticky header with back/share + reading progress */}
-      <header className="sticky top-0 z-30 bg-white/80 backdrop-blur border-b border-gray-200">
+      <header className="sticky top-0 z-30 bg-surface/80 backdrop-blur border-b border-primary/10">
         <div className="max-w-4xl mx-auto px-4 h-12 flex items-center justify-between">
           <button
-            onClick={() => navigate(-1)}
+            onClick={() => navigate("/articles")}
             className="inline-flex items-center text-primary font-semibold cursor-pointer"
-            aria-label="Go back"
+            aria-label="Go back to news"
           >
             <ArrowLeft className="w-5 h-5 mr-1" /> Back
           </button>
@@ -214,7 +159,7 @@ const ArticlesDetails = () => {
               <h1 className="text-2xl md:text-4xl font-extrabold drop-shadow-sm">
                 {singleNews.title}
               </h1>
-              <div className="mt-3 flex flex-wrap items-center gap-4 text-sm text-blue-100">
+              <div className="mt-3 flex flex-wrap items-center gap-4 text-sm text-white/70">
                 <span className="inline-flex items-center">
                   <Calendar className="w-4 h-4 mr-1" />
                   {format(new Date(singleNews.publishedAt), "MMM dd, yyyy")}
@@ -251,8 +196,7 @@ const ArticlesDetails = () => {
 
       {/* Article body */}
       <section ref={articleRef} className="max-w-4xl mx-auto px-4 py-8">
-        <article className="prose prose-lg max-w-none prose-headings:font-extrabold prose-headings:text-primary-dark prose-p:text-gray-800 prose-a:text-primary prose-strong:text-primary-dark">
-          {/* If your content already contains line breaks, preserve them: */}
+        <article className="prose prose-lg max-w-none prose-headings:font-extrabold prose-headings:text-primary-dark prose-p:text-text prose-a:text-primary prose-strong:text-primary-dark">
           <div className="whitespace-pre-line text-primary">
             {singleNews.content}
           </div>
@@ -260,11 +204,53 @@ const ArticlesDetails = () => {
 
         {/* Optional: Source / footer meta */}
         {singleNews.author && (
-          <div className="mt-8 text-sm text-gray-500">
+          <div className="mt-8 text-sm text-text-muted">
             Source: <span className="font-medium">{singleNews.author}</span>
           </div>
         )}
       </section>
+
+      {/* More News section */}
+      {relatedArticles.length > 0 && (
+        <AnimatedSection>
+          <section className="max-w-[var(--container-content)] mx-auto px-4 sm:px-6 py-12 border-t border-primary/10">
+            <h2 className="font-heading text-2xl uppercase tracking-wide text-primary mb-6">
+              More News
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {relatedArticles.map((a) => (
+                <Link
+                  key={a._id}
+                  to={`/articles/${a._id}`}
+                  className="group bg-surface rounded-[var(--radius-card)] shadow-card hover:shadow-card-hover overflow-hidden transition-all"
+                >
+                  <div className="relative h-44 overflow-hidden">
+                    <img
+                      src={a.imageUrl || "/zinme.jpg"}
+                      alt={a.title}
+                      loading="lazy"
+                      className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-300"
+                    />
+                    <div className="absolute left-3 bottom-3 text-xs px-2 py-1 rounded bg-black/60 text-white">
+                      {format(new Date(a.publishedAt), "MMM dd, yyyy")}
+                    </div>
+                  </div>
+                  <div className="p-4">
+                    <h3 className="text-lg font-bold text-text line-clamp-2">
+                      {a.title}
+                    </h3>
+                    {a.content && (
+                      <p className="mt-2 text-sm text-text-muted line-clamp-2">
+                        {a.content.slice(0, 120)}
+                      </p>
+                    )}
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </section>
+        </AnimatedSection>
+      )}
     </div>
   );
 };

@@ -7,6 +7,23 @@ interface SquadSpotlightProps {
 }
 
 const SquadSpotlight = ({ players }: SquadSpotlightProps) => {
+  // Select one player per position group
+  // Position values are abbreviations: GK, CB, LB, RB, CM, DM, AM, LW, RW, ST, CF, etc.
+  const positionGroupMap: Record<string, string[]> = {
+    GK: ["GK"],
+    DEF: ["CB", "LB", "RB", "LWB", "RWB", "SW"],
+    MID: ["CM", "DM", "AM", "LM", "RM", "CDM", "CAM"],
+    FWD: ["ST", "CF", "LW", "RW", "SS"],
+  };
+
+  const spotlightPlayers = Object.entries(positionGroupMap)
+    .map(([, abbrevs]) =>
+      players.find((p) =>
+        abbrevs.includes(p.position.replace(/\./g, "").toUpperCase().trim()),
+      ),
+    )
+    .filter(Boolean) as Player[];
+
   return (
     <section className="my-12">
       {/* Section header */}
@@ -27,8 +44,8 @@ const SquadSpotlight = ({ players }: SquadSpotlightProps) => {
         </Link>
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6">
-        {players.map((player) => (
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+        {spotlightPlayers.map((player) => (
           <Link to={`/player/${player._id}`} key={player._id} className="group">
             <div className="relative rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
               {/* Player image */}

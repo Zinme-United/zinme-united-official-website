@@ -1,159 +1,198 @@
-import { useParams, useNavigate } from "react-router";
-import { ArrowLeft, Calendar, X } from "lucide-react";
-import { useState } from "react";
+import { useParams } from "react-router";
+import { Calendar, ChevronLeft, ChevronRight, X } from "lucide-react";
+import { useCallback, useEffect, useState } from "react";
 import useGetGalleryById from "../../hooks/useGetGalleryById";
 import Loader from "../../components/Loader";
+import PageHero from "../../components/PageHero";
 
 const GalleryDetailPage = () => {
   const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate();
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
   const { data: gallery, isLoading, isError, error } = useGetGalleryById(id);
 
-  // Loading state
+  const images = gallery?.images ?? [];
+
+  const openLightbox = (index: number) => setSelectedIndex(index);
+  const closeLightbox = () => setSelectedIndex(null);
+
+  const goNext = useCallback(() => {
+    if (selectedIndex === null || images.length === 0) return;
+    setSelectedIndex((prev) => (prev! + 1) % images.length);
+  }, [selectedIndex, images.length]);
+
+  const goPrev = useCallback(() => {
+    if (selectedIndex === null || images.length === 0) return;
+    setSelectedIndex((prev) => (prev! - 1 + images.length) % images.length);
+  }, [selectedIndex, images.length]);
+
+  // Keyboard navigation for lightbox
+  useEffect(() => {
+    if (selectedIndex === null) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closeLightbox();
+      if (e.key === "ArrowRight") goNext();
+      if (e.key === "ArrowLeft") goPrev();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [selectedIndex, goNext, goPrev]);
+
   if (isLoading) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
-        <Loader size={100} />
+      <div className="min-h-screen flex items-center justify-center bg-surface">
+        <Loader size={80} />
       </div>
     );
   }
 
-  // Error state
   if (isError || !gallery) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-6">
-        <p className="text-xl font-semibold text-red-600">
-          {error?.message || "Gallery not found."}
-        </p>
+      <div className="min-h-screen flex items-center justify-center bg-surface px-4">
+        <div className="bg-red-50 border border-red-200 text-red-800 rounded-xl p-6 max-w-lg text-center">
+          <p className="font-semibold text-lg">
+            {error?.message || "Gallery not found."}
+          </p>
+        </div>
       </div>
     );
   }
 
-  const coverImg =
-    gallery?.thumbnailUrl || gallery?.images[0]?.url || "/zinme.jpg";
-
   return (
-    <div className="font-inter">
-      {/* Hero Section */}
-      <div className="relative mx-auto max-w-screen-xl rounded-xl overflow-hidden">
-        <div className="relative aspect-[4/3] sm:aspect-[16/9] lg:aspect-[21/9] min-h-[280px]">
-          <img
-            src={coverImg}
-            alt={gallery.title}
-            className="absolute inset-0 w-full h-full object-cover"
-            loading="eager"
-            fetchPriority="high"
-          />
+    <main className="min-h-screen bg-surface">
+      <PageHero
+        title={gallery.title}
+        breadcrumbs={[
+          { label: "Home", path: "/" },
+          { label: "Gallery", path: "/gallery" },
+          { label: gallery.title },
+        ]}
+      />
 
-          {/* Gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/70" />
-
-          {/* Content container with responsive padding */}
-          <div className="absolute inset-0 flex items-end">
-            <div className="w-full px-4 sm:px-6 md:px-10 pb-5 sm:pb-7 md:pb-10">
-              {/* Mobile-friendly readable block behind text */}
-              <div className="inline-block sm:bg-transparent bg-black/35 backdrop-blur-[2px] rounded-lg sm:rounded-none px-2 py-1 sm:px-0 sm:py-0">
-                <h1
-                  className="text-white font-extrabold leading-tight
-                         text-2xl xs:text-3xl sm:text-4xl md:text-5xl"
-                >
-                  {gallery.title}
-                </h1>
-
-                {gallery.eventDate && (
-                  <p
-                    className="mt-1 sm:mt-2 flex items-center text-gray-200
-                          text-xs xs:text-sm md:text-lg"
-                  >
-                    <Calendar size={18} className="mr-2" />
-                    {new Date(gallery.eventDate).toLocaleDateString()}
-                  </p>
-                )}
-
-                {gallery.description && (
-                  <p
-                    className="mt-2 sm:mt-3 text-gray-200 max-w-3xl
-                          text-xs xs:text-sm sm:text-base line-clamp-3 sm:line-clamp-none"
-                  >
-                    {gallery.description}
-                  </p>
-                )}
-              </div>
-            </div>
-          </div>
-
-          {/* Back button with safe area and bigger tap target */}
-          <div className="absolute top-3 left-3 sm:top-4 sm:left-4">
-            <button
-              onClick={() => navigate(-1)}
-              className="cursor-pointer inline-flex items-center justify-center
-                   w-10 h-10 sm:w-11 sm:h-11 rounded-full
-                   bg-white/25 hover:bg-white/40 text-white transition"
-              style={{ paddingTop: "env(safe-area-inset-top)" }}
-              aria-label="Go back"
-            >
-              <ArrowLeft size={22} />
-            </button>
-          </div>
+      {/* Gallery info */}
+      <section className="max-w-[var(--container-content)] mx-auto px-4 sm:px-6 pt-8 pb-4">
+        <div className="flex flex-wrap items-center gap-4 text-text-muted text-sm">
+          {gallery.eventDate && (
+            <span className="inline-flex items-center gap-1.5">
+              <Calendar size={16} />
+              {new Date(gallery.eventDate).toLocaleDateString()}
+            </span>
+          )}
+          {gallery.category && (
+            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-primary/10 text-primary capitalize">
+              {gallery.category}
+            </span>
+          )}
+          <span className="text-text-muted">
+            {images.length} {images.length === 1 ? "photo" : "photos"}
+          </span>
         </div>
-      </div>
+        {gallery.description && (
+          <p className="mt-3 text-text-muted max-w-3xl leading-relaxed">
+            {gallery.description}
+          </p>
+        )}
+      </section>
 
-      {/* Gallery Grid */}
-      <div className="max-w-screen-xl mx-auto py-12">
-        {gallery.images && gallery.images.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {gallery.images.map((img, index) => (
-              <div
+      {/* Image grid */}
+      <section className="max-w-[var(--container-content)] mx-auto px-4 sm:px-6 py-8">
+        {images.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+            {images.map((img, index) => (
+              <button
                 key={img.url + index}
-                className="relative group overflow-hidden rounded-xl shadow-md cursor-zoom-in"
-                onClick={() => setSelectedImage(img.url)}
+                onClick={() => openLightbox(index)}
+                className="relative group overflow-hidden rounded-[var(--radius-card)] shadow-card hover:shadow-card-hover transition-all duration-300 cursor-zoom-in bg-surface-alt"
               >
                 <img
                   src={img.url}
                   alt={img.caption || `Image ${index + 1}`}
-                  className="w-full h-auto object-contain transition duration-500 group-hover:scale-105"
+                  loading="lazy"
+                  className="w-full h-auto object-contain transition-transform duration-500 group-hover:scale-[1.03]"
                 />
                 {img.caption && (
-                  <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-sm px-3 py-2 opacity-0 group-hover:opacity-100 transition">
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent text-white text-sm px-4 py-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     {img.caption}
                   </div>
                 )}
-              </div>
+              </button>
             ))}
           </div>
         ) : (
-          <p className="text-center text-lg text-gray-500">
+          <p className="text-center text-lg text-text-muted py-12">
             No images available in this gallery.
           </p>
         )}
-      </div>
+      </section>
 
       {/* Lightbox */}
-      {selectedImage && (
+      {selectedIndex !== null && images[selectedIndex] && (
         <div
           className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center"
-          onClick={() => setSelectedImage(null)}
+          onClick={closeLightbox}
         >
+          {/* Close */}
           <button
-            className="absolute top-6 cursor-pointer right-6 bg-white/20 hover:bg-white/40 text-white p-2 rounded-full"
+            className="absolute top-4 right-4 sm:top-6 sm:right-6 bg-white/15 hover:bg-white/30 text-white p-2.5 rounded-full transition cursor-pointer z-10"
             onClick={(e) => {
               e.stopPropagation();
-              setSelectedImage(null);
+              closeLightbox();
             }}
+            aria-label="Close lightbox"
           >
-            <X size={24} />
+            <X size={22} />
           </button>
+
+          {/* Counter */}
+          <div className="absolute top-4 left-4 sm:top-6 sm:left-6 text-white/60 text-sm font-medium z-10">
+            {selectedIndex + 1} / {images.length}
+          </div>
+
+          {/* Previous */}
+          {images.length > 1 && (
+            <button
+              className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 bg-white/15 hover:bg-white/30 text-white p-2.5 rounded-full transition cursor-pointer z-10"
+              onClick={(e) => {
+                e.stopPropagation();
+                goPrev();
+              }}
+              aria-label="Previous image"
+            >
+              <ChevronLeft size={24} />
+            </button>
+          )}
+
+          {/* Image */}
           <img
-            src={selectedImage}
-            alt="Full view"
-            className="max-w-full max-h-full object-contain rounded-lg shadow-lg"
+            src={images[selectedIndex].url}
+            alt={images[selectedIndex].caption || "Full view"}
+            className="max-w-[90vw] max-h-[85vh] object-contain rounded-lg"
             onClick={(e) => e.stopPropagation()}
           />
+
+          {/* Next */}
+          {images.length > 1 && (
+            <button
+              className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 bg-white/15 hover:bg-white/30 text-white p-2.5 rounded-full transition cursor-pointer z-10"
+              onClick={(e) => {
+                e.stopPropagation();
+                goNext();
+              }}
+              aria-label="Next image"
+            >
+              <ChevronRight size={24} />
+            </button>
+          )}
+
+          {/* Caption */}
+          {images[selectedIndex].caption && (
+            <div className="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 bg-black/60 backdrop-blur-sm text-white text-sm px-4 py-2 rounded-lg max-w-lg text-center z-10">
+              {images[selectedIndex].caption}
+            </div>
+          )}
         </div>
       )}
-    </div>
+    </main>
   );
 };
 

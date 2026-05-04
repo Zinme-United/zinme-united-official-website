@@ -4,6 +4,14 @@ import usePlayers from "../../hooks/usePlayers";
 import { Link } from "react-router";
 import { Search, X } from "lucide-react";
 import Loader from "../../components/Loader";
+import AnimatedSection from "../../components/AnimatedSection";
+
+const positionGroupMap: Record<string, string[]> = {
+  Goalkeepers: ["GK"],
+  Defenders: ["CB", "LB", "RB", "LWB", "RWB", "SW"],
+  Midfielders: ["CM", "DM", "AM", "LM", "RM", "CDM", "CAM"],
+  Forwards: ["ST", "CF", "LW", "RW", "SS"],
+};
 
 type SelectedGenderType = "Male" | "Female";
 
@@ -76,6 +84,17 @@ const Players = () => {
 
     return list;
   }, [allPlayers, selectedGender, searchQuery, positionFilters]);
+
+  const groupedPlayers = useMemo(() => {
+    return Object.entries(positionGroupMap)
+      .map(([label, abbrevs]) => ({
+        label,
+        players: filteredPlayers.filter((p) =>
+          abbrevs.includes(p.position.replace(/\./g, "").toUpperCase().trim())
+        ),
+      }))
+      .filter((g) => g.players.length > 0);
+  }, [filteredPlayers]);
 
   if (playersLoading) {
     return (
@@ -202,7 +221,7 @@ const Players = () => {
         </div>
       </section>
 
-      {/* Player Grid */}
+      {/* Player Grid — grouped by position */}
       <section className="bg-surface-alt">
         <div className="max-w-[var(--container-content)] mx-auto px-4 sm:px-6 py-10 md:py-14">
           {filteredPlayers.length === 0 ? (
@@ -210,37 +229,44 @@ const Players = () => {
               No players found.
             </p>
           ) : (
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5 md:gap-6">
-              {filteredPlayers.map((player) => (
-                <Link
-                  to={`/player/${player._id}`}
-                  key={player._id}
-                  className="group relative rounded-xl overflow-hidden bg-primary shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1"
-                >
-                  <div className="relative aspect-[3/4] overflow-hidden">
-                    <img
-                      loading="lazy"
-                      src={player.img || "/zinme.jpg"}
-                      alt={player.name}
-                      className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-primary-dark via-transparent to-transparent" />
-                    <span className="absolute top-2 left-2 bg-accent text-primary-dark text-xs font-bold px-2 py-1 rounded-md">
-                      #{player.number}
-                    </span>
-                  </div>
+            groupedPlayers.map((group, idx) => (
+              <AnimatedSection key={group.label} delay={idx * 0.1}>
+                <h2 className="font-heading text-xl md:text-2xl uppercase tracking-wide text-primary mb-4 mt-8 first:mt-0">
+                  {group.label}
+                </h2>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5 md:gap-6 mb-8">
+                  {group.players.map((player) => (
+                    <Link
+                      to={`/player/${player._id}`}
+                      key={player._id}
+                      className="group relative rounded-xl overflow-hidden bg-primary shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1"
+                    >
+                      <div className="relative aspect-[3/4] overflow-hidden">
+                        <img
+                          loading="lazy"
+                          src={player.img || "/zinme.jpg"}
+                          alt={player.name}
+                          className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-primary-dark via-transparent to-transparent" />
+                        <span className="absolute top-2 left-2 bg-accent text-primary-dark text-xs font-bold px-2 py-1 rounded-md">
+                          #{player.number}
+                        </span>
+                      </div>
 
-                  <div className="px-3 py-3 text-white">
-                    <p className="font-heading text-sm md:text-base uppercase tracking-wide truncate">
-                      {player.name}
-                    </p>
-                    <p className="text-[11px] text-white/60 uppercase tracking-wider mt-0.5">
-                      {player.position}
-                    </p>
-                  </div>
-                </Link>
-              ))}
-            </div>
+                      <div className="px-3 py-3 text-white">
+                        <p className="font-heading text-sm md:text-base uppercase tracking-wide truncate">
+                          {player.name}
+                        </p>
+                        <p className="text-[11px] text-white/60 uppercase tracking-wider mt-0.5">
+                          {player.position}
+                        </p>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </AnimatedSection>
+            ))
           )}
         </div>
       </section>

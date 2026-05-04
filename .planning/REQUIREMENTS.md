@@ -23,24 +23,24 @@
 
 ### Home Page
 
-- [ ] **HOME-01**: Hero section displays team photo/action shot with club crest prominently
-- [ ] **HOME-02**: Next match section shows upcoming fixture with opponent, date, venue, and countdown timer
-- [ ] **HOME-03**: Latest results section displays recent match scores as visual cards with team logos
-- [ ] **HOME-04**: Latest news section shows 2-3 recent articles with thumbnails and excerpts
-- [ ] **HOME-05**: Squad spotlight section previews featured players with links to squad page
-- [ ] **HOME-06**: Partners/sponsors banner displays club sponsor logos
-- [ ] **HOME-07**: Page sections animate in on scroll using Framer Motion
+- [x] **HOME-01**: Hero section displays team photo/action shot with club crest prominently
+- [x] **HOME-02**: Next match section shows upcoming fixture with opponent, date, venue, and countdown timer
+- [x] **HOME-03**: Latest results section displays recent match scores as visual cards with team logos
+- [x] **HOME-04**: Latest news section shows 2-3 recent articles with thumbnails and excerpts
+- [x] **HOME-05**: Squad spotlight section previews featured players with links to squad page
+- [x] **HOME-06**: Partners/sponsors banner displays club sponsor logos
+- [x] **HOME-07**: Page sections animate in on scroll using Framer Motion
 
 ### Inner Pages
 
-- [ ] **PAGE-01**: Squad page shows player cards grouped by position (GK, DEF, MID, FWD)
-- [ ] **PAGE-02**: Individual player profile pages display photo, bio, stats, and position
-- [ ] **PAGE-03**: Fixtures & Results page shows upcoming matches and past results with match cards
-- [ ] **PAGE-04**: News listing page displays articles as cards with thumbnails, titles, dates
-- [ ] **PAGE-05**: Individual news article page renders full content with images
-- [ ] **PAGE-06**: Gallery page displays photo grid with lightbox viewer for enlarging images
-- [ ] **PAGE-07**: About page presents club history, mission, values, and coaching staff profiles
-- [ ] **PAGE-08**: Smooth animated transitions between pages using Framer Motion
+- [x] **PAGE-01**: Squad page shows player cards grouped by position (GK, DEF, MID, FWD)
+- [x] **PAGE-02**: Individual player profile pages display photo, bio, stats, and position
+- [x] **PAGE-03**: Fixtures & Results page shows upcoming matches and past results with match cards
+- [x] **PAGE-04**: News listing page displays articles as cards with thumbnails, titles, dates
+- [x] **PAGE-05**: Individual news article page renders full content with images
+- [x] **PAGE-06**: Gallery page displays photo grid with lightbox viewer for enlarging images
+- [x] **PAGE-07**: About page presents club history, mission, values, and coaching staff profiles
+- [x] **PAGE-08**: Smooth animated transitions between pages using Framer Motion
 
 ## v2 Requirements
 
@@ -78,21 +78,21 @@
 | NAVL-04 | Phase 2 | Complete |
 | NAVL-05 | Phase 2 | Complete |
 | NAVL-06 | Phase 2 | Complete |
-| HOME-01 | Phase 3 | Pending |
-| HOME-02 | Phase 3 | Pending |
-| HOME-03 | Phase 3 | Pending |
-| HOME-04 | Phase 3 | Pending |
-| HOME-05 | Phase 3 | Pending |
-| HOME-06 | Phase 3 | Pending |
-| HOME-07 | Phase 3 | Pending |
-| PAGE-01 | Phase 4 | Pending |
-| PAGE-02 | Phase 4 | Pending |
-| PAGE-03 | Phase 4 | Pending |
-| PAGE-04 | Phase 4 | Pending |
-| PAGE-05 | Phase 4 | Pending |
-| PAGE-06 | Phase 4 | Pending |
-| PAGE-07 | Phase 4 | Pending |
-| PAGE-08 | Phase 4 | Pending |
+| HOME-01 | Phase 3 | Complete |
+| HOME-02 | Phase 3 | Complete |
+| HOME-03 | Phase 3 | Complete |
+| HOME-04 | Phase 3 | Complete |
+| HOME-05 | Phase 3 | Complete |
+| HOME-06 | Phase 3 | Complete |
+| HOME-07 | Phase 3 | Complete |
+| PAGE-01 | Phase 4 | Complete |
+| PAGE-02 | Phase 4 | Complete |
+| PAGE-03 | Phase 4 | Complete |
+| PAGE-04 | Phase 4 | Complete |
+| PAGE-05 | Phase 4 | Complete |
+| PAGE-06 | Phase 4 | Complete |
+| PAGE-07 | Phase 4 | Complete |
+| PAGE-08 | Phase 4 | Complete |
 
 **Coverage:**
 - v1 requirements: 24 total
