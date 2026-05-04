@@ -23,13 +23,13 @@
 
 ### Home Page
 
-- [ ] **HOME-01**: Hero section displays team photo/action shot with club crest prominently
-- [ ] **HOME-02**: Next match section shows upcoming fixture with opponent, date, venue, and countdown timer
-- [ ] **HOME-03**: Latest results section displays recent match scores as visual cards with team logos
+- [x] **HOME-01**: Hero section displays team photo/action shot with club crest prominently
+- [x] **HOME-02**: Next match section shows upcoming fixture with opponent, date, venue, and countdown timer
+- [x] **HOME-03**: Latest results section displays recent match scores as visual cards with team logos
 - [ ] **HOME-04**: Latest news section shows 2-3 recent articles with thumbnails and excerpts
 - [ ] **HOME-05**: Squad spotlight section previews featured players with links to squad page
 - [ ] **HOME-06**: Partners/sponsors banner displays club sponsor logos
-- [ ] **HOME-07**: Page sections animate in on scroll using Framer Motion
+- [x] **HOME-07**: Page sections animate in on scroll using Framer Motion
 
 ### Inner Pages
 
@@ -78,13 +78,13 @@
 | NAVL-04 | Phase 2 | Complete |
 | NAVL-05 | Phase 2 | Complete |
 | NAVL-06 | Phase 2 | Complete |
-| HOME-01 | Phase 3 | Pending |
-| HOME-02 | Phase 3 | Pending |
-| HOME-03 | Phase 3 | Pending |
+| HOME-01 | Phase 3 | Complete |
+| HOME-02 | Phase 3 | Complete |
+| HOME-03 | Phase 3 | Complete |
 | HOME-04 | Phase 3 | Pending |
 | HOME-05 | Phase 3 | Pending |
 | HOME-06 | Phase 3 | Pending |
-| HOME-07 | Phase 3 | Pending |
+| HOME-07 | Phase 3 | Complete |
 | PAGE-01 | Phase 4 | Pending |
 | PAGE-02 | Phase 4 | Pending |
 | PAGE-03 | Phase 4 | Pending |

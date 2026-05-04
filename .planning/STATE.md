@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: in-progress
-last_updated: "2026-05-04T06:34:00Z"
+last_updated: "2026-05-04T14:42:00Z"
 progress:
   total_phases: 4
   completed_phases: 2
-  total_plans: 5
-  completed_plans: 5
+  total_plans: 7
+  completed_plans: 6
 ---
 
 # Project State
@@ -18,23 +18,23 @@ progress:
 See: .planning/PROJECT.md (updated 2026-05-01)
 
 **Core value:** Visitors land on the site and immediately feel they're on a legitimate football club's website
-**Current focus:** Phase 2: Layout Shell
+**Current focus:** Phase 3: Home Page
 
 ## Current Position
 
-Phase: 2 of 4 (Layout Shell) -- COMPLETE
-Plan: 2 of 2 in current phase
-Status: Phase 02 Complete
-Last activity: 2026-05-04 -- Completed 02-02-PLAN.md (Footer, PageHero & Layout Shell)
+Phase: 3 of 4 (Home Page) -- IN PROGRESS
+Plan: 1 of 2 in current phase
+Status: Executing Phase 03
+Last activity: 2026-05-04 -- Completed 03-01-PLAN.md (Hero, AnimatedSection & MatchesSection)
 
-Progress: [██████████] 100% (Phase 02 complete)
+Progress: [████████░░] 86% (6/7 plans complete)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 5
+- Total plans completed: 6
 - Average duration: 2.8min
-- Total execution time: 0.23 hours
+- Total execution time: 0.28 hours
 
 **By Phase:**
 
@@ -42,9 +42,10 @@ Progress: [██████████] 100% (Phase 02 complete)
 |-------|-------|-------|----------|
 | 01-design-system | 3 | 10min | 3.3min |
 | 02-layout-shell | 2 | 4min | 2min |
+| 03-home-page | 1 | 3min | 3min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (2min), 01-02 (3min), 01-03 (5min), 02-01 (1min), 02-02 (3min)
+- Last 5 plans: 01-02 (3min), 01-03 (5min), 02-01 (1min), 02-02 (3min), 03-01 (3min)
 - Trend: stable
 
 *Updated after each plan completion*
@@ -71,6 +72,9 @@ Recent decisions affecting current work:
 - [02-01]: Gallery route points to /gallery (new path) rather than /gallery-details
 - [02-02]: Kept existing page-specific hero/filter sections below PageHero rather than removing them
 - [02-02]: Replaced ClubPage custom hero with PageHero for visual consistency across inner pages
+- [03-01]: Extracted countdown logic into useCountdown custom hook within MatchesSection for encapsulation
+- [03-01]: Installed motion in client/ directory (not root) since project uses client/server monorepo structure
+- [03-01]: Result border color parsing uses regex to detect score patterns like '3-1' for win/loss/draw indicators
 
 ### Pending Todos
 
@@ -85,5 +89,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-05-04
-Stopped at: Completed 02-02-PLAN.md (Phase 02 complete)
-Resume file: .planning/phases/02-layout-shell/02-02-SUMMARY.md
+Stopped at: Completed 03-01-PLAN.md (Hero, AnimatedSection & MatchesSection)
+Resume file: .planning/phases/03-home-page/03-01-SUMMARY.md
