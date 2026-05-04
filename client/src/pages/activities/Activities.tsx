@@ -40,40 +40,50 @@ function UpcomingMatchCard({ match }: { match: Activity }) {
     safeSrc(match.opponentTeamLogoUrl) ?? opponentPlaceholder(match.opponent);
 
   return (
-    <div className="bg-surface rounded-[var(--radius-card)] shadow-card p-5 flex items-center gap-4">
-      <img
-        src={homeLogoSrc}
-        alt="Home"
-        className="w-12 h-12 object-contain"
-        onError={(e) => {
-          e.currentTarget.onerror = null;
-          e.currentTarget.src = defaultHomeLogo;
-        }}
-      />
+    <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 p-6 flex items-center gap-5">
+      <div className="flex flex-col items-center flex-shrink-0">
+        <img
+          src={homeLogoSrc}
+          alt="Home"
+          className="w-14 h-14 object-contain"
+          onError={(e) => {
+            e.currentTarget.onerror = null;
+            e.currentTarget.src = defaultHomeLogo;
+          }}
+        />
+        <span className="text-xs font-bold text-primary mt-1.5 uppercase tracking-wide">
+          Zinme
+        </span>
+      </div>
       <div className="flex-1 text-center">
-        <p className="text-xs text-text-muted uppercase tracking-wider">
+        <p className="text-xs font-semibold text-accent uppercase tracking-wider">
           {format(new Date(match.date), "EEE, MMM d")}
           {match.time && ` - ${match.time}`}
         </p>
-        <p className="font-heading text-lg text-primary mt-1">
-          Zinme United <span className="text-text-muted mx-2">vs</span>{" "}
+        <p className="text-2xl font-extrabold text-primary mt-1">VS</p>
+        <p className="text-sm font-bold text-gray-700 mt-0.5">
           {match.opponent || "TBA"}
         </p>
         {match.location && (
-          <p className="text-xs text-text-muted mt-1 flex items-center justify-center gap-1">
+          <p className="text-xs text-gray-500 mt-2 flex items-center justify-center gap-1">
             <MapPin size={12} /> {match.location}
           </p>
         )}
       </div>
-      <img
-        src={opponentLogoSrc}
-        alt="Away"
-        className="w-12 h-12 object-contain"
-        onError={(e) => {
-          e.currentTarget.onerror = null;
-          e.currentTarget.src = opponentPlaceholder(match.opponent);
-        }}
-      />
+      <div className="flex flex-col items-center flex-shrink-0">
+        <img
+          src={opponentLogoSrc}
+          alt="Away"
+          className="w-14 h-14 object-contain"
+          onError={(e) => {
+            e.currentTarget.onerror = null;
+            e.currentTarget.src = opponentPlaceholder(match.opponent);
+          }}
+        />
+        <span className="text-xs font-bold text-gray-500 mt-1.5 uppercase tracking-wide max-w-[60px] truncate text-center">
+          {match.opponent?.split(/\s+/)[0] || "OPP"}
+        </span>
+      </div>
     </div>
   );
 }
@@ -85,40 +95,52 @@ function ResultMatchCard({ match }: { match: Activity }) {
 
   return (
     <div
-      className={`bg-surface rounded-[var(--radius-card)] shadow-card border-l-4 ${resultBorderColor(match.result)} p-5 flex items-center gap-4`}
+      className={`bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border-l-4 ${resultBorderColor(match.result)} p-6 flex items-center gap-5`}
     >
-      <img
-        src={homeLogoSrc}
-        alt="Home"
-        className="w-12 h-12 object-contain"
-        onError={(e) => {
-          e.currentTarget.onerror = null;
-          e.currentTarget.src = defaultHomeLogo;
-        }}
-      />
+      <div className="flex flex-col items-center flex-shrink-0">
+        <img
+          src={homeLogoSrc}
+          alt="Home"
+          className="w-14 h-14 object-contain"
+          onError={(e) => {
+            e.currentTarget.onerror = null;
+            e.currentTarget.src = defaultHomeLogo;
+          }}
+        />
+        <span className="text-xs font-bold text-primary mt-1.5 uppercase tracking-wide">
+          Zinme
+        </span>
+      </div>
       <div className="flex-1 text-center">
-        <p className="font-heading text-2xl text-primary">
+        <p className="text-3xl font-extrabold text-primary">
           {match.result || "---"}
         </p>
-        <p className="text-xs text-text-muted mt-1">
-          vs {match.opponent || "Unknown"} -{" "}
+        <p className="text-sm font-bold text-gray-700 mt-1">
+          vs {match.opponent || "Unknown"}
+        </p>
+        <p className="text-xs text-gray-500 mt-1">
           {format(new Date(match.date), "MMM d, yyyy")}
         </p>
         {match.location && (
-          <p className="text-xs text-text-muted mt-1 flex items-center justify-center gap-1">
+          <p className="text-xs text-gray-500 mt-1.5 flex items-center justify-center gap-1">
             <MapPin size={12} /> {match.location}
           </p>
         )}
       </div>
-      <img
-        src={opponentLogoSrc}
-        alt="Away"
-        className="w-12 h-12 object-contain"
-        onError={(e) => {
-          e.currentTarget.onerror = null;
-          e.currentTarget.src = opponentPlaceholder(match.opponent);
-        }}
-      />
+      <div className="flex flex-col items-center flex-shrink-0">
+        <img
+          src={opponentLogoSrc}
+          alt="Away"
+          className="w-14 h-14 object-contain"
+          onError={(e) => {
+            e.currentTarget.onerror = null;
+            e.currentTarget.src = opponentPlaceholder(match.opponent);
+          }}
+        />
+        <span className="text-xs font-bold text-gray-500 mt-1.5 uppercase tracking-wide max-w-[60px] truncate text-center">
+          {match.opponent?.split(/\s+/)[0] || "OPP"}
+        </span>
+      </div>
     </div>
   );
 }
@@ -177,69 +199,83 @@ const Activities = () => {
         breadcrumbs={[{ label: "Home", path: "/" }, { label: "Fixtures" }]}
       />
 
-      <section className="max-w-[var(--container-content)] mx-auto px-4 sm:px-6 py-8 md:py-12">
-        <TabGroup>
-          <div className="flex justify-center mb-8">
-            <TabList className="inline-flex rounded-2xl bg-white/10 p-1 backdrop-blur-sm border border-primary/20 bg-primary-dark">
-              <Tab
-                className={({ selected }) =>
-                  `px-6 py-2.5 text-sm font-semibold rounded-xl transition-all cursor-pointer ${
-                    selected
-                      ? "bg-white text-primary shadow"
-                      : "text-white/80 hover:bg-white/10"
-                  }`
-                }
-              >
-                Upcoming ({upcoming.length})
-              </Tab>
-              <Tab
-                className={({ selected }) =>
-                  `px-6 py-2.5 text-sm font-semibold rounded-xl transition-all cursor-pointer ${
-                    selected
-                      ? "bg-white text-primary shadow"
-                      : "text-white/80 hover:bg-white/10"
-                  }`
-                }
-              >
-                Results ({results.length})
-              </Tab>
-            </TabList>
-          </div>
+      <section className="bg-white py-16">
+        <div className="max-w-6xl mx-auto px-4">
+          <AnimatedSection>
+            {/* Section header */}
+            <div className="text-center mb-10">
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-accent mb-1">
+                Matchday
+              </p>
+              <h2 className="text-3xl md:text-4xl font-extrabold text-primary">
+                Fixtures & Results
+              </h2>
+            </div>
 
-          <TabPanels>
-            <TabPanel>
-              <AnimatedSection>
-                {upcoming.length === 0 ? (
-                  <p className="text-center text-text-muted text-lg py-12">
-                    No upcoming matches scheduled.
-                  </p>
-                ) : (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {upcoming.map((match) => (
-                      <UpcomingMatchCard key={match._id} match={match} />
-                    ))}
-                  </div>
-                )}
-              </AnimatedSection>
-            </TabPanel>
+            <TabGroup>
+              <div className="flex justify-center mb-10">
+                <TabList className="inline-flex rounded-2xl p-1 bg-gray-100 border border-gray-200">
+                  <Tab
+                    className={({ selected }) =>
+                      `px-8 py-3 text-sm font-bold rounded-xl transition-all duration-200 cursor-pointer ${
+                        selected
+                          ? "bg-primary text-white shadow-md"
+                          : "bg-transparent text-gray-600 hover:text-primary hover:bg-gray-50"
+                      }`
+                    }
+                  >
+                    Upcoming ({upcoming.length})
+                  </Tab>
+                  <Tab
+                    className={({ selected }) =>
+                      `px-8 py-3 text-sm font-bold rounded-xl transition-all duration-200 cursor-pointer ${
+                        selected
+                          ? "bg-primary text-white shadow-md"
+                          : "bg-transparent text-gray-600 hover:text-primary hover:bg-gray-50"
+                      }`
+                    }
+                  >
+                    Results ({results.length})
+                  </Tab>
+                </TabList>
+              </div>
 
-            <TabPanel>
-              <AnimatedSection>
-                {results.length === 0 ? (
-                  <p className="text-center text-text-muted text-lg py-12">
-                    No results to display yet.
-                  </p>
-                ) : (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {results.map((match) => (
-                      <ResultMatchCard key={match._id} match={match} />
-                    ))}
-                  </div>
-                )}
-              </AnimatedSection>
-            </TabPanel>
-          </TabPanels>
-        </TabGroup>
+              <TabPanels>
+                <TabPanel>
+                  <AnimatedSection>
+                    {upcoming.length === 0 ? (
+                      <p className="text-center text-gray-500 text-lg py-12">
+                        No upcoming matches scheduled.
+                      </p>
+                    ) : (
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        {upcoming.map((match) => (
+                          <UpcomingMatchCard key={match._id} match={match} />
+                        ))}
+                      </div>
+                    )}
+                  </AnimatedSection>
+                </TabPanel>
+
+                <TabPanel>
+                  <AnimatedSection>
+                    {results.length === 0 ? (
+                      <p className="text-center text-gray-500 text-lg py-12">
+                        No results to display yet.
+                      </p>
+                    ) : (
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        {results.map((match) => (
+                          <ResultMatchCard key={match._id} match={match} />
+                        ))}
+                      </div>
+                    )}
+                  </AnimatedSection>
+                </TabPanel>
+              </TabPanels>
+            </TabGroup>
+          </AnimatedSection>
+        </div>
       </section>
     </main>
   );
