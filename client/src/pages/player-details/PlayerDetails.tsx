@@ -4,7 +4,7 @@ import Pitch from "../../components/Pitch";
 import { positionToMarkers } from "../../utils/positionToMarkers";
 import { format } from "date-fns";
 import Loader from "../../components/Loader";
-import { ChevronRight, ChevronLeft } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import AnimatedSection from "../../components/AnimatedSection";
 import { mainSponsor, coSponsors } from "../../components/PartnersBanner";
 

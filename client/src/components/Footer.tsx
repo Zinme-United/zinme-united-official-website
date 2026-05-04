@@ -1,4 +1,4 @@
-import { Facebook, Mail, Phone } from "lucide-react";
+import { Facebook, Instagram, Mail, Phone } from "lucide-react";
 import { Link } from "react-router";
 import { navLinks } from "../constants";
 
@@ -64,6 +64,14 @@ const Footer = () => {
               className="text-white/70 hover:text-accent transition-colors"
             >
               <Facebook size={22} />
+            </a>
+            <a
+              href="https://www.instagram.com/zinmeunited/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white/70 hover:text-accent transition-colors"
+            >
+              <Instagram size={22} />
             </a>
           </div>
         </div>
