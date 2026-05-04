@@ -68,14 +68,14 @@ const GOALS = [
 // Small helper to map stat labels to icons (optional visuals only; data flow unchanged)
 const statIcon = (label: string) => {
   if (label.toLowerCase().includes("player"))
-    return <Users className="h-4 w-4" />;
+    return <Users className="h-5 w-5" />;
   if (label.toLowerCase().includes("match"))
-    return <Trophy className="h-4 w-4" />;
+    return <Trophy className="h-5 w-5" />;
   if (label.toLowerCase().includes("event"))
-    return <HeartHandshake className="h-4 w-4" />;
+    return <HeartHandshake className="h-5 w-5" />;
   if (label.toLowerCase().includes("founded"))
-    return <Sparkles className="h-4 w-4" />;
-  return <Sparkles className="h-4 w-4" />;
+    return <Sparkles className="h-5 w-5" />;
+  return <Sparkles className="h-5 w-5" />;
 };
 
 export default function ClubPage() {
@@ -116,143 +116,152 @@ export default function ClubPage() {
       />
 
       {/* Intro + Stats */}
-      <AnimatedSection>
-        <div className="max-w-[var(--container-content)] mx-auto px-4 sm:px-6 py-8 sm:py-10 md:py-12">
-          <div className="grid gap-8 md:grid-cols-3">
-            <div className="px-0 sm:px-6 md:col-span-2">
-              <div className="flex items-center gap-2">
-                <span className="inline-flex h-6 w-6 items-center justify-center rounded bg-primary text-white">
-                  <Sparkles className="h-3.5 w-3.5" />
+      <section className="bg-white py-16">
+        <AnimatedSection>
+          <div className="max-w-6xl mx-auto px-4">
+            <div className="grid gap-10 md:grid-cols-3">
+              <div className="md:col-span-2">
+                <span className="text-xs font-bold uppercase tracking-[0.2em] text-accent mb-1 block">
+                  Our Story
                 </span>
-                <h2 className="text-2xl font-bold text-primary sm:text-3xl">
+                <h2 className="text-3xl md:text-4xl font-extrabold text-primary">
                   Who We Are
                 </h2>
-              </div>
-              {club?.description && (
-                <p className="mt-4 leading-relaxed text-text-muted">
-                  {club.description}
-                </p>
-              )}
-              <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-                <Link
-                  to="/activities"
-                  className="inline-flex items-center justify-center rounded-full bg-primary px-4 py-2 text-sm font-medium text-white shadow transition hover:bg-primary-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
-                >
-                  <span className="text-white">See Our Activities</span>
-                  <ChevronRight
-                    className="ml-1 h-4 w-4 text-white"
-                    aria-hidden="true"
-                  />
-                </Link>
-                <Link
-                  to="https://www.facebook.com/zmutdfc"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center rounded-full border border-primary/30 bg-surface px-4 py-2 text-sm font-medium text-primary transition hover:bg-surface-alt focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
-                >
-                  Get in Touch
-                </Link>
-              </div>
-            </div>
-
-            <div className="px-0 sm:px-0">
-              <div className="grid grid-cols-2 gap-3 sm:gap-4">
-                {stats.map((s) => (
-                  <div
-                    key={s.label}
-                    className="group rounded-xl border border-primary/10 bg-surface p-4 text-center shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+                {club?.description && (
+                  <p className="mt-4 text-base leading-relaxed text-text-muted">
+                    {club.description}
+                  </p>
+                )}
+                <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                  <Link
+                    to="/activities"
+                    className="inline-flex items-center justify-center rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-white shadow transition hover:bg-primary-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
                   >
-                    <div className="mx-auto mb-2 inline-flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 text-primary">
-                      {statIcon(s.label)}
+                    <span className="text-white">See Our Activities</span>
+                    <ChevronRight
+                      className="ml-1 h-4 w-4 text-white"
+                      aria-hidden="true"
+                    />
+                  </Link>
+                  <Link
+                    to="https://www.facebook.com/zmutdfc"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center rounded-full border border-primary/30 bg-white px-5 py-2.5 text-sm font-medium text-primary transition hover:bg-surface-alt focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+                  >
+                    Get in Touch
+                  </Link>
+                </div>
+              </div>
+
+              <div>
+                <div className="grid grid-cols-2 gap-4">
+                  {stats.map((s) => (
+                    <div
+                      key={s.label}
+                      className="group rounded-2xl bg-white p-5 text-center shadow-sm hover:shadow-xl transition-all duration-300 border border-primary/5"
+                    >
+                      <div className="mx-auto mb-2 inline-flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
+                        {statIcon(s.label)}
+                      </div>
+                      <div className="text-2xl font-extrabold text-primary">
+                        {s.value}
+                      </div>
+                      <div className="mt-1 text-xs font-medium uppercase tracking-wide text-text-muted">
+                        {s.label}
+                      </div>
                     </div>
-                    <div className="text-xl font-extrabold text-primary sm:text-2xl">
-                      {s.value}
-                    </div>
-                    <div className="mt-1 text-[10px] font-medium uppercase tracking-wide text-text-muted sm:text-xs">
-                      {s.label}
-                    </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </AnimatedSection>
+        </AnimatedSection>
+      </section>
 
       {/* Values */}
-      <AnimatedSection>
-        <section className="rounded-xl bg-surface">
-          <div className="mx-auto max-w-[var(--container-content)] py-8 sm:px-6 sm:py-10 md:px-8 md:py-12">
-            <h2 className="text-2xl font-bold text-primary sm:text-3xl">
+      <section className="bg-surface-alt py-16">
+        <AnimatedSection>
+          <div className="max-w-6xl mx-auto px-4">
+            <span className="text-xs font-bold uppercase tracking-[0.2em] text-accent mb-1 block">
+              Our Principles
+            </span>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-primary">
               What We Stand For
             </h2>
-            <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {VALUES.map((v) => (
                 <div
                   key={v.title}
-                  className="rounded-2xl border border-primary/10 bg-surface p-5 shadow-sm transition hover:shadow-md sm:p-6"
+                  className="rounded-2xl bg-white p-6 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden"
                 >
-                  <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
+                  <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
                     {v.icon}
                   </div>
-                  <h3 className="text-base font-semibold text-text sm:text-lg">
+                  <h3 className="text-lg font-semibold text-text">
                     {v.title}
                   </h3>
-                  <p className="mt-2 text-sm text-text-muted sm:text-[15px]">
+                  <p className="mt-2 text-sm leading-relaxed text-text-muted">
                     {v.desc}
                   </p>
                 </div>
               ))}
             </div>
           </div>
-        </section>
-      </AnimatedSection>
+        </AnimatedSection>
+      </section>
 
       {/* Timeline */}
-      <AnimatedSection>
-        <section className="mt-10 rounded-xl bg-surface-alt sm:mt-12">
-          <div className="mx-auto max-w-[var(--container-content)] px-4 py-8 sm:px-6 sm:py-10 md:px-8 md:py-12">
-            <h2 className="text-2xl font-bold text-primary sm:text-3xl">
+      <section className="bg-white py-16">
+        <AnimatedSection>
+          <div className="max-w-6xl mx-auto px-4">
+            <span className="text-xs font-bold uppercase tracking-[0.2em] text-accent mb-1 block">
+              Milestones
+            </span>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-primary">
               Our Journey
             </h2>
-            <ol className="relative mt-6 border-s border-primary/10">
+            <ol className="relative mt-10 border-s-2 border-primary/20 ml-3">
               {milestones.map((m, i: number) => (
-                <li key={`${m.title}-${i}`} className="ms-4 mb-8 sm:mb-10">
-                  <span className="absolute -left-[9px] flex h-5 w-5 items-center justify-center rounded-full border-2 border-surface bg-primary ring-2 ring-primary/25" />
-                  <h3 className="text-sm font-semibold text-primary sm:text-base">
-                    {m.year} • {m.title}
+                <li key={`${m.title}-${i}`} className="ms-8 mb-12 last:mb-0">
+                  <span className="absolute -left-[11px] flex h-6 w-6 items-center justify-center rounded-full border-[3px] border-white bg-primary ring-4 ring-primary/15" />
+                  <h3 className="text-base font-bold text-primary">
+                    {m.year} &middot; {m.title}
                   </h3>
-                  <p className="mt-1 text-sm text-text-muted sm:text-base">
+                  <p className="mt-2 text-sm leading-relaxed text-text-muted sm:text-base">
                     {m.desc}
                   </p>
                 </li>
               ))}
             </ol>
           </div>
-        </section>
-      </AnimatedSection>
+        </AnimatedSection>
+      </section>
 
       {/* Future Goals */}
-      <AnimatedSection>
-        <section className="mt-10 rounded-xl bg-surface sm:mt-12">
-          <div className="mx-auto max-w-[var(--container-content)] py-8 sm:px-6 sm:py-10 md:px-8 md:py-12">
-            <div className="grid gap-8 lg:grid-cols-2">
+      <section className="bg-surface-alt py-16">
+        <AnimatedSection>
+          <div className="max-w-6xl mx-auto px-4">
+            <div className="grid gap-10 lg:grid-cols-2">
               <div>
-                <h2 className="text-2xl font-bold text-primary sm:text-3xl">
+                <span className="text-xs font-bold uppercase tracking-[0.2em] text-accent mb-1 block">
+                  Vision
+                </span>
+                <h2 className="text-3xl md:text-4xl font-extrabold text-primary">
                   Looking Ahead
                 </h2>
-                <p className="mt-3 text-sm text-text-muted sm:text-base">
+                <p className="mt-4 text-base text-text-muted">
                   We don't have a home stadium or full facilities yet—but we're
                   building towards it every week. Our vision is clear:
                 </p>
-                <ul className="mt-5 space-y-3">
+                <ul className="mt-6 space-y-4">
                   {goals.map((g: string) => (
                     <li key={g} className="flex items-start">
                       <CheckCircle2
-                        className="mr-2 h-5 w-5 text-green-600"
+                        className="mr-3 mt-0.5 h-5 w-5 shrink-0 text-green-600"
                         aria-hidden="true"
                       />
-                      <span className="text-sm text-text-muted sm:text-base">
+                      <span className="text-base text-text-muted">
                         {g}
                       </span>
                     </li>
@@ -263,7 +272,7 @@ export default function ClubPage() {
                     to="https://www.facebook.com/zmutdfc"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-6 inline-flex items-center rounded-full bg-primary px-4 py-2 text-white shadow transition hover:bg-primary-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+                    className="mt-8 inline-flex items-center rounded-full bg-primary px-5 py-2.5 text-white shadow transition hover:bg-primary-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
                   >
                     <HeartHandshake
                       className="mr-2 h-4 w-4 text-white"
@@ -275,18 +284,16 @@ export default function ClubPage() {
               </div>
 
               {/* Illustration card */}
-              <div className="rounded-2xl border border-primary/10 bg-surface-alt p-4 shadow-sm sm:p-6">
-                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
-                      <Rocket className="h-6 w-6" aria-hidden="true" />
-                    </div>
-                    <h3 className="text-lg font-semibold text-text">
-                      Building for Tomorrow
-                    </h3>
+              <div className="rounded-2xl bg-white p-6 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden">
+                <div className="flex items-center gap-3">
+                  <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
+                    <Rocket className="h-6 w-6" aria-hidden="true" />
                   </div>
+                  <h3 className="text-lg font-semibold text-text">
+                    Building for Tomorrow
+                  </h3>
                 </div>
-                <p className="mt-3 text-sm text-text-muted sm:text-base">
+                <p className="mt-4 text-sm leading-relaxed text-text-muted sm:text-base">
                   We're exploring training slots, shared pitches, and partnerships
                   to secure a consistent training ground. If you'd like to help,
                   we'd love to hear from you.
@@ -294,46 +301,48 @@ export default function ClubPage() {
                 <img
                   src={club?.heroImageUrl || "/zin-me.jpg"}
                   alt="Future plans"
-                  className="mt-4 aspect-[16/9] w-full rounded-xl object-cover"
+                  className="mt-5 aspect-[16/9] w-full rounded-2xl object-cover"
                   loading="lazy"
                   decoding="async"
                 />
               </div>
             </div>
           </div>
-        </section>
-      </AnimatedSection>
+        </AnimatedSection>
+      </section>
 
       {/* CTA band */}
-      <AnimatedSection>
-        <section className="mt-10 pb-10 sm:mt-12 sm:pb-12">
-          <div className="mx-auto max-w-[var(--container-content)] rounded-2xl bg-primary px-4 py-6 text-white sm:px-8 sm:py-10">
-            <div className="grid items-center gap-6 sm:grid-cols-3">
-              <div className="sm:col-span-2">
-                <h3 className="text-xl font-bold sm:text-2xl">
-                  Join Us on the Journey
-                </h3>
-                <p className="mt-2 text-sm text-white/90 sm:text-base">
-                  Players, supporters, partners—everyone has a place at Zinme
-                  United. Let's grow the game together.
-                </p>
-              </div>
-              <div className="flex sm:justify-end">
-                <Link
-                  to="https://www.facebook.com/zmutdfc"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center rounded-full bg-white px-4 py-2 text-sm font-semibold text-primary transition hover:bg-primary/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 sm:px-5 sm:py-3"
-                >
-                  Contact Us{" "}
-                  <ChevronRight className="ml-1 h-4 w-4" aria-hidden="true" />
-                  <span className="sr-only">Contact Zinme United</span>
-                </Link>
+      <section className="bg-white py-16">
+        <AnimatedSection>
+          <div className="max-w-6xl mx-auto px-4">
+            <div className="rounded-2xl bg-primary px-6 py-10 text-white sm:px-10 sm:py-12">
+              <div className="grid items-center gap-6 sm:grid-cols-3">
+                <div className="sm:col-span-2">
+                  <h3 className="text-2xl font-extrabold sm:text-3xl">
+                    Join Us on the Journey
+                  </h3>
+                  <p className="mt-3 text-base text-white/90">
+                    Players, supporters, partners—everyone has a place at Zinme
+                    United. Let's grow the game together.
+                  </p>
+                </div>
+                <div className="flex sm:justify-end">
+                  <Link
+                    to="https://www.facebook.com/zmutdfc"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center rounded-full bg-white px-5 py-3 text-sm font-semibold text-primary transition hover:bg-white/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+                  >
+                    Contact Us{" "}
+                    <ChevronRight className="ml-1 h-4 w-4" aria-hidden="true" />
+                    <span className="sr-only">Contact Zinme United</span>
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
-        </section>
-      </AnimatedSection>
+        </AnimatedSection>
+      </section>
     </div>
   );
 }
