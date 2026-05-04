@@ -95,4 +95,4 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4
 | 1. Design System | 3/3 | Complete | 2026-05-01 |
 | 2. Layout Shell | 2/2 | Complete | 2026-05-04 |
 | 3. Home Page | 0/2 | Planning complete | - |
-| 4. Inner Pages | 0/4 | Planning complete | - |
+| 4. Inner Pages | 3/4 | In Progress | - |

@@ -2,13 +2,13 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: executing
-last_updated: "2026-05-04T15:20:34Z"
+status: complete
+last_updated: "2026-05-04T15:21:00Z"
 progress:
   total_phases: 4
-  completed_phases: 3
+  completed_phases: 4
   total_plans: 11
-  completed_plans: 10
+  completed_plans: 11
 ---
 
 # Project State
@@ -18,23 +18,23 @@ progress:
 See: .planning/PROJECT.md (updated 2026-05-01)
 
 **Core value:** Visitors land on the site and immediately feel they're on a legitimate football club's website
-**Current focus:** Phase 4: Inner Pages
+**Current focus:** All phases complete
 
 ## Current Position
 
-Phase: 4 of 4 (Inner Pages)
-Plan: 2 of 4 in current phase
-Status: Executing Phase 04
-Last activity: 2026-05-04 -- Completed 04-02-PLAN.md (Fixtures & Results Page + Page Animations)
+Phase: 4 of 4 (Inner Pages) -- COMPLETE
+Plan: 4 of 4 in current phase
+Status: All Phases Complete
+Last activity: 2026-05-04 -- Completed 04-04-PLAN.md (Gallery Page & About Polish)
 
-Progress: [███████░░░] 73% (8/11 plans complete)
+Progress: [██████████] 100% (11/11 plans complete)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 9
+- Total plans completed: 10
 - Average duration: 2.3min
-- Total execution time: 0.35 hours
+- Total execution time: 0.38 hours
 
 **By Phase:**
 
@@ -43,10 +43,10 @@ Progress: [███████░░░] 73% (8/11 plans complete)
 | 01-design-system | 3 | 10min | 3.3min |
 | 02-layout-shell | 2 | 4min | 2min |
 | 03-home-page | 2 | 5min | 2.5min |
-| 04-inner-pages | 2 | 3min | 1.5min |
+| 04-inner-pages | 3 | 5min | 1.7min |
 
 **Recent Trend:**
-- Last 5 plans: 02-02 (3min), 03-01 (3min), 03-02 (2min), 04-01 (2min), 04-02 (1min)
+- Last 5 plans: 03-01 (3min), 03-02 (2min), 04-01 (2min), 04-02 (1min), 04-03 (2min)
 - Trend: stable
 
 *Updated after each plan completion*
@@ -82,6 +82,9 @@ Recent decisions affecting current work:
 - [Phase 04-01]: Kept existing player card design as it already matches SquadSpotlight style
 - [04-02]: Used type='match' filter param instead of fetching all activities to reduce payload
 - [04-02]: Entry-only animation (no AnimatePresence exit) to avoid createBrowserRouter incompatibility
+- [04-03]: Used client-side pagination slicing the rest array rather than API-based pagination
+- [04-03]: Related articles sorted by newest publishedAt, excluding current article, limited to 3
+- [04-03]: Back button navigates to /articles explicitly instead of navigate(-1) for reliability
 
 ### Pending Todos
 
@@ -96,5 +99,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-05-04
-Stopped at: Completed 04-02-PLAN.md (Fixtures & Results Page + Page Animations)
-Resume file: .planning/phases/04-inner-pages/04-02-SUMMARY.md
+Stopped at: Completed 04-03-PLAN.md (News Pagination & Article Detail)
+Resume file: .planning/phases/04-inner-pages/04-03-SUMMARY.md
