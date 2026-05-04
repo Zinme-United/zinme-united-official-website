@@ -11,7 +11,7 @@ const coSponsors = [
 
 const PartnersBanner = () => {
   return (
-    <section className="my-12">
+    <section className="my-12 border-t border-gray-100 pt-12">
       <div className="text-center mb-10">
         <p className="text-xs font-bold uppercase tracking-[0.2em] text-accent mb-1">
           Proudly Supported By
@@ -30,7 +30,7 @@ const PartnersBanner = () => {
           <img
             src={mainSponsor.logo}
             alt={mainSponsor.name}
-            className="max-h-28 md:max-h-36 object-contain"
+            className="max-h-28 md:max-h-36 object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
           />
         </div>
       </div>
@@ -49,7 +49,7 @@ const PartnersBanner = () => {
               <img
                 src={sponsor.logo}
                 alt={sponsor.name}
-                className="max-h-16 md:max-h-20 object-contain"
+                className="max-h-16 md:max-h-20 object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
               />
             </div>
           ))}
