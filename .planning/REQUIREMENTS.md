@@ -16,8 +16,8 @@
 
 - [x] **NAVL-01**: Navbar displays club crest and text-based navigation links (Home, Squad, Fixtures, News, Gallery, About)
 - [x] **NAVL-02**: Navbar is sticky/fixed and stays visible on scroll
-- [ ] **NAVL-03**: Footer includes navigation links, social media icons, contact info, and dynamic copyright year
-- [ ] **NAVL-04**: Every page uses a shared PageHero component with title and background
+- [x] **NAVL-03**: Footer includes navigation links, social media icons, contact info, and dynamic copyright year
+- [x] **NAVL-04**: Every page uses a shared PageHero component with title and background
 - [x] **NAVL-05**: Mobile navigation is a polished slide-out menu with club branding and smooth transitions
 - [x] **NAVL-06**: All pages are fully responsive across mobile, tablet, and desktop
 
@@ -74,8 +74,8 @@
 | DSGN-04 | Phase 1 | Complete |
 | NAVL-01 | Phase 2 | Complete |
 | NAVL-02 | Phase 2 | Complete |
-| NAVL-03 | Phase 2 | Pending |
-| NAVL-04 | Phase 2 | Pending |
+| NAVL-03 | Phase 2 | Complete |
+| NAVL-04 | Phase 2 | Complete |
 | NAVL-05 | Phase 2 | Complete |
 | NAVL-06 | Phase 2 | Complete |
 | HOME-01 | Phase 3 | Pending |
