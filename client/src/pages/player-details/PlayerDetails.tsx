@@ -169,19 +169,31 @@ const PlayerDetailPage = () => {
 
               <div className="grid grid-cols-2 gap-4 mb-8">
                 <div className="bg-surface-alt rounded-lg p-4">
-                  <p className="text-xs uppercase tracking-wider text-text-muted mb-1">Position</p>
-                  <p className="font-heading text-lg text-text">{player.position}</p>
+                  <p className="text-xs uppercase tracking-wider text-text-muted mb-1">
+                    Position
+                  </p>
+                  <p className="font-heading text-lg text-text">
+                    {player.position}
+                  </p>
                 </div>
                 <div className="bg-surface-alt rounded-lg p-4">
-                  <p className="text-xs uppercase tracking-wider text-text-muted mb-1">Kit Number</p>
-                  <p className="font-heading text-lg text-text">#{player.number}</p>
+                  <p className="text-xs uppercase tracking-wider text-text-muted mb-1">
+                    Kit Number
+                  </p>
+                  <p className="font-heading text-lg text-text">
+                    #{player.number}
+                  </p>
                 </div>
                 <div className="bg-surface-alt rounded-lg p-4">
-                  <p className="text-xs uppercase tracking-wider text-text-muted mb-1">Age</p>
+                  <p className="text-xs uppercase tracking-wider text-text-muted mb-1">
+                    Age
+                  </p>
                   <p className="font-heading text-lg text-text">{player.age}</p>
                 </div>
                 <div className="bg-surface-alt rounded-lg p-4">
-                  <p className="text-xs uppercase tracking-wider text-text-muted mb-1">Date of Birth</p>
+                  <p className="text-xs uppercase tracking-wider text-text-muted mb-1">
+                    Date of Birth
+                  </p>
                   <p className="font-heading text-lg text-text">
                     {player.dateOfBirth
                       ? format(player.dateOfBirth, "dd MMM yyyy")
@@ -266,18 +278,6 @@ const PlayerDetailPage = () => {
           </div>
         </div>
       </AnimatedSection>
-
-      {/* Back to Squad */}
-      <section className="bg-surface py-8">
-        <div className="max-w-screen-xl mx-auto px-6 text-center">
-          <Link
-            to="/players"
-            className="inline-flex items-center gap-2 text-primary font-semibold hover:text-accent transition-colors"
-          >
-            <ChevronLeft size={18} /> Back to Squad
-          </Link>
-        </div>
-      </section>
     </>
   );
 };

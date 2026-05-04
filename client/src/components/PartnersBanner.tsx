@@ -1,13 +1,25 @@
 export const mainSponsor = {
   name: "Meeting Point",
   logo: "/meeting_poing.jpg",
-  url: "#",
+  url: "https://www.facebook.com/meetingpoint10925",
 };
 
 export const coSponsors = [
-  { name: "Trust 8", logo: "/trust_8.jpg", url: "#" },
-  { name: "Time On You", logo: "/time_on_you.jpg", url: "#" },
-  { name: "Marco Paing", logo: "/marco_paing.jpg", url: "#" },
+  {
+    name: "Trust 8",
+    logo: "/trust_8.jpg",
+    url: "https://www.facebook.com/profile.php?id=61577923775112",
+  },
+  {
+    name: "Time On You",
+    logo: "/time_on_you.jpg",
+    url: "https://www.facebook.com/TOYtimeonyou",
+  },
+  {
+    name: "Marco Paing",
+    logo: "/marco_paing.jpg",
+    url: "https://www.facebook.com/marcopaing1410",
+  },
 ];
 
 const PartnersBanner = () => {
