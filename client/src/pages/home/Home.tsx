@@ -1,81 +1,50 @@
-import { HeroSection, NextMatch } from "../../components";
-import useActivities from "../../hooks/useActivities";
-import useNews from "../../hooks/useNews";
-import usePlayers from "../../hooks/usePlayers";
-import useGalleries from "../../hooks/useGalleries";
-
-import PartnersBanner from "../../components/PartnersBanner";
+import HeroSection from "../../components/HeroSection";
+import MatchesSection from "../../components/MatchesSection";
 import LatestNewsAndUpdates from "../../components/LatestNewsAndUpdates";
 import SquadSpotlight from "../../components/SquadSpotlight";
-import GalleryPreview from "../../components/GalleryPreview";
-import Loader from "../../components/Loader";
+import PartnersBanner from "../../components/PartnersBanner";
+import AnimatedSection from "../../components/AnimatedSection";
+import useNews from "../../hooks/useNews";
+import usePlayers from "../../hooks/usePlayers";
 
 const Home = () => {
-  const { nextMatch, nextMatchLoading, nextMatchError } = useActivities({
-    params: { isNextMatch: true },
-    enabled: true,
-  });
-
-  const { newsArticles, newsError } = useNews({
-    enabled: true,
-  });
-
+  const { newsArticles, newsError } = useNews({ enabled: true });
   const { players } = usePlayers();
-  const { galleries } = useGalleries();
-
-  if (nextMatchLoading) {
-    return (
-      <div className="flex justify-center items-center h-screen bg-white">
-        <Loader size={100} />
-      </div>
-    );
-  }
 
   const latestNews = newsArticles?.slice(0, 3);
-  const spotlightPlayers = players?.slice(0, 5);
-  const recentGalleries = galleries?.slice(0, 4);
 
   return (
     <div className="min-h-screen bg-surface-alt">
-      {/* Hero - full width, no container */}
+      {/* Hero - full width, no AnimatedSection (first visible section) */}
       <HeroSection />
 
-      {/* Next Match */}
-      <div className="max-w-6xl mx-auto px-4">
-        <NextMatch nextMatch={nextMatch} error={nextMatchError} />
-      </div>
+      {/* Matches Section - next fixture + recent results */}
+      <AnimatedSection className="bg-white py-16">
+        <div className="max-w-6xl mx-auto px-4">
+          <MatchesSection />
+        </div>
+      </AnimatedSection>
 
-      {/* Latest News - alternating bg */}
-      <div className="bg-white py-4">
+      {/* Latest News */}
+      <AnimatedSection className="py-16" delay={0.1}>
         <div className="max-w-6xl mx-auto px-4">
           <LatestNewsAndUpdates news={latestNews} error={newsError} />
         </div>
-      </div>
+      </AnimatedSection>
 
       {/* Squad Spotlight */}
-      {spotlightPlayers && spotlightPlayers.length > 0 && (
-        <div className="py-4">
-          <div className="max-w-6xl mx-auto px-4">
-            <SquadSpotlight players={spotlightPlayers} />
-          </div>
+      <AnimatedSection className="bg-white py-16" delay={0.1}>
+        <div className="max-w-6xl mx-auto px-4">
+          <SquadSpotlight players={players || []} />
         </div>
-      )}
+      </AnimatedSection>
 
-      {/* Gallery */}
-      {recentGalleries && recentGalleries.length > 0 && (
-        <div className="bg-white py-4">
-          <div className="max-w-6xl mx-auto px-4">
-            <GalleryPreview galleries={recentGalleries} />
-          </div>
-        </div>
-      )}
-
-      {/* Partners */}
-      <div className="py-4">
+      {/* Partners/Sponsors */}
+      <AnimatedSection className="py-16" delay={0.1}>
         <div className="max-w-6xl mx-auto px-4">
           <PartnersBanner />
         </div>
-      </div>
+      </AnimatedSection>
     </div>
   );
 };
