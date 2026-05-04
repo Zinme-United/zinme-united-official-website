@@ -32,9 +32,9 @@ Progress: [██████████] 100% (11/11 plans complete)
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 10
+- Total plans completed: 11
 - Average duration: 2.3min
-- Total execution time: 0.38 hours
+- Total execution time: 0.41 hours
 
 **By Phase:**
 
@@ -43,10 +43,10 @@ Progress: [██████████] 100% (11/11 plans complete)
 | 01-design-system | 3 | 10min | 3.3min |
 | 02-layout-shell | 2 | 4min | 2min |
 | 03-home-page | 2 | 5min | 2.5min |
-| 04-inner-pages | 3 | 5min | 1.7min |
+| 04-inner-pages | 4 | 7min | 1.8min |
 
 **Recent Trend:**
-- Last 5 plans: 03-01 (3min), 03-02 (2min), 04-01 (2min), 04-02 (1min), 04-03 (2min)
+- Last 5 plans: 03-02 (2min), 04-01 (2min), 04-02 (1min), 04-03 (2min), 04-04 (2min)
 - Trend: stable
 
 *Updated after each plan completion*
@@ -85,6 +85,9 @@ Recent decisions affecting current work:
 - [04-03]: Used client-side pagination slicing the rest array rather than API-based pagination
 - [04-03]: Related articles sorted by newest publishedAt, excluding current article, limited to 3
 - [04-03]: Back button navigates to /articles explicitly instead of navigate(-1) for reliability
+- [04-04]: Reused lightbox pattern from GalleryDetailsPage for consistency across gallery pages
+- [04-04]: Used CSS columns for masonry layout instead of a library
+- [04-04]: Kept green-600 on CheckCircle2 icons as non-club accent color
 
 ### Pending Todos
 
@@ -99,5 +102,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-05-04
-Stopped at: Completed 04-03-PLAN.md (News Pagination & Article Detail)
-Resume file: .planning/phases/04-inner-pages/04-03-SUMMARY.md
+Stopped at: Completed 04-04-PLAN.md (Gallery Page & About Polish) -- All phases complete
+Resume file: .planning/phases/04-inner-pages/04-04-SUMMARY.md
