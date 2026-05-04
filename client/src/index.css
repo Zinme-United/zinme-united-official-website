@@ -60,12 +60,9 @@ h3, h4, h5, h6 {
 /* Link defaults */
 a {
   font-weight: 500;
-  color: var(--color-primary);
   text-decoration: inherit;
 }
-a:hover {
-  color: var(--color-primary-light);
-}
+
 
 body {
   margin: 0;
