@@ -12,6 +12,7 @@ import {
   ArrowUpRight,
 } from "lucide-react";
 import type { News } from "../../types";
+import PageHero from "../../components/PageHero";
 
 type SortKey = "latest" | "oldest";
 
@@ -113,6 +114,11 @@ const ArticlesPage: React.FC = () => {
 
   return (
     <main className="min-h-screen bg-white">
+      <PageHero
+        title="News"
+        breadcrumbs={[{ label: "Home", path: "/" }, { label: "News" }]}
+      />
+
       {/* Sticky controls */}
       <div className="sticky top-0 z-20 bg-white/80 backdrop-blur border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center gap-3">

@@ -11,6 +11,7 @@ import {
 import { Link } from "react-router";
 import { useGetAbout } from "../../hooks/useOurClub";
 import Loader from "../../components/Loader";
+import PageHero from "../../components/PageHero";
 
 // Local fallbacks if API fields are empty
 const FALLBACK_STATS = [
@@ -108,54 +109,13 @@ export default function ClubPage() {
 
   return (
     <div className="font-inter">
-      {/* Hero */}
-      <section className="mt-4">
-        <div className="relative mx-auto max-w-screen-xl overflow-hidden rounded-2xl">
-          <div className="relative aspect-[4/3] min-h-[260px] sm:aspect-[16/9] lg:aspect-[21/9]">
-            {/* Progressive image with lazy fallback */}
-            <img
-              src={club?.heroImageUrl || "/zinme.jpg"}
-              alt={club?.title ? `${club.title} team` : "Zinme United team"}
-              className="absolute inset-0 h-full w-full object-cover"
-              loading="eager"
-              fetchPriority="high"
-            />
-            {/* Enhanced gradient for better text contrast */}
-            <div className="absolute inset-0 bg-[radial-gradient(60%_60%_at_50%_80%,rgba(0,0,0,0.55),rgba(0,0,0,0.75))]" />
-            <div className="absolute inset-0 flex items-end p-3 sm:p-6 md:p-10">
-              <div className="w-full">
-                <div className="inline-block rounded-xl bg-black/30 px-3 py-2 backdrop-blur-[2px] ring-1 ring-white/10 sm:bg-transparent sm:px-0 sm:py-0 sm:ring-0">
-                  <h1
-                    className="break-words text-white font-extrabold leading-tight 
-                      text-[clamp(1.25rem,6vw,2.5rem)]
-                      sm:text-[clamp(1.75rem,5vw,3.25rem)]
-                      md:text-[clamp(2rem,4vw,3.75rem)]"
-                  >
-                    {club?.title || "Zinme United"}
-                  </h1>
-                  {club?.description && (
-                    <p className="mt-2 max-w-3xl text-sm text-gray-100/95 sm:text-base">
-                      {club.description}
-                    </p>
-                  )}
-                </div>
-              </div>
-            </div>
-
-            {/* Corner badge */}
-            {club?.subtitle && (
-              <div className="absolute right-2 top-2 sm:right-4 sm:top-4">
-                <span className="inline-flex items-center rounded-full bg-white/90 px-2.5 py-1 text-[10px] font-semibold text-primary shadow sm:text-xs">
-                  {club.subtitle}
-                </span>
-              </div>
-            )}
-          </div>
-        </div>
-      </section>
+      <PageHero
+        title="About"
+        breadcrumbs={[{ label: "Home", path: "/" }, { label: "About" }]}
+      />
 
       {/* Intro + Stats */}
-      <div className="mx-auto max-w-screen-xl py-8 sm:py-10 md:py-12">
+      <div className="max-w-[var(--container-content)] mx-auto px-4 sm:px-6 py-8 sm:py-10 md:py-12">
         <div className="grid gap-8 md:grid-cols-3">
           <div className="px-0 sm:px-6 md:col-span-2">
             <div className="flex items-center gap-2">

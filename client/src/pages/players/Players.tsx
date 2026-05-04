@@ -144,6 +144,7 @@ import usePlayers from "../../hooks/usePlayers";
 import { PlayersCard } from "../../components";
 import { Search, X } from "lucide-react";
 import Loader from "../../components/Loader";
+import PageHero from "../../components/PageHero";
 
 // Tabs for gender + chips for position + hero search bar
 
@@ -253,19 +254,16 @@ const Players = () => {
 
   return (
     <div className="min-h-screen mx-auto">
-      {/* HERO with big search */}
-      <section className="relative rounded-t-xl isolate overflow-hidden bg-gradient-to-br from-primary-dark via-primary to-primary-light">
-        <div
-          className="absolute inset-0 opacity-10 bg-[url('/zinme.jpg')] bg-cover pointer-events-none"
-          aria-hidden="true"
-        />
-        <div className="relative z-10 mx-auto max-w-screen-xl px-6 py-12 md:py-16">
-          <h1 className="text-4xl md:text-6xl font-extrabold text-white drop-shadow-sm">
-            Our Team
-          </h1>
+      <PageHero
+        title="Squad"
+        breadcrumbs={[{ label: "Home", path: "/" }, { label: "Squad" }]}
+      />
 
+      {/* Filters section */}
+      <section className="bg-gradient-to-br from-primary-dark via-primary to-primary-light">
+        <div className="mx-auto max-w-[var(--container-content)] px-6 py-8">
           {/* Gender Tabs */}
-          <div className="mt-6 inline-flex rounded-2xl bg-white/10 p-1 backdrop-blur border border-white/20">
+          <div className="inline-flex rounded-2xl bg-white/10 p-1 backdrop-blur border border-white/20">
             {["Male", "Female"].map((g) => {
               const isActive = selectedGender === g;
               const count = g === "Male" ? menCount : womenCount;
@@ -385,22 +383,10 @@ const Players = () => {
           )}
         </div>
 
-        {/* Wave divider */}
-        <svg
-          className="block w-full text-white pointer-events-none"
-          viewBox="0 0 1440 80"
-          preserveAspectRatio="none"
-          aria-hidden="true"
-        >
-          <path
-            fill="currentColor"
-            d="M0,64 C240,96 480,0 720,32 C960,64 1200,96 1440,32 L1440,80 L0,80 Z"
-          />
-        </svg>
       </section>
 
       {/* Content */}
-      <div className="max-w-screen-xl mx-auto pb-12 mt-2">
+      <div className="max-w-[var(--container-content)] mx-auto px-4 sm:px-6 pb-12 pt-8">
         <PlayersCard players={filteredPlayers} />
       </div>
     </div>

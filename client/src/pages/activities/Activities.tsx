@@ -161,6 +161,7 @@ import { EventCalendar, GalleriesCard } from "../../components";
 import useGalleries from "../../hooks/useGalleries";
 import useActivities from "../../hooks/useActivities";
 import Loader from "../../components/Loader";
+import PageHero from "../../components/PageHero";
 
 const Activities = () => {
   const { galleries, galleriesLoading, galleriesError } = useGalleries();
@@ -221,15 +222,13 @@ const Activities = () => {
 
   return (
     <div className="relative min-h-screen bg-white font-inter">
-      {/* Page title */}
-      <header className="max-w-screen-xl mx-auto px-6 pt-10">
-        <h1 className="text-5xl font-extrabold text-primary text-center">
-          Club Activities
-        </h1>
-      </header>
+      <PageHero
+        title="Fixtures"
+        breadcrumbs={[{ label: "Home", path: "/" }, { label: "Fixtures" }]}
+      />
 
       {/* Event Calendar */}
-      <section className="max-w-screen-xl mx-auto">
+      <section className="max-w-[var(--container-content)] mx-auto px-4 sm:px-6 py-8">
         <EventCalendar
           activities={filteredActivitiesForDisplay}
           currentMonth={currentMonth}

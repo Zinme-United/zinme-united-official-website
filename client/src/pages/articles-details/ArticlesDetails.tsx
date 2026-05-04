@@ -82,6 +82,7 @@ import {
 } from "lucide-react";
 import useSingleNews from "../../hooks/useSingleNews";
 import Loader from "../../components/Loader";
+import PageHero from "../../components/PageHero";
 
 const fallbackImg = "/zinme.jpg";
 
@@ -165,6 +166,15 @@ const ArticlesDetails = () => {
 
   return (
     <div className="min-h-screen bg-white">
+      <PageHero
+        title={singleNews.title}
+        breadcrumbs={[
+          { label: "Home", path: "/" },
+          { label: "News", path: "/articles" },
+          { label: singleNews.title },
+        ]}
+      />
+
       {/* Sticky header with back/share + reading progress */}
       <header className="sticky top-0 z-30 bg-white/80 backdrop-blur border-b border-gray-200">
         <div className="max-w-4xl mx-auto px-4 h-12 flex items-center justify-between">

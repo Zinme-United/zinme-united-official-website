@@ -4,6 +4,7 @@ import Pitch from "../../components/Pitch";
 import { positionToMarkers } from "../../utils/positionToMarkers";
 import { format } from "date-fns";
 import Loader from "../../components/Loader";
+import PageHero from "../../components/PageHero";
 
 const partners = [
   { id: 1, name: "Adidas", logo: "/adidas.png", url: "#" },
@@ -44,6 +45,14 @@ const PlayerDetailPage = () => {
 
   return (
     <>
+      <PageHero
+        title={player.name}
+        breadcrumbs={[
+          { label: "Home", path: "/" },
+          { label: "Squad", path: "/players" },
+          { label: player.name },
+        ]}
+      />
       <section className="relative overflow-hidden text-white">
         <div
           className="absolute inset-0 bg-cover bg-center"
