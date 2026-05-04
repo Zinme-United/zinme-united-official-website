@@ -6,6 +6,7 @@ import { format } from "date-fns";
 import Loader from "../../components/Loader";
 import { ChevronRight, ChevronLeft } from "lucide-react";
 import AnimatedSection from "../../components/AnimatedSection";
+import { mainSponsor, coSponsors } from "../../components/PartnersBanner";
 
 const PlayerDetailPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -224,6 +225,44 @@ const PlayerDetailPage = () => {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </AnimatedSection>
+
+      {/* Sponsors */}
+      <AnimatedSection className="bg-surface-alt py-12" delay={0.15}>
+        <div className="max-w-screen-xl mx-auto px-6">
+          <p className="text-center text-xs font-bold uppercase tracking-[0.2em] text-accent mb-6">
+            Proudly Supported By
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-6">
+            <a
+              href={mainSponsor.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-white rounded-2xl shadow-sm p-4 hover:shadow-lg transition-shadow duration-300"
+            >
+              <img
+                src={mainSponsor.logo}
+                alt={mainSponsor.name}
+                className="h-14 md:h-16 object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+              />
+            </a>
+            {coSponsors.map((s) => (
+              <a
+                key={s.name}
+                href={s.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-white rounded-2xl shadow-sm p-4 hover:shadow-lg transition-shadow duration-300"
+              >
+                <img
+                  src={s.logo}
+                  alt={s.name}
+                  className="h-10 md:h-12 object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+                />
+              </a>
+            ))}
           </div>
         </div>
       </AnimatedSection>
