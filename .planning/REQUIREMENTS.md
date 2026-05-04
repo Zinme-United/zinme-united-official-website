@@ -33,8 +33,8 @@
 
 ### Inner Pages
 
-- [ ] **PAGE-01**: Squad page shows player cards grouped by position (GK, DEF, MID, FWD)
-- [ ] **PAGE-02**: Individual player profile pages display photo, bio, stats, and position
+- [x] **PAGE-01**: Squad page shows player cards grouped by position (GK, DEF, MID, FWD)
+- [x] **PAGE-02**: Individual player profile pages display photo, bio, stats, and position
 - [x] **PAGE-03**: Fixtures & Results page shows upcoming matches and past results with match cards
 - [ ] **PAGE-04**: News listing page displays articles as cards with thumbnails, titles, dates
 - [ ] **PAGE-05**: Individual news article page renders full content with images
@@ -85,8 +85,8 @@
 | HOME-05 | Phase 3 | Complete |
 | HOME-06 | Phase 3 | Complete |
 | HOME-07 | Phase 3 | Complete |
-| PAGE-01 | Phase 4 | Pending |
-| PAGE-02 | Phase 4 | Pending |
+| PAGE-01 | Phase 4 | Complete |
+| PAGE-02 | Phase 4 | Complete |
 | PAGE-03 | Phase 4 | Complete |
 | PAGE-04 | Phase 4 | Pending |
 | PAGE-05 | Phase 4 | Pending |
