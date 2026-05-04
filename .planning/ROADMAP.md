@@ -45,11 +45,11 @@ Plans:
   3. Footer displays navigation links, social media icons, contact info, and current copyright year on every page
   4. Every page renders with a shared PageHero component showing page title and background image
   5. All layout components render correctly across mobile, tablet, and desktop viewports
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 02-01: TBD
-- [ ] 02-02: TBD
+- [ ] 02-01-PLAN.md — Rebuild scroll-aware Navbar with transparent-to-blur transition and full-screen mobile menu
+- [ ] 02-02-PLAN.md — Rebuild 3-column Footer, create PageHero component, update PublicLayout and wire into pages
 
 ### Phase 3: Home Page
 **Goal**: The home page works as the club's showpiece -- visitors land and immediately feel they are on a real football club's website
@@ -91,7 +91,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Design System | 0/3 | Planning complete | - |
-| 2. Layout Shell | 0/0 | Not started | - |
+| 1. Design System | 3/3 | Complete | 2026-05-01 |
+| 2. Layout Shell | 0/2 | Planning complete | - |
 | 3. Home Page | 0/0 | Not started | - |
 | 4. Inner Pages | 0/0 | Not started | - |
