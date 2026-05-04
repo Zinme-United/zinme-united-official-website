@@ -61,11 +61,11 @@ Plans:
   3. Recent match results display as visual cards with team logos and scores
   4. Latest news section shows 2-3 articles with thumbnails and excerpts, and squad spotlight previews featured players
   5. Page sections animate into view on scroll with smooth Framer Motion transitions
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 03-01: TBD
-- [ ] 03-02: TBD
+- [ ] 03-01-PLAN.md — Install motion, create AnimatedSection, redesign HeroSection, build MatchesSection with countdown and results
+- [ ] 03-02-PLAN.md — Refactor news/squad/partners sections, rewrite Home.tsx with scroll animations
 
 ### Phase 4: Inner Pages
 **Goal**: Every content page is complete and data-driven, giving the site the depth of a real football club website
@@ -92,6 +92,6 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Design System | 3/3 | Complete | 2026-05-01 |
-| 2. Layout Shell | 0/2 | Planning complete | - |
-| 3. Home Page | 0/0 | Not started | - |
+| 2. Layout Shell | 2/2 | Complete | 2026-05-04 |
+| 3. Home Page | 0/2 | Planning complete | - |
 | 4. Inner Pages | 0/0 | Not started | - |
