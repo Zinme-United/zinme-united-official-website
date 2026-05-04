@@ -28,9 +28,10 @@ app.use(
       process.env.CORS_ORIGIN_RENDER,
       "https://zmutd.vercel.app",
       "https://zinmeutd.com",
+      "https://www.zinmeutd.com",
     ].filter(Boolean) as string[],
     credentials: true,
-  }),
+  })
 );
 
 app.use(requestLogger);
