@@ -63,12 +63,12 @@ const HeroSection = ({
               style={{ backgroundImage: `url('${s.image}')` }}
             >
               {/* Gradient overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#001529] via-black/40 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-primary-dark via-black/40 to-transparent" />
 
               {/* Content */}
               <div className="relative z-10 h-full flex items-center justify-center text-center text-white px-6">
                 <div className="max-w-3xl">
-                  <p className="text-sm md:text-base uppercase tracking-[0.3em] text-[#FFD700] font-semibold mb-4">
+                  <p className="text-sm md:text-base uppercase tracking-[0.3em] text-accent font-semibold mb-4">
                     Zinme United FC
                   </p>
                   <h1 className="text-5xl md:text-7xl font-extrabold leading-tight drop-shadow-lg mb-5">
@@ -79,7 +79,7 @@ const HeroSection = ({
                   </p>
                   <Link
                     to={s.ctaHref}
-                    className="inline-block bg-[#FFD700] text-[#003b75] font-bold py-3 px-8 rounded-full text-base hover:bg-white hover:text-[#003b75] transition-all duration-300 transform hover:scale-105 shadow-lg"
+                    className="inline-block bg-accent text-primary font-bold py-3 px-8 rounded-full text-base hover:bg-white hover:text-primary transition-all duration-300 transform hover:scale-105 shadow-lg"
                   >
                     {s.ctaText}
                   </Link>
@@ -101,7 +101,7 @@ const HeroSection = ({
                 alt="Home Team"
                 className="w-14 h-14 object-contain rounded-full bg-gray-50 p-1 shadow-sm"
               />
-              <span className="text-lg font-extrabold text-[#003b75] tracking-wider">
+              <span className="text-lg font-extrabold text-primary tracking-wider">
                 VS
               </span>
               <img
@@ -113,7 +113,7 @@ const HeroSection = ({
 
             {/* Match Info */}
             <div className="flex-1 text-center md:text-left">
-              <p className="text-[#003b75] font-extrabold text-lg leading-tight">
+              <p className="text-primary font-extrabold text-lg leading-tight">
                 {nextMatch.title ||
                   (nextMatch.opponent
                     ? `vs ${nextMatch.opponent}`
@@ -122,7 +122,7 @@ const HeroSection = ({
               <div className="mt-1 flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 text-sm text-gray-500">
                 {(nextMatch.date || nextMatch.time) && (
                   <span className="inline-flex items-center gap-1">
-                    <Calendar size={14} className="text-[#003b75]" />
+                    <Calendar size={14} className="text-primary" />
                     {nextMatch.date
                       ? new Date(nextMatch.date).toLocaleDateString("en-US", {
                           weekday: "short",
@@ -135,7 +135,7 @@ const HeroSection = ({
                 )}
                 {nextMatch.location && (
                   <span className="inline-flex items-center gap-1">
-                    <MapPin size={14} className="text-[#003b75]" />
+                    <MapPin size={14} className="text-primary" />
                     {nextMatch.location}
                   </span>
                 )}
@@ -144,7 +144,7 @@ const HeroSection = ({
 
             {/* CTA */}
             <div className="hidden md:block">
-              <span className="inline-block bg-[#003b75] text-white text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-full">
+              <span className="inline-block bg-primary text-white text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-full">
                 Matchday
               </span>
             </div>

@@ -24,7 +24,7 @@
 //     <div className="max-w-4xl mx-auto px-4">
 //       <button
 //         onClick={() => navigate(-1)}
-//         className="flex items-center text-[#003b75] mb-4 cursor-pointer"
+//         className="flex items-center text-primary mb-4 cursor-pointer"
 //       >
 //         <ArrowLeft className="w-5 h-5 mr-1" />
 //       </button>
@@ -39,7 +39,7 @@
 //         </div>
 //       )}
 
-//       <h1 className="text-3xl font-bold text-[#003b75] mb-2">
+//       <h1 className="text-3xl font-bold text-primary mb-2">
 //         {singleNews.title}
 //       </h1>
 //       <p className="text-sm text-gray-600 mb-4">
@@ -52,7 +52,7 @@
 //           {singleNews.tags.map((tag, i) => (
 //             <span
 //               key={i}
-//               className="bg-blue-100 text-[#003b75] text-xs px-2 py-1 rounded-full"
+//               className="bg-blue-100 text-primary text-xs px-2 py-1 rounded-full"
 //             >
 //               #{tag}
 //             </span>
@@ -82,6 +82,7 @@ import {
 } from "lucide-react";
 import useSingleNews from "../../hooks/useSingleNews";
 import Loader from "../../components/Loader";
+import PageHero from "../../components/PageHero";
 
 const fallbackImg = "/zinme.jpg";
 
@@ -165,26 +166,35 @@ const ArticlesDetails = () => {
 
   return (
     <div className="min-h-screen bg-white">
+      <PageHero
+        title={singleNews.title}
+        breadcrumbs={[
+          { label: "Home", path: "/" },
+          { label: "News", path: "/articles" },
+          { label: singleNews.title },
+        ]}
+      />
+
       {/* Sticky header with back/share + reading progress */}
       <header className="sticky top-0 z-30 bg-white/80 backdrop-blur border-b border-gray-200">
         <div className="max-w-4xl mx-auto px-4 h-12 flex items-center justify-between">
           <button
             onClick={() => navigate(-1)}
-            className="inline-flex items-center text-[#003b75] font-semibold cursor-pointer"
+            className="inline-flex items-center text-primary font-semibold cursor-pointer"
             aria-label="Go back"
           >
             <ArrowLeft className="w-5 h-5 mr-1" /> Back
           </button>
           <button
             onClick={handleShare}
-            className="inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-md border bg-[#003b75] text-white cursor-pointer"
+            className="inline-flex items-center gap-2 text-sm px-3 py-1.5 rounded-md border bg-primary text-white cursor-pointer"
             aria-label="Share article"
           >
             <Share2 className="w-4 h-4" /> Share
           </button>
         </div>
         <div
-          className="h-1 bg-[#003b75]"
+          className="h-1 bg-primary"
           style={{ width: `${progress}%`, transition: "width .15s linear" }}
           aria-hidden="true"
         />
@@ -241,9 +251,9 @@ const ArticlesDetails = () => {
 
       {/* Article body */}
       <section ref={articleRef} className="max-w-4xl mx-auto px-4 py-8">
-        <article className="prose prose-lg max-w-none prose-headings:font-extrabold prose-headings:text-[#0a2950] prose-p:text-gray-800 prose-a:text-[#003b75] prose-strong:text-[#0a2950]">
+        <article className="prose prose-lg max-w-none prose-headings:font-extrabold prose-headings:text-primary-dark prose-p:text-gray-800 prose-a:text-primary prose-strong:text-primary-dark">
           {/* If your content already contains line breaks, preserve them: */}
-          <div className="whitespace-pre-line text-[#003b75]">
+          <div className="whitespace-pre-line text-primary">
             {singleNews.content}
           </div>
         </article>

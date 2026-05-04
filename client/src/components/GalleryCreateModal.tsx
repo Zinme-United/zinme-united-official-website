@@ -118,7 +118,7 @@ const GalleryModal: React.FC<GalleryModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-[#003b75] bg-opacity-75 flex items-center justify-center z-50 p-4">
+    <div className="fixed inset-0 bg-primary bg-opacity-75 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
         <div className="p-6 md:p-8 relative">
           <button
@@ -137,7 +137,7 @@ const GalleryModal: React.FC<GalleryModalProps> = ({
             <div>
               <label
                 htmlFor="title"
-                className="block text-sm font-medium text-[#003b75] mb-1"
+                className="block text-sm font-medium text-primary mb-1"
               >
                 Title <span className="text-red-500">*</span>
               </label>
@@ -145,7 +145,7 @@ const GalleryModal: React.FC<GalleryModalProps> = ({
                 type="text"
                 id="title"
                 {...register("title")}
-                className="w-full p-3 border text-black border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#003b75]"
+                className="w-full p-3 border text-black border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
               />
               {errors.title && (
                 <p className="text-red-500 text-sm mt-1">
@@ -157,7 +157,7 @@ const GalleryModal: React.FC<GalleryModalProps> = ({
             <div>
               <label
                 htmlFor="description"
-                className="block text-sm font-medium text-[#003b75] mb-1"
+                className="block text-sm font-medium text-primary mb-1"
               >
                 Description
               </label>
@@ -165,14 +165,14 @@ const GalleryModal: React.FC<GalleryModalProps> = ({
                 id="description"
                 {...register("description")}
                 rows={3}
-                className="w-full p-3 border text-black border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#003b75]"
+                className="w-full p-3 border text-black border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
               ></textarea>
             </div>
 
             <div>
               <label
                 htmlFor="eventDate"
-                className="block text-sm font-medium text-[#003b75] mb-1"
+                className="block text-sm font-medium text-primary mb-1"
               >
                 Event Date
               </label>
@@ -180,21 +180,21 @@ const GalleryModal: React.FC<GalleryModalProps> = ({
                 type="date"
                 id="eventDate"
                 {...register("eventDate")}
-                className="w-full p-3 border text-black border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#003b75]"
+                className="w-full p-3 border text-black border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
               />
             </div>
 
             <div>
               <label
                 htmlFor="category"
-                className="block text-sm font-medium text-[#003b75] mb-1"
+                className="block text-sm font-medium text-primary mb-1"
               >
                 Category <span className="text-red-500">*</span>
               </label>
               <select
                 id="category"
                 {...register("category")}
-                className="w-full p-3 border text-black border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#003b75]"
+                className="w-full p-3 border text-black border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
               >
                 <option value="">Select Category</option>
                 <option value="match">Match Gallery</option>
@@ -211,7 +211,7 @@ const GalleryModal: React.FC<GalleryModalProps> = ({
             <div>
               <label
                 htmlFor="imageUpload"
-                className="block text-sm font-medium text-[#003b75] mb-1"
+                className="block text-sm font-medium text-primary mb-1"
               >
                 Gallery Images
               </label>
@@ -221,7 +221,7 @@ const GalleryModal: React.FC<GalleryModalProps> = ({
                 accept="image/*"
                 multiple
                 onChange={handleFileChange}
-                className="mt-1 block w-full text-black border border-gray-300 cursor-pointer rounded-md shadow-sm p-3 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[#003b75] file:text-white"
+                className="mt-1 block w-full text-black border border-gray-300 cursor-pointer rounded-md shadow-sm p-3 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-white"
               />
 
               {/* Existing Images */}
@@ -313,7 +313,7 @@ const GalleryModal: React.FC<GalleryModalProps> = ({
               </button>
               <button
                 type="submit"
-                className="px-6 py-2 bg-[#003b75] cursor-pointer text-white rounded-md transition-colors duration-200 flex items-center justify-center"
+                className="px-6 py-2 bg-primary cursor-pointer text-white rounded-md transition-colors duration-200 flex items-center justify-center"
                 disabled={isSubmitting || uploadImageProgress}
               >
                 {isSubmitting || uploadImageProgress ? (

@@ -73,14 +73,14 @@ const ClubManagementPage: React.FC = () => {
   return (
     <div className="p-6 bg-white bg-opacity-80 rounded-lg shadow-md">
       <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
-        <h1 className="text-3xl font-bold text-[#003b75]">
+        <h1 className="text-3xl font-bold text-primary">
           About Us Management
         </h1>
 
         <div className="flex items-center gap-3">
           <button
             onClick={openCreateOrEdit}
-            className="flex items-center px-4 py-2 bg-[#003b75] text-white rounded-md cursor-pointer transition-colors shadow-md"
+            className="flex items-center px-4 py-2 bg-primary text-white rounded-md cursor-pointer transition-colors shadow-md"
             disabled={isSaving || isDeleting}
           >
             {hasAbout ? (
@@ -136,11 +136,11 @@ const ClubManagementPage: React.FC = () => {
             </div>
 
             <div className="flex-1 p-6">
-              <h2 className="text-2xl font-bold text-[#003b75]">
+              <h2 className="text-2xl font-bold text-primary">
                 {about?.title || "Untitled"}
               </h2>
               {about?.subtitle && (
-                <p className="mt-1 text-[#003b75]/80">{about.subtitle}</p>
+                <p className="mt-1 text-primary/80">{about.subtitle}</p>
               )}
               {about?.description && (
                 <p className="mt-3 text-gray-700">{about.description}</p>
@@ -149,19 +149,19 @@ const ClubManagementPage: React.FC = () => {
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
                 <div className="rounded-lg bg-gray-50 p-4">
                   <div className="text-sm text-gray-500">Stats</div>
-                  <div className="text-xl font-bold text-[#003b75]">
+                  <div className="text-xl font-bold text-primary">
                     {about?.stats?.length || 0}
                   </div>
                 </div>
                 <div className="rounded-lg bg-gray-50 p-4">
                   <div className="text-sm text-gray-500">Milestones</div>
-                  <div className="text-xl font-bold text-[#003b75]">
+                  <div className="text-xl font-bold text-primary">
                     {about?.milestones?.length || 0}
                   </div>
                 </div>
                 <div className="rounded-lg bg-gray-50 p-4">
                   <div className="text-sm text-gray-500">Values</div>
-                  <div className="text-xl font-bold text-[#003b75]">
+                  <div className="text-xl font-bold text-primary">
                     {about?.values?.length || 0}
                   </div>
                 </div>
@@ -171,7 +171,7 @@ const ClubManagementPage: React.FC = () => {
                 <div className="mt-6 grid md:grid-cols-2 gap-4">
                   {about?.mission && (
                     <div className="rounded-lg border border-gray-200 p-4">
-                      <div className="text-sm font-semibold text-[#003b75]">
+                      <div className="text-sm font-semibold text-primary">
                         Mission
                       </div>
                       <p className="text-gray-700 mt-1">{about.mission}</p>
@@ -179,7 +179,7 @@ const ClubManagementPage: React.FC = () => {
                   )}
                   {about?.vision && (
                     <div className="rounded-lg border border-gray-200 p-4">
-                      <div className="text-sm font-semibold text-[#003b75]">
+                      <div className="text-sm font-semibold text-primary">
                         Vision
                       </div>
                       <p className="text-gray-700 mt-1">{about.vision}</p>

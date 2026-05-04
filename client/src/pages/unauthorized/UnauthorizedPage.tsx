@@ -11,7 +11,7 @@ const UnauthorizedPage: React.FC = () => {
         </p>
         <Link
           to="/"
-          className="inline-block px-6 py-3 bg-[#003b75] font-semibold rounded-md hover:bg-[#003b75] transition-colors"
+          className="inline-block px-6 py-3 bg-primary font-semibold rounded-md hover:bg-primary transition-colors"
         >
           <p className="text-white">Go to Homepage</p>
         </Link>

@@ -31,7 +31,7 @@ const RegisterForm: React.FC = () => {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-        <h2 className="text-3xl font-bold text-center text-[#003b75] mb-8">
+        <h2 className="text-3xl font-bold text-center text-primary mb-8">
           Register
         </h2>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -140,7 +140,7 @@ const RegisterForm: React.FC = () => {
               ${
                 registerMutation.isPending
                   ? "bg-blue-400 cursor-not-allowed"
-                  : "bg-[#003b75] hover:bg-blue-700"
+                  : "bg-primary hover:bg-blue-700"
               }
               focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500`}
           >

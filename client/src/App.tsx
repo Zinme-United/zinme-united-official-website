@@ -26,17 +26,15 @@ import ClubManagementPage from "./pages/club-management/ClubManagementPage";
 import ArticlesPage from "./pages/articles/ArticlesPage";
 import ArticlesDetails from "./pages/articles-details/ArticlesDetails";
 
-const PublicLayout = () => {
-  return (
-    <div className="min-h-screen flex flex-col bg-white">
-      <Navbar />
-      <div className="flex-grow container mx-auto px-4 py-8">
-        <Outlet />
-      </div>
-      <Footer />
-    </div>
-  );
-};
+const PublicLayout = () => (
+  <div className="min-h-screen flex flex-col bg-surface">
+    <Navbar />
+    <main className="flex-grow">
+      <Outlet />
+    </main>
+    <Footer />
+  </div>
+);
 
 const router = createBrowserRouter([
   {

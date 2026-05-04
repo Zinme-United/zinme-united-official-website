@@ -12,7 +12,7 @@ const AdminLayout: React.FC = () => {
 
   return (
     <div className="flex min-h-screen bg-gray-100">
-      <aside className="w-64 bg-[#003b75] text-white p-6 flex flex-col shadow-lg">
+      <aside className="w-64 bg-primary text-white p-6 flex flex-col shadow-lg">
         <h2 className="text-3xl font-bold mb-8 text-center border-b border-gray-700 pb-4">
           Admin Panel
         </h2>
@@ -70,7 +70,7 @@ const AdminLayout: React.FC = () => {
         </nav>
         <Button
           onClick={logout}
-          className="mt-6 flex items-center gap-2 px-4 py-2 rounded-md bg-[#003b75] hover:bg-[#003b75] text-white text-base font-medium transition-colors duration-200"
+          className="mt-6 flex items-center gap-2 px-4 py-2 rounded-md bg-primary hover:bg-primary text-white text-base font-medium transition-colors duration-200"
         >
           <LogOut className="w-5 h-5" />
           Logout

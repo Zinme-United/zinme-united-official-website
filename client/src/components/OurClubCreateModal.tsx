@@ -109,14 +109,14 @@ const AboutFormModal: React.FC<Props> = ({
             <X size={22} />
           </button>
 
-          <h2 className="text-2xl md:text-3xl font-bold text-[#003b75] mb-6">
+          <h2 className="text-2xl md:text-3xl font-bold text-primary mb-6">
             {defaultValues ? "Edit About" : "Create About"}
           </h2>
 
           <form onSubmit={handleSubmit(onFormSubmit)} className="space-y-6">
             {/* Hero Image */}
             <div>
-              <label className="block text-sm font-medium text-[#003b75] mb-1">
+              <label className="block text-sm font-medium text-primary mb-1">
                 Hero Image
               </label>
 
@@ -141,7 +141,7 @@ const AboutFormModal: React.FC<Props> = ({
               ) : (
                 <label
                   htmlFor="hero-upload"
-                  className="w-full h-32 flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-lg cursor-pointer text-gray-500 hover:border-[#003b75] hover:text-[#003b75] transition"
+                  className="w-full h-32 flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-lg cursor-pointer text-gray-500 hover:border-primary hover:text-primary transition"
                 >
                   <ImageIcon className="mb-2" />
                   <span>
@@ -162,12 +162,12 @@ const AboutFormModal: React.FC<Props> = ({
             {/* Basic fields */}
             <div className="grid md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-[#003b75] mb-1">
+                <label className="block text-sm font-medium text-primary mb-1">
                   Title <span className="text-red-500">*</span>
                 </label>
                 <input
                   {...register("title")}
-                  className="w-full p-3 border border-gray-300 rounded-md text-[#003b75]"
+                  className="w-full p-3 border border-gray-300 rounded-md text-primary"
                 />
                 {errors.title && (
                   <p className="text-red-500 text-sm mt-1">
@@ -176,56 +176,56 @@ const AboutFormModal: React.FC<Props> = ({
                 )}
               </div>
               <div>
-                <label className="block text-sm font-medium text-[#003b75] mb-1">
+                <label className="block text-sm font-medium text-primary mb-1">
                   Subtitle
                 </label>
                 <input
                   {...register("subtitle")}
-                  className="w-full p-3 border border-gray-300 rounded-md text-[#003b75]"
+                  className="w-full p-3 border border-gray-300 rounded-md text-primary"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-[#003b75] mb-1">
+              <label className="block text-sm font-medium text-primary mb-1">
                 Description
               </label>
               <textarea
                 {...register("description")}
                 rows={3}
-                className="w-full p-3 border border-gray-300 rounded-md text-[#003b75]"
+                className="w-full p-3 border border-gray-300 rounded-md text-primary"
               />
             </div>
 
             <div className="grid md:grid-cols-3 gap-4">
               <div>
-                <label className="block text-sm font-medium text-[#003b75] mb-1">
+                <label className="block text-sm font-medium text-primary mb-1">
                   Mission
                 </label>
                 <textarea
                   {...register("mission")}
                   rows={3}
-                  className="w-full p-3 border border-gray-300 rounded-md text-[#003b75]"
+                  className="w-full p-3 border border-gray-300 rounded-md text-primary"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-[#003b75] mb-1">
+                <label className="block text-sm font-medium text-primary mb-1">
                   Vision
                 </label>
                 <textarea
                   {...register("vision")}
                   rows={3}
-                  className="w-full p-3 border border-gray-300 rounded-md text-[#003b75]"
+                  className="w-full p-3 border border-gray-300 rounded-md text-primary"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-[#003b75] mb-1">
+                <label className="block text-sm font-medium text-primary mb-1">
                   Founded Year
                 </label>
                 <input
                   {...register("foundedYear")}
                   placeholder="2024"
-                  className="w-full p-3 border border-gray-300 rounded-md text-[#003b75]"
+                  className="w-full p-3 border border-gray-300 rounded-md text-primary"
                 />
               </div>
             </div>
@@ -233,11 +233,11 @@ const AboutFormModal: React.FC<Props> = ({
             {/* Stats */}
             <div>
               <div className="flex items-center justify-between">
-                <label className="font-semibold text-[#003b75]">Stats</label>
+                <label className="font-semibold text-primary">Stats</label>
                 <button
                   type="button"
                   onClick={() => appendStat({ label: "", value: "" })}
-                  className="flex items-center gap-1 text-[#003b75]"
+                  className="flex items-center gap-1 text-primary"
                 >
                   <Plus size={16} /> Add Stat
                 </button>
@@ -248,12 +248,12 @@ const AboutFormModal: React.FC<Props> = ({
                     <input
                       {...register(`stats.${i}.label`)}
                       placeholder="Label"
-                      className="border rounded p-2 text-[#003b75]"
+                      className="border rounded p-2 text-primary"
                     />
                     <input
                       {...register(`stats.${i}.value`)}
                       placeholder="Value"
-                      className="border rounded p-2 text-[#003b75]"
+                      className="border rounded p-2 text-primary"
                     />
                     <button
                       type="button"
@@ -270,7 +270,7 @@ const AboutFormModal: React.FC<Props> = ({
             {/* Milestones */}
             <div>
               <div className="flex items-center justify-between">
-                <label className="font-semibold text-[#003b75]">
+                <label className="font-semibold text-primary">
                   Milestones
                 </label>
                 <button
@@ -278,7 +278,7 @@ const AboutFormModal: React.FC<Props> = ({
                   onClick={() =>
                     appendMilestone({ year: "", title: "", desc: "" })
                   }
-                  className="flex items-center gap-1 text-[#003b75]"
+                  className="flex items-center gap-1 text-primary"
                 >
                   <Plus size={16} /> Add Milestone
                 </button>
@@ -289,17 +289,17 @@ const AboutFormModal: React.FC<Props> = ({
                     <input
                       {...register(`milestones.${i}.year`)}
                       placeholder="Year (e.g. 2024–2025)"
-                      className="border rounded p-2 text-[#003b75]"
+                      className="border rounded p-2 text-primary"
                     />
                     <input
                       {...register(`milestones.${i}.title`)}
                       placeholder="Title"
-                      className="border rounded p-2 text-[#003b75]"
+                      className="border rounded p-2 text-primary"
                     />
                     <input
                       {...register(`milestones.${i}.desc`)}
                       placeholder="Description"
-                      className="border rounded p-2 md:col-span-2 text-[#003b75]"
+                      className="border rounded p-2 md:col-span-2 text-primary"
                     />
                     <button
                       type="button"
@@ -316,11 +316,11 @@ const AboutFormModal: React.FC<Props> = ({
             {/* Values */}
             <div>
               <div className="flex items-center justify-between">
-                <label className="font-semibold text-[#003b75]">Values</label>
+                <label className="font-semibold text-primary">Values</label>
                 <button
                   type="button"
                   onClick={() => appendValue({ title: "", desc: "", icon: "" })}
-                  className="flex items-center gap-1 text-[#003b75]"
+                  className="flex items-center gap-1 text-primary"
                 >
                   <Plus size={16} /> Add Value
                 </button>
@@ -331,17 +331,17 @@ const AboutFormModal: React.FC<Props> = ({
                     <input
                       {...register(`values.${i}.title`)}
                       placeholder="Title"
-                      className="border rounded p-2 text-[#003b75]"
+                      className="border rounded p-2 text-primary"
                     />
                     <input
                       {...register(`values.${i}.desc`)}
                       placeholder="Description"
-                      className="border rounded p-2 text-[#003b75]"
+                      className="border rounded p-2 text-primary"
                     />
                     <input
                       {...register(`values.${i}.icon`)}
                       placeholder="Icon (optional, e.g. HeartHandshake)"
-                      className="border rounded p-2 text-[#003b75]"
+                      className="border rounded p-2 text-primary"
                     />
                     <button
                       type="button"
@@ -358,23 +358,23 @@ const AboutFormModal: React.FC<Props> = ({
             {/* CTA */}
             <div className="grid md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-[#003b75] mb-1">
+                <label className="block text-sm font-medium text-primary mb-1">
                   CTA Text
                 </label>
                 <input
                   {...register("ctaText")}
                   placeholder="Support or Sponsor Us"
-                  className="w-full p-3 border border-gray-300 rounded-md text-[#003b75]"
+                  className="w-full p-3 border border-gray-300 rounded-md text-primary"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-[#003b75] mb-1">
+                <label className="block text-sm font-medium text-primary mb-1">
                   CTA Link
                 </label>
                 <input
                   {...register("ctaLink")}
                   placeholder="https://example.com/contact"
-                  className="w-full p-3 border border-gray-300 rounded-md text-[#003b75]"
+                  className="w-full p-3 border border-gray-300 rounded-md text-primary"
                 />
                 {errors.ctaLink && (
                   <p className="text-red-500 text-sm mt-1">
@@ -388,14 +388,14 @@ const AboutFormModal: React.FC<Props> = ({
               <button
                 type="button"
                 onClick={onClose}
-                className="px-4 py-2 border border-gray-300 rounded-md cursor-pointer text-[#003b75]"
+                className="px-4 py-2 border border-gray-300 rounded-md cursor-pointer text-primary"
                 disabled={isSubmitting}
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="px-4 py-2 bg-[#003b75] text-white rounded-md cursor-pointer inline-flex items-center"
+                className="px-4 py-2 bg-primary text-white rounded-md cursor-pointer inline-flex items-center"
                 disabled={isSubmitting}
               >
                 {isSubmitting && (

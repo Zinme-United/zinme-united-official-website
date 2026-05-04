@@ -12,16 +12,16 @@ const SquadSpotlight = ({ players }: SquadSpotlightProps) => {
       {/* Section header */}
       <div className="flex items-center justify-between mb-8">
         <div>
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#FFD700] mb-1">
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-accent mb-1">
             The Team
           </p>
-          <h2 className="text-3xl md:text-4xl font-extrabold text-[#003b75]">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-primary">
             Squad Spotlight
           </h2>
         </div>
         <Link
           to="/players"
-          className="hidden sm:flex items-center text-sm font-semibold text-[#003b75] hover:text-[#0056b3] transition-colors"
+          className="hidden sm:flex items-center text-sm font-semibold text-primary hover:text-primary-light transition-colors"
         >
           View Full Squad <ChevronRight size={16} className="ml-1" />
         </Link>
@@ -40,10 +40,10 @@ const SquadSpotlight = ({ players }: SquadSpotlightProps) => {
                   className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
                 />
                 {/* Gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#003b75] via-[#003b75]/20 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/20 to-transparent" />
 
                 {/* Jersey number */}
-                <div className="absolute top-3 right-3 bg-[#FFD700] text-[#003b75] text-lg font-black w-10 h-10 rounded-full flex items-center justify-center shadow-md">
+                <div className="absolute top-3 right-3 bg-accent text-primary text-lg font-black w-10 h-10 rounded-full flex items-center justify-center shadow-md">
                   {player.number}
                 </div>
 
@@ -66,7 +66,7 @@ const SquadSpotlight = ({ players }: SquadSpotlightProps) => {
       <div className="sm:hidden text-center mt-6">
         <Link
           to="/players"
-          className="inline-flex items-center text-sm font-semibold text-[#003b75]"
+          className="inline-flex items-center text-sm font-semibold text-primary"
         >
           View Full Squad <ChevronRight size={16} className="ml-1" />
         </Link>

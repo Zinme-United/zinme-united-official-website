@@ -164,7 +164,7 @@ const NewsManagementPage: React.FC = () => {
   return (
     <div className="p-6 bg-white bg-opacity-80 rounded-lg shadow-md">
       <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
-        <h1 className="text-3xl font-bold text-[#003b75]">News Management</h1>
+        <h1 className="text-3xl font-bold text-primary">News Management</h1>
         <div className="flex items-center gap-3">
           <input
             type="text"
@@ -174,7 +174,7 @@ const NewsManagementPage: React.FC = () => {
               setSearchTerm(e.target.value);
               setCurrentPage(1);
             }}
-            className="px-3 py-2 border text-[#003b75] border-gray-300 rounded-md"
+            className="px-3 py-2 border text-primary border-gray-300 rounded-md"
           />
           <select
             value={
@@ -189,7 +189,7 @@ const NewsManagementPage: React.FC = () => {
               );
               setCurrentPage(1);
             }}
-            className="px-3 py-2 text-[#003b75] border border-gray-300 rounded-md"
+            className="px-3 py-2 text-primary border border-gray-300 rounded-md"
           >
             <option value="all">All News</option>
             <option value="true">Featured Only</option>
@@ -197,7 +197,7 @@ const NewsManagementPage: React.FC = () => {
           </select>
           <button
             onClick={handleAddNews}
-            className="flex items-center px-4 py-2 bg-[#003b75] text-white rounded-md cursor-pointer transition-colors shadow-md"
+            className="flex items-center px-4 py-2 bg-primary text-white rounded-md cursor-pointer transition-colors shadow-md"
             disabled={isSubmitting}
           >
             <Plus size={20} className="mr-2" /> Add New Article
@@ -235,16 +235,16 @@ const NewsManagementPage: React.FC = () => {
                 <tbody className="bg-white divide-y divide-gray-200">
                   {paginatedNews.map((news) => (
                     <tr key={news._id} className="hover:bg-gray-50">
-                      <td className="py-4 px-6 text-sm font-medium text-[#003b75] w-1/4">
+                      <td className="py-4 px-6 text-sm font-medium text-primary w-1/4">
                         {news.title}
                       </td>
-                      <td className="py-4 px-6 whitespace-nowrap text-sm text-[#003b75]">
+                      <td className="py-4 px-6 whitespace-nowrap text-sm text-primary">
                         {news.author}
                       </td>
-                      <td className="py-4 px-6 whitespace-nowrap text-sm text-[#003b75]">
+                      <td className="py-4 px-6 whitespace-nowrap text-sm text-primary">
                         {new Date(news.publishedAt).toLocaleDateString()}
                       </td>
-                      <td className="py-4 px-6 text-sm text-[#003b75]">
+                      <td className="py-4 px-6 text-sm text-primary">
                         {news.tags && news.tags.length > 0
                           ? news.tags.join(", ")
                           : "N/A"}
@@ -264,7 +264,7 @@ const NewsManagementPage: React.FC = () => {
                         <div className="flex justify-center items-center space-x-2">
                           <button
                             onClick={() => handleEditNews(news)}
-                            className="text-[#003b75] hover:text-[#003b75] cursor-pointer bg-blue-100 p-2 rounded-full"
+                            className="text-primary hover:text-primary cursor-pointer bg-blue-100 p-2 rounded-full"
                             title="Edit News Article"
                             disabled={isSubmitting}
                           >
@@ -295,23 +295,23 @@ const NewsManagementPage: React.FC = () => {
             <button
               onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
               disabled={currentPage === 1}
-              className="p-2 cursor-pointer rounded-full text-[#003b75] disabled:opacity-30"
+              className="p-2 cursor-pointer rounded-full text-primary disabled:opacity-30"
               title="Previous Page"
             >
-              <ChevronLeft color="#003b75" size={24} />
+              <ChevronLeft className="text-primary" size={24} />
             </button>
 
-            <span className="text-[#003b75] font-medium">
+            <span className="text-primary font-medium">
               Page {currentPage} of {totalPages}
             </span>
 
             <button
               onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
               disabled={currentPage === totalPages}
-              className="p-2 cursor-pointer rounded-full text-[#003b75] disabled:opacity-30"
+              className="p-2 cursor-pointer rounded-full text-primary disabled:opacity-30"
               title="Next Page"
             >
-              <ChevronRight color="#003b75" size={24} />
+              <ChevronRight className="text-primary" size={24} />
             </button>
           </div>
         </>

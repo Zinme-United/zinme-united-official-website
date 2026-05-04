@@ -49,16 +49,16 @@ const LatestNewsAndUpdates: React.FC<Props> = ({ news, error }) => {
       {/* Section header */}
       <div className="flex items-center justify-between mb-8">
         <div>
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#FFD700] mb-1">
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-accent mb-1">
             Stay Updated
           </p>
-          <h2 className="text-3xl md:text-4xl font-extrabold text-[#003b75]">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-primary">
             Latest News
           </h2>
         </div>
         <Link
           to="/articles"
-          className="hidden sm:flex items-center text-sm font-semibold text-[#003b75] hover:text-[#0056b3] transition-colors"
+          className="hidden sm:flex items-center text-sm font-semibold text-primary hover:text-primary-light transition-colors"
         >
           View All News <ChevronRight size={16} className="ml-1" />
         </Link>
@@ -80,7 +80,7 @@ const LatestNewsAndUpdates: React.FC<Props> = ({ news, error }) => {
                   className="w-full h-52 object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 {item.isFeatured && (
-                  <span className="absolute top-3 left-3 bg-[#FFD700] text-[#003b75] text-xs font-bold uppercase px-3 py-1 rounded-full">
+                  <span className="absolute top-3 left-3 bg-accent text-primary text-xs font-bold uppercase px-3 py-1 rounded-full">
                     Featured
                   </span>
                 )}
@@ -94,7 +94,7 @@ const LatestNewsAndUpdates: React.FC<Props> = ({ news, error }) => {
                 </p>
 
                 {/* Title */}
-                <h3 className="text-lg font-bold text-[#1a1a2e] mb-2 line-clamp-2 group-hover:text-[#003b75] transition-colors">
+                <h3 className="text-lg font-bold text-text mb-2 line-clamp-2 group-hover:text-primary transition-colors">
                   {item.title}
                 </h3>
 
@@ -104,7 +104,7 @@ const LatestNewsAndUpdates: React.FC<Props> = ({ news, error }) => {
                     {item.tags.slice(0, 3).map((tag, index) => (
                       <span
                         key={index}
-                        className="text-[10px] bg-[#003b75]/10 text-[#003b75] px-2 py-0.5 rounded-full font-medium"
+                        className="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded-full font-medium"
                       >
                         #{tag}
                       </span>
@@ -118,7 +118,7 @@ const LatestNewsAndUpdates: React.FC<Props> = ({ news, error }) => {
                 </p>
 
                 {/* Read More */}
-                <span className="inline-flex items-center text-sm font-semibold text-[#003b75] mt-4 group-hover:gap-2 transition-all">
+                <span className="inline-flex items-center text-sm font-semibold text-primary mt-4 group-hover:gap-2 transition-all">
                   Read More{" "}
                   <ChevronRight
                     size={14}
@@ -137,7 +137,7 @@ const LatestNewsAndUpdates: React.FC<Props> = ({ news, error }) => {
           <button
             onClick={() => setPage((p) => Math.max(p - 1, 1))}
             disabled={page === 1}
-            className="w-9 h-9 flex items-center justify-center rounded-full border border-gray-200 disabled:opacity-30 hover:bg-[#003b75] hover:text-white hover:border-[#003b75] transition-colors cursor-pointer disabled:cursor-not-allowed"
+            className="w-9 h-9 flex items-center justify-center rounded-full border border-gray-200 disabled:opacity-30 hover:bg-primary hover:text-white hover:border-primary transition-colors cursor-pointer disabled:cursor-not-allowed"
           >
             <ChevronLeft size={16} />
           </button>
@@ -149,7 +149,7 @@ const LatestNewsAndUpdates: React.FC<Props> = ({ news, error }) => {
           <button
             onClick={() => setPage((p) => Math.min(p + 1, totalPages))}
             disabled={page === totalPages}
-            className="w-9 h-9 flex items-center justify-center rounded-full border border-gray-200 disabled:opacity-30 hover:bg-[#003b75] hover:text-white hover:border-[#003b75] transition-colors cursor-pointer disabled:cursor-not-allowed"
+            className="w-9 h-9 flex items-center justify-center rounded-full border border-gray-200 disabled:opacity-30 hover:bg-primary hover:text-white hover:border-primary transition-colors cursor-pointer disabled:cursor-not-allowed"
           >
             <ChevronRight size={16} />
           </button>
@@ -160,7 +160,7 @@ const LatestNewsAndUpdates: React.FC<Props> = ({ news, error }) => {
       <div className="sm:hidden text-center mt-6">
         <Link
           to="/articles"
-          className="inline-flex items-center text-sm font-semibold text-[#003b75]"
+          className="inline-flex items-center text-sm font-semibold text-primary"
         >
           View All News <ChevronRight size={16} className="ml-1" />
         </Link>

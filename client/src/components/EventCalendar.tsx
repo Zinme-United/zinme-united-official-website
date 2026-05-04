@@ -74,7 +74,7 @@ const EventCalendar: React.FC<EventCalendarProps> = ({
 
   return (
     <section className="my-6 sm:my-10 bg-white rounded-xl shadow-lg p-4 sm:p-6">
-      <h2 className="text-2xl sm:text-3xl font-bold text-[#003b75] mb-3 sm:mb-4 text-center">
+      <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-3 sm:mb-4 text-center">
         Event Calendar
       </h2>
 
@@ -84,17 +84,17 @@ const EventCalendar: React.FC<EventCalendarProps> = ({
         <div className="flex items-center justify-between md:justify-start gap-2">
           <button
             onClick={onPrevMonth}
-            className="p-2 rounded-full text-[#003b75] hover:bg-blue-100 transition cursor-pointer"
+            className="p-2 rounded-full text-primary hover:bg-blue-100 transition cursor-pointer"
             aria-label="Previous month"
           >
             <ChevronLeft size={22} />
           </button>
-          <div className="text-lg sm:text-xl font-semibold text-[#003b75] text-center min-w-[180px]">
+          <div className="text-lg sm:text-xl font-semibold text-primary text-center min-w-[180px]">
             {getMonthName(currentMonth)}
           </div>
           <button
             onClick={onNextMonth}
-            className="p-2 rounded-full text-[#003b75] hover:bg-blue-100 transition cursor-pointer"
+            className="p-2 rounded-full text-primary hover:bg-blue-100 transition cursor-pointer"
             aria-label="Next month"
           >
             <ChevronRight size={22} />
@@ -108,7 +108,7 @@ const EventCalendar: React.FC<EventCalendarProps> = ({
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search events"
-            className="w-full pl-9 pr-9 py-2 text-[#003b75] text-sm border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#003b75]/30"
+            className="w-full pl-9 pr-9 py-2 text-primary text-sm border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-primary/30"
           />
           {query && (
             <button
@@ -135,7 +135,7 @@ const EventCalendar: React.FC<EventCalendarProps> = ({
                 className={`px-3 py-1.5 rounded-full text-xs sm:text-sm border whitespace-nowrap transition cursor-pointer
                   ${
                     active
-                      ? "bg-[#003b75] text-white border-[#003b75]"
+                      ? "bg-primary text-white border-primary"
                       : "bg-white text-gray-800 border-gray-300 hover:bg-gray-100"
                   }`}
                 aria-pressed={active}
@@ -174,7 +174,7 @@ const EventCalendar: React.FC<EventCalendarProps> = ({
                 className="bg-blue-50 rounded-xl border border-blue-100 p-3 sm:p-4"
               >
                 <div className="flex items-center gap-2 mb-3">
-                  <span className="inline-flex items-center px-2.5 py-1 rounded-md bg-white text-[#003b75] font-semibold text-xs sm:text-sm border border-blue-100">
+                  <span className="inline-flex items-center px-2.5 py-1 rounded-md bg-white text-primary font-semibold text-xs sm:text-sm border border-blue-100">
                     <CalendarIcon className="h-4 w-4 mr-1" />
                     {d.toLocaleDateString(undefined, {
                       weekday: "short",
@@ -194,7 +194,7 @@ const EventCalendar: React.FC<EventCalendarProps> = ({
                       className="text-left group bg-white border border-blue-100 rounded-lg p-3 sm:p-4 hover:shadow-md transition cursor-pointer"
                     >
                       <div className="flex flex-wrap items-center justify-between gap-2">
-                        <h4 className="text-base sm:text-lg font-bold text-[#003b75] group-hover:underline">
+                        <h4 className="text-base sm:text-lg font-bold text-primary group-hover:underline">
                           {a.title}
                         </h4>
                         <span
@@ -211,7 +211,7 @@ const EventCalendar: React.FC<EventCalendarProps> = ({
                         </span>
                       </div>
 
-                      <div className="mt-2 text-xs sm:text-sm text-[#003b75] space-x-0 sm:space-x-3 space-y-1 sm:space-y-0">
+                      <div className="mt-2 text-xs sm:text-sm text-primary space-x-0 sm:space-x-3 space-y-1 sm:space-y-0">
                         <span className="inline-flex items-center">
                           <Clock className="h-4 w-4 mr-1" />
                           {a.time || "TBA"}
@@ -276,7 +276,7 @@ const EventCalendar: React.FC<EventCalendarProps> = ({
             >
               <Dialog.Panel className="relative w-full max-w-3xl bg-white rounded-2xl overflow-hidden shadow-2xl">
                 {/* Hero Banner */}
-                <div className="relative h-56 md:h-72 bg-[#003b75]">
+                <div className="relative h-56 md:h-72 bg-primary">
                   <img
                     src="/zinme.jpg" // fallback stadium image
                     alt="Event Banner"
@@ -345,7 +345,7 @@ const EventCalendar: React.FC<EventCalendarProps> = ({
 
                   {/* Result */}
                   {selectedActivity?.result && (
-                    <p className="text-lg font-bold text-[#003b75]">
+                    <p className="text-lg font-bold text-primary">
                       ✅ Result: {selectedActivity.result}
                     </p>
                   )}

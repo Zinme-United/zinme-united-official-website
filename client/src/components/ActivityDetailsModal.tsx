@@ -16,7 +16,7 @@ const ActivityDetailsModal: React.FC<ActivityDetailsModalProps> = ({
   if (!isOpen || !activity) return null;
 
   return (
-    <div className="fixed inset-0 bg-[#003b75] bg-opacity-75 flex items-center justify-center z-50 p-4">
+    <div className="fixed inset-0 bg-primary bg-opacity-75 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
         <div className="p-6 md:p-8 relative">
           <button
@@ -27,19 +27,19 @@ const ActivityDetailsModal: React.FC<ActivityDetailsModalProps> = ({
             <X size={24} />
           </button>
 
-          <h2 className="text-3xl font-bold text-[#003b75] mb-6 text-center">
+          <h2 className="text-3xl font-bold text-primary mb-6 text-center">
             Activity Details
           </h2>
 
           <div className="space-y-4 text-gray-800">
             <div>
-              <p className="text-sm font-medium text-[#003b75]">Title:</p>
+              <p className="text-sm font-medium text-primary">Title:</p>
               <p className="text-lg font-semibold">{activity.title}</p>
             </div>
 
             {activity.description && (
               <div>
-                <p className="text-sm font-medium text-[#003b75]">
+                <p className="text-sm font-medium text-primary">
                   Description:
                 </p>
                 <p className="text-base">{activity.description}</p>
@@ -47,7 +47,7 @@ const ActivityDetailsModal: React.FC<ActivityDetailsModalProps> = ({
             )}
 
             <div>
-              <p className="text-sm font-medium text-[#003b75]">Type:</p>
+              <p className="text-sm font-medium text-primary">Type:</p>
               <p className="text-base">
                 {activity.type.charAt(0).toUpperCase() + activity.type.slice(1)}
               </p>
@@ -55,21 +55,21 @@ const ActivityDetailsModal: React.FC<ActivityDetailsModalProps> = ({
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <p className="text-sm font-medium text-[#003b75]">Date:</p>
+                <p className="text-sm font-medium text-primary">Date:</p>
                 <p className="text-base">
                   {new Date(activity.date).toLocaleDateString()}
                 </p>
               </div>
               {activity.time && (
                 <div>
-                  <p className="text-sm font-medium text-[#003b75]">Time:</p>
+                  <p className="text-sm font-medium text-primary">Time:</p>
                   <p className="text-base">{activity.time}</p>
                 </div>
               )}
             </div>
 
             <div>
-              <p className="text-sm font-medium text-[#003b75]">Location:</p>
+              <p className="text-sm font-medium text-primary">Location:</p>
               <p className="text-base">{activity.location}</p>
             </div>
 
@@ -77,7 +77,7 @@ const ActivityDetailsModal: React.FC<ActivityDetailsModalProps> = ({
               <>
                 {activity.opponent && (
                   <div>
-                    <p className="text-sm font-medium text-[#003b75]">
+                    <p className="text-sm font-medium text-primary">
                       Opponent:
                     </p>
                     <p className="text-base">{activity.opponent}</p>
@@ -85,7 +85,7 @@ const ActivityDetailsModal: React.FC<ActivityDetailsModalProps> = ({
                 )}
                 {activity.result && (
                   <div>
-                    <p className="text-sm font-medium text-[#003b75]">
+                    <p className="text-sm font-medium text-primary">
                       Result:
                     </p>
                     <p className="text-base">{activity.result}</p>
@@ -111,10 +111,10 @@ const ActivityDetailsModal: React.FC<ActivityDetailsModalProps> = ({
             </div>
 
             <div className="pt-4 border-t border-gray-200 mt-4">
-              <p className="text-sm text-[#003b75]">
+              <p className="text-sm text-primary">
                 Created: {new Date(activity.createdAt).toLocaleString()}
               </p>
-              <p className="text-sm text-[#003b75]">
+              <p className="text-sm text-primary">
                 Last Updated: {new Date(activity.updatedAt).toLocaleString()}
               </p>
             </div>

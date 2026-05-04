@@ -1,37 +1,15 @@
-import { Users, Activity, Home, Newspaper, HeartHandshake } from "lucide-react";
-import type { RouteLink } from "../components/Navbar";
+export interface NavLink {
+  label: string;
+  route: string;
+}
 
-export const routeLinks: RouteLink[] = [
-  {
-    id: 1,
-    label: "Home",
-    route: "/",
-    icon: Home,
-  },
-  {
-    id: 5,
-    label: "Our Club",
-    route: "/our-club",
-    icon: HeartHandshake,
-  },
-  {
-    id: 2,
-    label: "Activities",
-    route: "/activities",
-    icon: Activity,
-  },
-  {
-    id: 3,
-    label: "Players",
-    route: "/players",
-    icon: Users,
-  },
-  {
-    id: 4,
-    label: "Articles",
-    route: "/articles",
-    icon: Newspaper,
-  },
+export const navLinks: NavLink[] = [
+  { label: "Home", route: "/" },
+  { label: "Squad", route: "/players" },
+  { label: "Fixtures", route: "/activities" },
+  { label: "News", route: "/articles" },
+  { label: "Gallery", route: "/gallery" },
+  { label: "About", route: "/our-club" },
 ];
 
 export const events = [

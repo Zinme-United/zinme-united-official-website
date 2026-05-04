@@ -13,10 +13,10 @@ const PartnersBanner = () => {
   return (
     <section className="my-12">
       <div className="text-center mb-10">
-        <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#FFD700] mb-1">
+        <p className="text-xs font-bold uppercase tracking-[0.2em] text-accent mb-1">
           Proudly Supported By
         </p>
-        <h2 className="text-3xl md:text-4xl font-extrabold text-[#003b75]">
+        <h2 className="text-3xl md:text-4xl font-extrabold text-primary">
           Our Sponsors
         </h2>
       </div>
