@@ -6,7 +6,6 @@ import { Link } from "react-router";
 import {
   Search,
   X,
-  Tag,
   Calendar,
   ChevronLeft,
   ChevronRight,
@@ -108,7 +107,7 @@ const ArticlesPage: React.FC = () => {
   if (newsError) {
     return (
       <div className="min-h-screen flex items-center justify-center px-4">
-        <div className="bg-red-50 border border-red-200 text-red-800 rounded-xl p-6 max-w-lg text-center">
+        <div className="bg-red-50 border border-red-200 text-red-800 rounded-2xl p-6 max-w-lg text-center">
           <p className="font-semibold text-lg">Failed to load news</p>
           <p className="text-sm mt-1">{newsError.message}</p>
         </div>
@@ -119,15 +118,19 @@ const ArticlesPage: React.FC = () => {
   if (!articles || articles.length === 0) {
     return (
       <div className="min-h-screen flex items-center justify-center px-4">
-        <div className="bg-primary-dark text-white rounded-xl p-8 text-center">
-          <p className="text-xl font-bold">No news articles found</p>
-          <p className="text-sm mt-1 opacity-90">
+        <div className="bg-gray-50 border border-gray-200 rounded-2xl p-10 text-center">
+          <p className="text-xl font-bold text-gray-700">
+            No news articles yet
+          </p>
+          <p className="text-sm text-gray-500 mt-2">
             Check back later for updates!
           </p>
         </div>
       </div>
     );
   }
+
+  const hasActiveFilters = query || activeTags.length > 0;
 
   return (
     <main className="min-h-screen bg-surface">
@@ -136,222 +139,200 @@ const ArticlesPage: React.FC = () => {
         breadcrumbs={[{ label: "Home", path: "/" }, { label: "News" }]}
       />
 
-      {/* Sticky controls */}
-      <div className="sticky top-0 z-20 bg-surface/80 backdrop-blur border-b border-primary/10">
-        <div className="max-w-[var(--container-content)] mx-auto px-4 py-3 flex flex-wrap items-center gap-3">
+      {/* Filter bar */}
+      <div className="sticky top-0 z-20 bg-white/90 backdrop-blur-md border-b border-gray-100">
+        <div className="max-w-6xl mx-auto px-4 py-4 flex flex-wrap items-center gap-3">
           {/* Search */}
-          <div className="relative flex-1 min-w-[220px] max-w-xl">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-text-muted" />
+          <div className="relative flex-1 min-w-[220px] max-w-md">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
             <input
               ref={searchRef}
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search articles (press / to focus)"
-              className="w-full pl-9 pr-9 py-2 text-sm border text-primary border-primary/20 rounded-lg bg-surface focus:outline-none focus:ring-2 focus:ring-primary/30"
+              placeholder="Search articles..."
+              className="w-full pl-10 pr-9 py-2.5 text-sm border border-gray-200 rounded-full bg-white text-primary focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/30 transition"
             />
             {query && (
               <button
                 onClick={() => setQuery("")}
                 aria-label="Clear search"
-                className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-md hover:bg-surface-alt"
+                className="absolute right-3 top-1/2 -translate-y-1/2 p-1 rounded-full hover:bg-gray-100 transition"
               >
-                <X className="h-4 w-4 cursor-pointer text-text-muted" />
+                <X className="h-3.5 w-3.5 cursor-pointer text-gray-400" />
               </button>
             )}
           </div>
 
           {/* Sort */}
-          <div className="flex items-center gap-2">
-            <label htmlFor="sort" className="text-sm text-text-muted">
-              Sort
-            </label>
-            <select
-              id="sort"
-              value={sort}
-              onChange={(e) => setSort(e.target.value as SortKey)}
-              className="text-sm border border-primary/20 rounded-lg px-3 py-2 bg-surface text-primary"
-            >
-              <option value="latest">Latest</option>
-              <option value="oldest">Oldest</option>
-            </select>
-          </div>
+          <select
+            id="sort"
+            value={sort}
+            onChange={(e) => setSort(e.target.value as SortKey)}
+            className="text-sm border border-gray-200 rounded-full px-4 py-2.5 bg-white text-primary focus:outline-none focus:ring-2 focus:ring-primary/30 transition"
+          >
+            <option value="latest">Latest first</option>
+            <option value="oldest">Oldest first</option>
+          </select>
 
-          {/* Active filters + Clear */}
-          {(query || activeTags.length > 0) && (
-            <div className="flex flex-wrap items-center gap-2 ml-auto">
-              {query && (
-                <span className="inline-flex items-center gap-1.5 text-xs bg-surface-alt border border-primary/10 text-text rounded-full px-3 py-1">
-                  <Search className="h-3.5 w-3.5" /> "{query}"
+          {/* Tag filter pills - inline */}
+          {allTags.length > 0 && (
+            <div className="hidden md:flex items-center gap-1.5 overflow-x-auto">
+              {allTags.map((t) => {
+                const active = activeTags.includes(t);
+                return (
                   <button
-                    onClick={() => setQuery("")}
-                    className="ml-1 rounded-full p-0.5 hover:bg-primary/5"
-                    aria-label="Remove search"
-                  >
-                    <X className="h-3 w-3" />
-                  </button>
-                </span>
-              )}
-              {activeTags.map((t) => (
-                <span
-                  key={t}
-                  className="inline-flex items-center gap-1.5 text-xs bg-surface-alt border border-primary/10 text-text rounded-full px-3 py-1"
-                >
-                  #{t}
-                  <button
+                    key={t}
                     onClick={() => toggleTag(t)}
-                    className="ml-1 rounded-full p-0.5 hover:bg-primary/5"
-                    aria-label={`Remove ${t}`}
+                    className={`px-3 py-1.5 cursor-pointer rounded-full text-xs font-medium whitespace-nowrap transition-all duration-200
+                      ${
+                        active
+                          ? "bg-primary text-white shadow-sm"
+                          : "bg-gray-50 text-gray-600 hover:bg-gray-100"
+                      }`}
+                    aria-pressed={active}
                   >
-                    <X className="h-3 w-3" />
+                    {t}
                   </button>
-                </span>
-              ))}
-              <button
-                onClick={clearAll}
-                className="text-xs px-3 py-1 rounded-lg border bg-surface-alt cursor-pointer text-primary hover:bg-primary/5"
-              >
-                Clear all
-              </button>
+                );
+              })}
             </div>
           )}
-        </div>
 
-        {/* Tag chips row */}
-        <div className="bg-surface/80">
-          <div className="max-w-[var(--container-content)] mx-auto px-4 pb-3 overflow-x-auto">
-            <div className="flex items-center gap-2 py-2">
-              <span className="inline-flex items-center text-xs text-primary mr-1">
-                <Tag className="h-4 w-4 mr-1 text-primary" /> Tags:
-              </span>
-              {allTags.length === 0 ? (
-                <span className="text-xs text-text-muted">No tags</span>
-              ) : (
-                allTags.map((t) => {
-                  const active = activeTags.includes(t);
-                  return (
-                    <button
-                      key={t}
-                      onClick={() => toggleTag(t)}
-                      className={`px-3 py-1.5 cursor-pointer rounded-full text-xs border whitespace-nowrap transition
-                        ${
-                          active
-                            ? "bg-primary text-white border-primary"
-                            : "bg-surface text-text border-primary/20 hover:bg-surface-alt"
-                        }`}
-                      aria-pressed={active}
-                    >
-                      #{t}
-                    </button>
-                  );
-                })
-              )}
-            </div>
-          </div>
+          {/* Active filter chips + Clear */}
+          {hasActiveFilters && (
+            <button
+              onClick={clearAll}
+              className="text-xs font-medium px-3 py-1.5 rounded-full border border-gray-200 cursor-pointer text-gray-500 hover:bg-gray-50 hover:text-primary transition ml-auto"
+            >
+              Clear filters
+            </button>
+          )}
         </div>
       </div>
 
-      {/* Featured hero */}
+      {/* Featured hero card */}
       {featured && (
-        <section className="relative">
-          <div className="max-w-[var(--container-content)] mx-auto pt-8">
-            <article className="relative overflow-hidden rounded-2xl bg-primary-dark text-white">
-              <div className="absolute inset-0">
-                <img
-                  src={featured.imageUrl || "/zinme.jpg"}
-                  alt={featured.title}
-                  className="w-full h-full object-cover opacity-25"
-                />
-              </div>
-              <div className="relative p-6 md:p-10">
-                {featured.isFeatured && (
-                  <span className="inline-flex items-center text-xs font-semibold bg-white/20 rounded-full px-3 py-1 mb-3">
-                    Featured
-                  </span>
-                )}
-                <h2 className="text-2xl md:text-4xl font-extrabold max-w-3xl drop-shadow-sm">
-                  {featured.title}
-                </h2>
-                <p className="mt-3 max-w-3xl text-white/90">
-                  {featured.content?.slice(0, 200)}
-                  {featured.content && featured.content.length > 200 ? "..." : ""}
-                </p>
-                <div className="mt-4 flex items-center gap-4 text-sm text-white/70">
-                  <span className="inline-flex items-center">
-                    <Calendar className="h-4 w-4 mr-1" />
-                    {format(new Date(featured.publishedAt), "MMM dd, yyyy")}
-                  </span>
-                  {(featured.tags || []).slice(0, 3).map((t) => (
-                    <span
-                      key={t}
-                      className="inline-flex items-center bg-white/15 rounded-full px-2 py-0.5 text-xs"
-                    >
-                      #{t}
-                    </span>
-                  ))}
-                </div>
-                <div className="mt-6">
-                  <Link
-                    to={`/articles/${featured._id}`}
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white text-primary font-semibold hover:bg-primary/5"
-                  >
-                    Read article <ArrowUpRight className="h-4 w-4" />
-                  </Link>
-                </div>
-              </div>
-            </article>
-          </div>
-        </section>
+        <AnimatedSection>
+          <section className="bg-white py-16">
+            <div className="max-w-6xl mx-auto px-4">
+              <Link to={`/articles/${featured._id}`} className="group block">
+                <article className="rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 bg-white border border-gray-100">
+                  <div className="relative overflow-hidden">
+                    <img
+                      src={featured.imageUrl || "/zinme.jpg"}
+                      alt={featured.title}
+                      className="w-full h-72 md:h-96 object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    {featured.isFeatured && (
+                      <span className="absolute top-4 left-4 bg-accent text-primary text-xs font-bold uppercase tracking-wider px-3 py-1.5 rounded-full">
+                        Featured
+                      </span>
+                    )}
+                    {/* Gradient overlay at the bottom */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+                    <div className="absolute bottom-0 left-0 right-0 p-6 md:p-10">
+                      <div className="flex items-center gap-3 text-sm text-white/80 mb-3">
+                        <span className="inline-flex items-center">
+                          <Calendar className="h-4 w-4 mr-1.5" />
+                          {format(
+                            new Date(featured.publishedAt),
+                            "MMM dd, yyyy"
+                          )}
+                        </span>
+                        {(featured.tags || []).slice(0, 3).map((t) => (
+                          <span
+                            key={t}
+                            className="bg-white/20 backdrop-blur-sm rounded-full px-2.5 py-0.5 text-xs"
+                          >
+                            {t}
+                          </span>
+                        ))}
+                      </div>
+                      <h2 className="text-2xl md:text-4xl font-extrabold text-white max-w-3xl drop-shadow-sm">
+                        {featured.title}
+                      </h2>
+                      <p className="mt-3 max-w-2xl text-white/90 text-sm md:text-base leading-relaxed line-clamp-2">
+                        {featured.content?.slice(0, 200)}
+                        {featured.content && featured.content.length > 200
+                          ? "..."
+                          : ""}
+                      </p>
+                      <span className="mt-5 inline-flex items-center gap-2 text-white font-semibold group-hover:gap-3 transition-all">
+                        Read article{" "}
+                        <ArrowUpRight className="h-4 w-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                      </span>
+                    </div>
+                  </div>
+                </article>
+              </Link>
+            </div>
+          </section>
+        </AnimatedSection>
       )}
 
-      {/* Grid */}
+      {/* Article grid */}
       <AnimatedSection>
-        <section className="max-w-[var(--container-content)] mx-auto py-8">
-          {paginatedArticles.length === 0 ? (
-            <div className="text-center bg-surface border border-primary/10 rounded-xl p-10">
-              <p className="text-text">
-                No more articles match your filters.
+        <section className="bg-surface-alt py-16">
+          <div className="max-w-6xl mx-auto px-4">
+            {/* Section header */}
+            <div className="mb-10">
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-accent mb-1">
+                Stay Updated
               </p>
+              <h2 className="text-3xl md:text-4xl font-extrabold text-primary">
+                More Articles
+              </h2>
             </div>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {paginatedArticles.map((a) => (
-                <ArticleCard key={a._id} a={a} />
-              ))}
-            </div>
-          )}
 
-          {/* Pagination controls */}
-          {totalPages > 1 && (
-            <div className="flex justify-center items-center gap-2 py-8">
-              <button
-                onClick={() => setPage((p) => Math.max(1, p - 1))}
-                disabled={page === 1}
-                className="px-3 py-2 rounded-lg border border-primary/20 text-primary disabled:opacity-40 disabled:cursor-not-allowed hover:bg-primary/5 transition cursor-pointer"
-              >
-                <ChevronLeft size={18} />
-              </button>
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
+            {paginatedArticles.length === 0 ? (
+              <div className="text-center bg-white rounded-2xl border border-gray-100 shadow-sm p-10">
+                <p className="text-gray-500">
+                  No more articles match your filters.
+                </p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {paginatedArticles.map((a) => (
+                  <ArticleCard key={a._id} a={a} />
+                ))}
+              </div>
+            )}
+
+            {/* Pagination controls */}
+            {totalPages > 1 && (
+              <div className="flex justify-center items-center gap-2 pt-12">
                 <button
-                  key={p}
-                  onClick={() => setPage(p)}
-                  className={`w-10 h-10 rounded-lg text-sm font-semibold transition cursor-pointer ${
-                    p === page
-                      ? "bg-primary text-white"
-                      : "text-primary hover:bg-primary/5 border border-primary/20"
-                  }`}
+                  onClick={() => setPage((p) => Math.max(1, p - 1))}
+                  disabled={page === 1}
+                  className="w-10 h-10 rounded-full border border-gray-200 text-primary disabled:opacity-30 disabled:cursor-not-allowed hover:bg-primary hover:text-white hover:border-primary transition cursor-pointer flex items-center justify-center"
                 >
-                  {p}
+                  <ChevronLeft size={18} />
                 </button>
-              ))}
-              <button
-                onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-                disabled={page === totalPages}
-                className="px-3 py-2 rounded-lg border border-primary/20 text-primary disabled:opacity-40 disabled:cursor-not-allowed hover:bg-primary/5 transition cursor-pointer"
-              >
-                <ChevronRight size={18} />
-              </button>
-            </div>
-          )}
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                  (p) => (
+                    <button
+                      key={p}
+                      onClick={() => setPage(p)}
+                      className={`w-10 h-10 rounded-full text-sm font-semibold transition cursor-pointer ${
+                        p === page
+                          ? "bg-primary text-white shadow-sm"
+                          : "text-primary hover:bg-primary/10 border border-gray-200"
+                      }`}
+                    >
+                      {p}
+                    </button>
+                  )
+                )}
+                <button
+                  onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                  disabled={page === totalPages}
+                  className="w-10 h-10 rounded-full border border-gray-200 text-primary disabled:opacity-30 disabled:cursor-not-allowed hover:bg-primary hover:text-white hover:border-primary transition cursor-pointer flex items-center justify-center"
+                >
+                  <ChevronRight size={18} />
+                </button>
+              </div>
+            )}
+          </div>
         </section>
       </AnimatedSection>
     </main>
@@ -360,49 +341,58 @@ const ArticlesPage: React.FC = () => {
 
 export default ArticlesPage;
 
-/* ---- Small, focused card component ---- */
+/* ---- Card component matching home page design ---- */
 const ArticleCard: React.FC<{ a: News }> = ({ a }) => {
   return (
-    <article className="group bg-surface border border-primary/10 rounded-[var(--radius-card)] overflow-hidden shadow-card hover:shadow-card-hover transition">
-      <Link to={`/articles/${a._id}`} className="block">
-        <div className="relative h-44 overflow-hidden">
+    <Link to={`/articles/${a._id}`} className="group block">
+      <article className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden h-full flex flex-col">
+        <div className="relative overflow-hidden">
           <img
             src={a.imageUrl || "/zinme.jpg"}
             alt={a.title}
             loading="lazy"
-            className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-300"
+            className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500"
           />
-          <div className="absolute left-3 bottom-3 text-xs px-2 py-1 rounded bg-black/60 text-white">
-            {format(new Date(a.publishedAt), "MMM dd, yyyy")}
-          </div>
+          {a.isFeatured && (
+            <span className="absolute top-3 left-3 bg-accent text-primary text-xs font-bold uppercase px-2.5 py-1 rounded-full">
+              Featured
+            </span>
+          )}
         </div>
-        <div className="p-4">
-          <h3 className="text-lg font-bold text-text line-clamp-2">
+        <div className="p-5 flex flex-col flex-1">
+          <p className="text-xs font-medium text-gray-400 uppercase tracking-wider mb-2">
+            {format(new Date(a.publishedAt), "MMM dd, yyyy")}
+          </p>
+          <h3 className="text-lg font-bold text-text line-clamp-2 group-hover:text-primary transition-colors">
             {a.title}
           </h3>
           {a.tags && a.tags.length > 0 && (
-            <div className="mt-2 flex flex-wrap gap-2">
+            <div className="mt-2 flex flex-wrap gap-1.5">
               {a.tags.slice(0, 3).map((t) => (
                 <span
                   key={t}
-                  className="text-[11px] bg-primary/5 text-primary px-2 py-1 rounded-full border border-primary/10"
+                  className="text-[11px] font-medium bg-gray-50 text-gray-500 px-2 py-0.5 rounded-full"
                 >
-                  #{t}
+                  {t}
                 </span>
               ))}
             </div>
           )}
           {a.content && (
-            <p className="mt-3 text-sm text-text-muted line-clamp-3">
+            <p className="mt-3 text-sm text-gray-500 leading-relaxed line-clamp-3">
               {a.content.slice(0, 160)}
               {a.content.length > 160 ? "..." : ""}
             </p>
           )}
-          <span className="mt-4 inline-flex items-center gap-1 text-primary font-semibold">
-            Read <ChevronRight className="h-4 w-4" />
+          <span className="mt-auto pt-4 inline-flex items-center text-sm font-semibold text-primary group-hover:gap-2 transition-all">
+            Read More{" "}
+            <ChevronRight
+              size={14}
+              className="ml-0.5 group-hover:translate-x-1 transition-transform"
+            />
           </span>
         </div>
-      </Link>
-    </article>
+      </article>
+    </Link>
   );
 };
