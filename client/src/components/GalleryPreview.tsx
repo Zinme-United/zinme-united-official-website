@@ -34,7 +34,7 @@ const GalleryPreview = ({ galleries }: GalleryPreviewProps) => {
 
           return (
             <Link
-              to={`/gallery/${gallery._id}`}
+              to={`/gallery-details/${gallery._id}`}
               key={gallery._id}
               className="group"
             >
